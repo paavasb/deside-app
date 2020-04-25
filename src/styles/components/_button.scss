@@ -1,0 +1,27 @@
+.button {
+    background: $deep-sky-blue;
+    border: none;
+    color: white;
+    display: inline-block;
+    font-size: $font-size-large;
+    font-weight: 300;
+    line-height: 1.5;
+    padding: $s-size;
+    text-align: center;
+    text-decoration: none;
+}
+
+.button--link {
+    background: none;
+    font-weight: 200;
+}
+
+.button--secondary {
+    background: #888888;
+}
+
+.button--expenses {
+    @media (min-width: $desktop-breakpoint) {
+        width: 20vw;
+    }
+}
