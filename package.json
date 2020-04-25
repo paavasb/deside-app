@@ -2,7 +2,7 @@
   "name": "deside-react-app",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/paavasb/indecision-react-app.git",
+  "repository": "https://github.com/paavasb/deside-app.git",
   "author": "Paavas Bhasin <paavas22@gmail.com>",
   "license": "MIT",
   "scripts": {

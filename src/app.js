@@ -9,6 +9,7 @@ import 'react-dates/lib/css/_datepicker.css';
 import './styles/styles.scss';
 import { firebase } from './firebase/firebase';
 import LoadingPage from './components/LoadingPage';
+import IndecisionApp from './components/IndecisionApp';
 
 const store = configureStore();
 

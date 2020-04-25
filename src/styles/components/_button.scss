@@ -11,9 +11,18 @@
     text-decoration: none;
 }
 
+.button--login {
+    background: fade-out($color: $deep-sky-blue, $amount: .5);
+    color: fade-out($color: black, $amount: .1);
+    font-weight: 500;
+}
+
 .button--link {
     background: none;
     font-weight: 200;
+    border: none;
+    color: $off-white;
+    padding: 0;
 }
 
 .button--secondary {
@@ -23,5 +32,27 @@
 .button--expenses {
     @media (min-width: $desktop-breakpoint) {
         width: 20vw;
+    }
+}
+
+.big-button {
+    background: $purple;
+    border: none;
+    border-bottom: .6rem solid darken($purple, 10%);
+    color: white;
+    font-weight: bold;
+    font-size: $l-size;
+    margin-bottom: $xl-size;
+    padding: 2.4rem;
+    width: 100%;
+}
+
+.big-button:disabled {
+    opacity: .5;
+}
+
+@media (max-width: $desktop-rem) {
+    .big-button {
+        margin-bottom: $m-size;
     }
 }

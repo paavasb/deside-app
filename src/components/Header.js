@@ -8,7 +8,7 @@ export const Header = ({ startLogout }) => (
         <div className="content-container">
             <div className="header__content">
                 <Link className="header__title" to="/dashboard">
-                    <h1>Boilerplate</h1>
+                    <h1>DeSide</h1>
                 </Link>
                 <button className="button button--link" onClick={startLogout}>Logout</button>
             </div>
@@ -21,3 +21,21 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(undefined, mapDispatchToProps)(Header);
+
+// import React from 'react';
+
+// const Header = (props) => (
+//     <div className="header">
+//         <div className="container">
+//             <h1 className="header__title">{props.title}</h1>
+//             {props.subtitle && <h2 className="header__subtitle">{props.subtitle}</h2>}
+//         </div>
+//     </div>
+// );
+
+// Header.defaultProps = {
+//     title: 'DeSide App',
+//     subtitle: 'Let others decide'
+// }
+
+// export default Header;
