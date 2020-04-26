@@ -10,6 +10,7 @@ import './styles/styles.scss';
 import { firebase } from './firebase/firebase';
 import LoadingPage from './components/LoadingPage';
 import IndecisionApp from './components/IndecisionApp';
+import { startAddExpense } from './actions/questions';
 
 const store = configureStore();
 
@@ -28,9 +29,16 @@ const jsx = (
     </Provider>
 );
 
+
+// store.dispatch(startAddExpense({
+//     title: 'Is this a question?', 
+//     options: [{text: 'Yes', votes: 2}, {text: 'No', votes: 0}],
+//     tags: ['Tag1'], 
+//     createdAt: 0,
+//     creator: user.uid
+// }));
+
 ReactDOM.render(<LoadingPage />, document.getElementById('app'));
-
-
 
 firebase.auth().onAuthStateChanged((user) => {
     if(user) {
