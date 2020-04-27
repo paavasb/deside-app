@@ -12,3 +12,11 @@
     margin: 0;
     word-break: break-all;
 }
+
+.option__text--chosen {
+    color: white;
+}
+
+.option__text--notchosen {
+    color: fade-out($color: $off-white, $amount: .7);
+}

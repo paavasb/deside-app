@@ -16,6 +16,7 @@ const VoteOptions = (props) => {
                             count={index + 1}
                             voteForOption = {props.voteForOption}
                             answered = {props.answered}
+                            chosen={option.text === props.chosenOption}
                         />
                     ))
                 }

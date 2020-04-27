@@ -10,7 +10,7 @@ const Questions = () => {
     return (
         <div>
             {questions.map((question, index) => (
-                <Question question={question}/>
+                <Question key={question.title} question={question}/>
             ))}
         </div>
     )
