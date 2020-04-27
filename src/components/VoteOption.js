@@ -21,6 +21,11 @@ const VoteOption = (props) => {
                 <p>Votes: {props.votes}</p>
             </div>
             <button 
+                className={
+                    props.answered ? 
+                    "option__button option__button--disabled": 
+                    "option__button"
+                }
                 onClick={(e) => {
                     e.preventDefault()
                     props.voteForOption(props.text)

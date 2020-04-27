@@ -2,7 +2,11 @@
     border-bottom: 1px solid lighten($light-blue, 10%);
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: $l-size $m-size;
+    @media (max-width: $desktop-breakpoint) {
+        flex-direction: column;
+    }
 }
 
 .option__text {
@@ -19,4 +23,26 @@
 
 .option__text--notchosen {
     color: fade-out($color: $off-white, $amount: .7);
+}
+
+.option__button {
+    background: rgba(44, 46, 77, 0.87);
+    border: none;
+    border-left: .3rem solid darken($color: rgba(44, 46, 77, 0.87), $amount: .7);
+    border-bottom: .3rem solid darken($color: rgba(44, 46, 77, 0.87), $amount: .7);
+    color: white;
+    padding: $xs-size;
+    margin: $l-size;
+    height: 10vh;
+    width: 10vw;
+    @media (max-width: $desktop-breakpoint) {
+        width: 40vw;
+    }
+}
+
+.option__button--disabled {
+    background: fade-out($color: rgba(44, 46, 77, 0.87), $amount: .7);
+    border-left: .3rem solid fade-out($color: darken($color: rgba(44, 46, 77, 0.87), $amount: .7), $amount:.7);
+    border-bottom: .3rem solid fade-out($color: darken($color: rgba(44, 46, 77, 0.87), $amount: .7), $amount:.7);
+    color: fade-out($color: white, $amount: .7)
 }
