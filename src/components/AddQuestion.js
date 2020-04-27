@@ -1,12 +1,16 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useReducer } from 'react';
+import database from '../firebase/firebase';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css';
-import NotesContext from '../context/questions-context';
+import QuestionsContext from '../context/questions-context';
+import { startAddQuestion } from '../actions/questions';
 import Options from '../components/Options';
 import AddOption from './AddOption';
+import moment from 'moment';
+import questionsReducer from '../reducers/questions';
 
 const AddQuestion = () => {
-    //const { dispatch } = useContext(NotesContext)
+    const [questions, dispatch] = useReducer(questionsReducer, []);
     const [title, setTitle] = useState('');
     const [options, setOptions] = useState(['Yes', 'No', 'Maybe']);
     const [tags, setTags] = useState([]);
@@ -25,7 +29,15 @@ const AddQuestion = () => {
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
-        console.log(title);
+        const question = {
+            title,
+            options: options.map((value) => ({text: value, votes: 0})),
+            tags,
+            createdAt: moment().format()
+        }
+        //database.ref(`all-questions`).push(question);
+        dispatch(startAddQuestion(question));
+        console.log('Now');
     }
 
     const handleAddButton = (event) => {
@@ -50,17 +62,17 @@ const AddQuestion = () => {
     }
 
     return (
-        <div>
+        <QuestionsContext.Provider value={{ questions, dispatch }}>
             <p>Add a question!</p>
             <form onSubmit={onSubmitHandler}>
                 <textarea value={title} onChange={(e) => setTitle(e.target.value)}/>
                 <Options options={options} handleDeleteOptions={handleDeleteOptions} handleDeleteOption={handleDeleteOption}/>
                 <AddOption handleAddOption={handleAddOption}/>
-                <TagsInput value={tags} onChange={(tags) => setTags(tags)}/>
+                <TagsInput value={tags} onlyUnique={true} onChange={(tags) => setTags(tags)}/>
                 <button>Submit Question</button>
             </form>
 
-        </div>
+        </QuestionsContext.Provider>
         )
 }
 

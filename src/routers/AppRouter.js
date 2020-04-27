@@ -8,6 +8,7 @@ import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import IndecisionApp from '../components/IndecisionApp';
 import AddQuestion from '../components/AddQuestion';
+import Questions from '../components/Questions';
 
 export const history = createHistory();
 
@@ -17,7 +18,7 @@ const AppRouter = () => (
         <Switch>
             <PublicRoute path="/" component={LoginPage} exact={true}/>
             <PrivateRoute path="/dashboard" component={AddQuestion}/>
-            <PrivateRoute path="/create" component={DashboardPage}/>
+            <PrivateRoute path="/q" component={Questions}/>
             <Route component={NotFoundPage}/>
         </Switch>
     </div>

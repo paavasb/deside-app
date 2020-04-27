@@ -5,6 +5,7 @@ const AddOption = (props) => {
     const [option, setOption] = useState('');
 
     const handleSubmit = (event) => {
+        event.preventDefault();
         const formInput = option.trim();
         const error = props.handleAddOption(formInput);
         

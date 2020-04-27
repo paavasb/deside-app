@@ -1,5 +1,5 @@
 import React from 'react'
 
-const NotesContext = React.createContext()
+const QuestionsContext = React.createContext()
 
-export default NotesContext
+export default QuestionsContext
