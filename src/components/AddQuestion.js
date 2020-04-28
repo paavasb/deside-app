@@ -10,7 +10,8 @@ import moment from 'moment';
 import questionsReducer from '../reducers/questions';
 
 const AddQuestion = () => {
-    const [questions, dispatch] = useReducer(questionsReducer, []);
+    const { questions, dispatch } = useContext(QuestionsContext)
+    //const [questions, dispatch] = useReducer(questionsReducer, []);
     const [title, setTitle] = useState('');
     const [options, setOptions] = useState(['Yes', 'No', 'Maybe']);
     const [tags, setTags] = useState([]);
@@ -33,10 +34,12 @@ const AddQuestion = () => {
             title,
             options: options.map((value) => ({text: value, votes: 0})),
             tags,
-            createdAt: moment().format()
+            createdAt: moment().format(),
+            creator: '42060'
         }
+
         //database.ref(`all-questions`).push(question);
-        dispatch(startAddQuestion(question));
+        //dispatch(startAddQuestion(question));
         console.log('Now');
     }
 
@@ -62,7 +65,7 @@ const AddQuestion = () => {
     }
 
     return (
-        <QuestionsContext.Provider value={{ questions, dispatch }}>
+        <div>
             <p>Add a question!</p>
             <form onSubmit={onSubmitHandler}>
                 <textarea value={title} onChange={(e) => setTitle(e.target.value)}/>
@@ -72,7 +75,7 @@ const AddQuestion = () => {
                 <button>Submit Question</button>
             </form>
 
-        </QuestionsContext.Provider>
+        </div>
         )
 }
 

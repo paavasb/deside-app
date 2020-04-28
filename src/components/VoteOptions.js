@@ -21,7 +21,6 @@ const VoteOptions = (props) => {
                     ))
                 }
             </div>   
-
         </div>
     )
 }

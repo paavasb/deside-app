@@ -18,7 +18,7 @@ const Question = (props) => {
     const chosenOptionText = `Thanks for answering this question! You chose ${chosenOption}.`
 
     return (
-        <div>
+        <div className="content-container content-container--question">
             <h2>{question.title}</h2>
             <VoteOptions 
                 options={question.options}
@@ -26,6 +26,11 @@ const Question = (props) => {
                 voteForOption={voteForOption}
                 chosenOption={chosenOption}
             />
+            <div className="react-tagsinput">
+                <h3 className="react-tagsinput__text">Tags: </h3>
+                {question.tags.map((tag) => <h4 key={tag} className="react-tagsinput-tag">{tag}</h4>)}
+            </div>
+
             {answered && <h4>{chosenOptionText}</h4>}
         </div>
     )

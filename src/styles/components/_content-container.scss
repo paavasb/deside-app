@@ -1,5 +1,16 @@
 .content-container {
+    margin: auto;
+    max-width: 100rem;
+    padding: $s-size $l-size;
+}
+
+.content-container-header {
     margin: 0 auto;
     max-width: 80rem;
     padding: 0 $m-size;
+}
+
+.content-container--question {
+    background: fade-out($color: black, $amount: 0.95);
+    margin-bottom: $xl-size;
 }

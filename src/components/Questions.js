@@ -4,11 +4,10 @@ import questionsList from '../playground/questions'
 import QuestionsContext from '../context/questions-context'
 
 const Questions = () => {
-    // useContext(QuestionsContext)
-    const [questions, setQuestions] = useState(questionsList)
-
+    const { questions, dispatch } = useContext(QuestionsContext)
+    //const [questions, setQuestions] = useState(questionsList)
     return (
-        <div>
+        <div className="content-container">
             {questions.map((question, index) => (
                 <Question key={question.title} question={question}/>
             ))}
