@@ -1,4 +1,4 @@
-import React, { useContext, useState, useReducer } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import database from '../firebase/firebase';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css';
@@ -37,11 +37,16 @@ const AddQuestion = () => {
             createdAt: moment().format(),
             creator: '42060'
         }
-
-        //database.ref(`all-questions`).push(question);
+        dispatch({ type: 'ADD_QUESTION', question });
+        database.ref(`all-questions`).push(question);
         //dispatch(startAddQuestion(question));
-        console.log('Now');
+        //console.log('Now');
     }
+
+    // useEffect(() => {
+    //     const json = JSON.stringify(questions);
+    //     localStorage.setItem('questions', json); 
+    //   }, [questions])
 
     const handleAddButton = (event) => {
         event.preventDefault();

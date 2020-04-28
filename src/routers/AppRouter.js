@@ -1,4 +1,5 @@
 import React, { useReducer, useEffect } from 'react';
+import database from '../firebase/firebase';
 import { Router, Route, Switch} from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import DashboardPage from '../components/DashboardPage';
@@ -20,10 +21,19 @@ const AppRouter = () => {
     const [questions, dispatch] = useReducer(questionsReducer, []);
 
     useEffect(() => {
-        const questions = JSON.parse(localStorage.getItem('questions'))
-        if(questions) {
-            dispatch({type: 'SET_QUESTIONS', questions})
-        }
+        database.ref('all-questions').once('value').then((snapshot) => {
+            const questions = [];
+            snapshot.forEach((childSnapshot) => {
+                questions.push({
+                    ...childSnapshot.val()
+                })
+            })
+            dispatch({ type: 'SET_QUESTIONS', questions })
+        })
+        // const questions = JSON.parse(localStorage.getItem('questions'))
+        // if(questions) {
+        //     dispatch({type: 'SET_QUESTIONS', questions})
+        // }
 
     }, []) 
     
