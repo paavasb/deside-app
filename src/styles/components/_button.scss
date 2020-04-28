@@ -1,6 +1,8 @@
 .button {
     background: $deep-sky-blue;
     border: none;
+    border-left: 2px solid darken($color: $deep-sky-blue, $amount: 50);
+    border-bottom: 2px solid darken($color: $deep-sky-blue, $amount: 50);
     color: white;
     display: inline-block;
     font-size: $font-size-large;
@@ -23,6 +25,14 @@
     border: none;
     color: $off-white;
     padding: 0;
+}
+
+.button--logout {
+    background: none;
+    font-weight: 200;
+    border: 3px solid darken($off-black, 2.5);
+    color: $off-white;
+    padding: $s-size;
 }
 
 .button--secondary {

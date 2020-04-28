@@ -13,7 +13,8 @@
 }
 
 .header__title {
-    color: white;
+    color: lighten($color: rgba(184, 184, 184, 0.671), $amount: 100);
+    font-size: xx-large;
     text-decoration: none;
     h1 {
         margin: 0;

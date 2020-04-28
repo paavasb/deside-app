@@ -27,6 +27,15 @@ export const startAddQuestion = (questionData = {}) => {
     };
 };
 
+export const startAddQuestionAlt = (dispatch, questionData) => {
+    return database.ref(`all-questions`).push(questionData).then((ref) => {
+        console.log(getState().auth.uid)
+        dispatch(addQuestion({
+            ...questionData
+        }))
+    })
+}
+
 // return database.ref(`users/${uid}/questions`).push(question).then((ref)=> {
 //     console.log('Hey');
 //     database.ref(`all-questions`).push(question).then((ref) => {

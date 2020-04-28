@@ -48,7 +48,7 @@ const AppRouter = () => {
         <Switch>
             <PublicRoute path="/" component={LoginPage} exact={true}/>
             <PrivateRoute path="/dashboard" component={AddQuestion}/>
-            <PrivateRoute path="/q" component={Questions}/>
+            <PrivateRoute path="/questions" component={Questions}/>
             <Route component={NotFoundPage}/>
         </Switch>
     </QuestionsContext.Provider>

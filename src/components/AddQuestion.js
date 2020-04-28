@@ -3,7 +3,7 @@ import database from '../firebase/firebase';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css';
 import QuestionsContext from '../context/questions-context';
-import { startAddQuestion } from '../actions/questions';
+import { startAddQuestionAlt } from '../actions/questions';
 import Options from '../components/Options';
 import AddOption from './AddOption';
 import moment from 'moment';
@@ -38,8 +38,9 @@ const AddQuestion = () => {
             createdAt: moment().format(),
             creator: '42060'
         }
-        dispatch({ type: 'ADD_QUESTION', question });
-        database.ref(`all-questions`).push(question);
+        startAddQuestionAlt(dispatch, question);
+        // dispatch({ type: 'ADD_QUESTION', question });
+        // database.ref(`all-questions`).push(question);
         //dispatch(startAddQuestion(question));
         //console.log('Now');
     }
@@ -75,8 +76,8 @@ const AddQuestion = () => {
     }
 
     return (
-        <div>
-            <p>Add a question!</p>
+        <div className="content-container">
+            <h1>Add a question!</h1>
             <form onSubmit={onSubmitHandler}>
                 <textarea value={title} onChange={handleTitleChange}/>
                 <Options options={options} handleDeleteOptions={handleDeleteOptions} handleDeleteOption={handleDeleteOption}/>
