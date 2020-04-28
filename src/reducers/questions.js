@@ -4,6 +4,15 @@ const questionsReducer = (state = questionsReducersDefaultState, action) => {
     switch (action.type) {
         case 'ADD_QUESTION':
             return [...state, action.question];
+        case 'SET_QUESTIONS':
+            return action.questions;
+        default:
+            return state;
+    }
+};
+
+export default questionsReducer;
+
         // case 'REMOVE_QUESTION':
         //     return state.filter((expense) => expense.id !== action.id);
         // case 'EDIT_EXPENSE':
@@ -17,11 +26,3 @@ const questionsReducer = (state = questionsReducersDefaultState, action) => {
         //                 return expense;
         //             }
         //         });
-        case 'SET_QUESTIONS':
-            return action.questions;
-        default:
-            return state;
-    }
-};
-
-export default questionsReducer;

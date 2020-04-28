@@ -46,13 +46,15 @@
 }
 
 .big-button {
-    background: $purple;
+    background: rgb(0, 174, 255);
     border: none;
-    border-bottom: .6rem solid darken($purple, 10%);
+    border-left: 4px solid darken(rgb(0, 174, 255), 10%);
+    border-bottom: 4px solid darken(rgb(0, 174, 255), 10%);
     color: white;
-    font-weight: bold;
+    font-weight: 500;
     font-size: $l-size;
     margin-bottom: $xl-size;
+    margin-top: $m-size;
     padding: 2.4rem;
     width: 100%;
 }

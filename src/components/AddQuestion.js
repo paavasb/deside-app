@@ -3,11 +3,12 @@ import database from '../firebase/firebase';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css';
 import QuestionsContext from '../context/questions-context';
-import { startAddQuestionAlt } from '../actions/questions';
+import { startAddQuestion } from '../actions/questions';
 import Options from '../components/Options';
 import AddOption from './AddOption';
 import moment from 'moment';
 import questionsReducer from '../reducers/questions';
+import * as firebase from 'firebase';
 
 const AddQuestion = () => {
     const { questions, dispatch } = useContext(QuestionsContext)
@@ -36,9 +37,9 @@ const AddQuestion = () => {
             options: options.map((value) => ({text: value, votes: 0})),
             tags: tags.length === 0 ? defaultTags : tags,
             createdAt: moment().format(),
-            creator: '42060'
+            creator: firebase.auth().currentUser.uid
         }
-        startAddQuestionAlt(dispatch, question);
+        startAddQuestion(dispatch, question);
         // dispatch({ type: 'ADD_QUESTION', question });
         // database.ref(`all-questions`).push(question);
         //dispatch(startAddQuestion(question));
@@ -83,7 +84,12 @@ const AddQuestion = () => {
                 <Options options={options} handleDeleteOptions={handleDeleteOptions} handleDeleteOption={handleDeleteOption}/>
                 <AddOption handleAddOption={handleAddOption}/>
                 <TagsInput value={tags} onlyUnique={true} onChange={(tags) => setTags(tags)}/>
-                <button disabled={!(title.length > 0 && options.length > 1)}>Submit Question</button>
+                <button 
+                    className="big-button"
+                    disabled={!(title.length > 0 && options.length > 1)}
+                >
+                    Submit Question
+                </button>
             </form>
 
         </div>

@@ -9,7 +9,7 @@ export const Header = ({ startLogout }) => {
             <div className="content-container-header">
                 <div className="header__content">
                     <h1 className="header__title">DeSide</h1>
-                    <Link className="button button--link" to="/dashboard" >
+                    <Link className="button button--link" to="/add" >
                         <p>Add a Question</p>
                     </Link>
                     <Link className="button button--link" to="/questions" >
