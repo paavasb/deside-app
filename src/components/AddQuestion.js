@@ -40,10 +40,6 @@ const AddQuestion = () => {
             creator: firebase.auth().currentUser.uid
         }
         startAddQuestion(dispatch, question);
-        // dispatch({ type: 'ADD_QUESTION', question });
-        // database.ref(`all-questions`).push(question);
-        //dispatch(startAddQuestion(question));
-        //console.log('Now');
     }
 
     // useEffect(() => {

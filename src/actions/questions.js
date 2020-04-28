@@ -16,6 +16,13 @@ export const startAddQuestion = (dispatch, questionData) => {
     })
 }
 
+export const setQuestions = (dispatch, questions) => {
+    dispatch({
+        type: 'SET_QUESTIONS',
+        questions
+    })
+}
+
 // return database.ref(`users/${uid}/questions`).push(question).then((ref)=> {
 //     console.log('Hey');
 //     database.ref(`all-questions`).push(question).then((ref) => {

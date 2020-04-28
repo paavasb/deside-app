@@ -13,6 +13,7 @@ import Questions from '../components/Questions';
 import QuestionsContext from '../context/questions-context';
 import questionsReducer from '../reducers/questions';
 import questionsList from '../playground/questions';
+import { setQuestions } from '../actions/questions';
 
 export const history = createHistory();
 
@@ -28,13 +29,9 @@ const AppRouter = () => {
                     ...childSnapshot.val()
                 })
             })
-            dispatch({ type: 'SET_QUESTIONS', questions })
+            setQuestions(dispatch, questions)
+            //dispatch({ type: 'SET_QUESTIONS', questions })
         })
-        // const questions = JSON.parse(localStorage.getItem('questions'))
-        // if(questions) {
-        //     dispatch({type: 'SET_QUESTIONS', questions})
-        // }
-
     }, []) 
     
     useEffect(() => {
