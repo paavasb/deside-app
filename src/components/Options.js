@@ -11,7 +11,8 @@ const Options = (props) => {
         <div>
             <div>
                 <h3>Your Options</h3>
-                <button 
+                <button
+                    className="button button--removeAll" 
                     disabled={props.options.length === 0}
                     onClick={props.handleDeleteOptions}
                 >

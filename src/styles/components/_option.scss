@@ -40,7 +40,7 @@
     }
 }
 
-.option__button--disabled {
+.option__button:disabled {
     background: fade-out($color: rgba(44, 46, 77, 0.87), $amount: .5);
     border-left: .3rem solid fade-out($color: darken($color: rgba(44, 46, 77, 0.87), $amount: .7), $amount:.5);
     border-bottom: .3rem solid fade-out($color: darken($color: rgba(44, 46, 77, 0.87), $amount: .7), $amount:.5);

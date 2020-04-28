@@ -45,6 +45,15 @@
     }
 }
 
+.button--removeAll {
+    font-size: x-small;
+}
+
+.button--removeAll:disabled {
+    opacity: .5;
+    font-size: x-small;
+}
+
 .big-button {
     background: rgb(0, 174, 255);
     border: none;
