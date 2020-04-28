@@ -12,11 +12,13 @@ const Options = (props) => {
             <div>
                 <h3>Your Options</h3>
                 <button 
+                    disabled={props.options.length === 0}
                     onClick={props.handleDeleteOptions}
                 >
                     Remove All
                 </button>
-                {props.options.length === 0 && <p className="widget__message">Please add an option to get started</p>}
+                {props.options.length === 0 && <p className="widget__message">Please add options to get started</p>}
+                {props.options.length === 1 && <p className="widget__message">Please add atleast 2 options</p>}
                 {
                     props.options.map((option, index) => (
                         <Option 

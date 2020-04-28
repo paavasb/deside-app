@@ -17,6 +17,8 @@ const Question = (props) => {
 
     const chosenOptionText = `Thanks for answering this question! You chose ${chosenOption}.`
 
+    let noTags = question.tags.length === 1 && question.tags[0] === 'none'
+
     return (
         <div className="content-container content-container--question">
             <h2>{question.title}</h2>
@@ -28,7 +30,8 @@ const Question = (props) => {
             />
             <div className="react-tagsinput">
                 <h3 className="react-tagsinput__text">Tags: </h3>
-                {question.tags.map((tag) => <h4 key={tag} className="react-tagsinput-tag">{tag}</h4>)}
+                {noTags && <p className="react-tagsinput__noTag">There are no tags for this question</p>}
+                {(!noTags) && question.tags.map((tag) => <h4 key={tag} className="react-tagsinput-tag">{tag}</h4>)}
             </div>
 
             {answered && <h4>{chosenOptionText}</h4>}

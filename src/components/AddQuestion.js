@@ -13,7 +13,7 @@ const AddQuestion = () => {
     const { questions, dispatch } = useContext(QuestionsContext)
     //const [questions, dispatch] = useReducer(questionsReducer, []);
     const [title, setTitle] = useState('');
-    const [options, setOptions] = useState(['Yes', 'No', 'Maybe']);
+    const [options, setOptions] = useState([]);
     const [tags, setTags] = useState([]);
     const [createdAt, setCreatedAt] = useState(0);
     const [newOption, setNewOption] = useState('');
@@ -30,10 +30,11 @@ const AddQuestion = () => {
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
+        const defaultTags = ['none'];
         const question = {
             title,
             options: options.map((value) => ({text: value, votes: 0})),
-            tags,
+            tags: tags.length === 0 ? defaultTags : tags,
             createdAt: moment().format(),
             creator: '42060'
         }
@@ -69,15 +70,19 @@ const AddQuestion = () => {
         setOptions([...options, option]);
     }
 
+    const handleTitleChange = (e) => {
+        setTitle(e.target.value); 
+    }
+
     return (
         <div>
             <p>Add a question!</p>
             <form onSubmit={onSubmitHandler}>
-                <textarea value={title} onChange={(e) => setTitle(e.target.value)}/>
+                <textarea value={title} onChange={handleTitleChange}/>
                 <Options options={options} handleDeleteOptions={handleDeleteOptions} handleDeleteOption={handleDeleteOption}/>
                 <AddOption handleAddOption={handleAddOption}/>
                 <TagsInput value={tags} onlyUnique={true} onChange={(tags) => setTags(tags)}/>
-                <button>Submit Question</button>
+                <button disabled={!(title.length > 0 && options.length > 1)}>Submit Question</button>
             </form>
 
         </div>
