@@ -20,8 +20,11 @@ const AddOption = (props) => {
         <div>
             {error && <p className="add-option-error">{error}</p>}
             <div className="add-option">
-                <input value={option} className="add-option__input" type="text" onChange={(e) => setOption(e.target.value)} />
-                <button className="button" onClick={handleSubmit}>Add Option</button>
+                <input 
+                    value={option} className="add-option__input" 
+                    type="text" placeholder="Add Options Here..."
+                    onChange={(e) => setOption(e.target.value)} />
+                <button className="button button--add-option" onClick={handleSubmit}>Add Option</button>
             </div>  
         </div>
     )

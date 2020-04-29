@@ -12,9 +12,10 @@
 }
 
 .add-option__input {
-    background: $dark-blue;
+    background: darken($color: $dark-blue, $amount: 5);
     border: none;
     color: $off-white;
+    border-left: .3rem solid darken($dark-blue, 10%);
     border-bottom: .3rem solid darken($dark-blue, 10%);
     flex-grow: 1;
     margin: 0 0 $s-size 0;

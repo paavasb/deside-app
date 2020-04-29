@@ -1,19 +1,25 @@
 .react-tagsinput {
-    background-color: fade-out($color: black, $amount: 0.95);
-    border: 1px solid darken($color: $dark-blue, $amount: 0.5);
+    //background-color: fade-out($color: black, $amount: 0.95);
+    background-color: lighten($color: $dark-blue, $amount: 10);
+    border: none;
+    border-left: 3px solid darken($color: $dark-blue, $amount: 5);
+    border-bottom: 3px solid darken($color: $dark-blue, $amount: 5);
+    display: flex;
+    margin: $m-size;
     overflow: hidden;
-    padding-left: 5px;
-    padding-top: 5px;
+    padding: 1rem 0 1rem 1rem;
   }
   
   .react-tagsinput--focused {
-    border-color: #a5d24a;
+    border: 3px solid darken($color: $dark-blue, $amount: 5);
+    border-color: #0ec3fa77;
   }
   
   .react-tagsinput-tag {
-    background-color: #080161;
+    background-color: #014c8a;
     border-radius: 2px;
-    border: 1px solid #020424;
+    //border-left: 2px solid darken($color: #014c8a, $amount: 10);
+    border-bottom: 2px solid darken($color: #014c8a, $amount: 10);
     color: white;
     display: inline-block;
     font-family: sans-serif;
@@ -36,7 +42,7 @@
   .react-tagsinput-input {
     background: transparent;
     border: 0;
-    color: #777;
+    color: rgba(223, 190, 250, 0.534);
     font-family: sans-serif;
     font-size: 13px;
     font-weight: 300;
@@ -50,7 +56,7 @@
   .react-tagsinput__text {
     color: white;
     font-size: large;
-    font-weight: 500;
+    font-weight: 300;
     margin: 10px;
   }
 

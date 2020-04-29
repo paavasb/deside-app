@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import database from '../firebase/firebase';
 import TagsInput from 'react-tagsinput';
-import 'react-tagsinput/react-tagsinput.css';
 import QuestionsContext from '../context/questions-context';
 import { startAddQuestion } from '../actions/questions';
 import Options from '../components/Options';
@@ -81,7 +80,10 @@ const AddQuestion = () => {
                 <textarea value={title} onChange={handleTitleChange}/>
                 <Options options={options} handleDeleteOptions={handleDeleteOptions} handleDeleteOption={handleDeleteOption}/>
                 <AddOption handleAddOption={handleAddOption}/>
-                <TagsInput value={tags} onlyUnique={true} onChange={(tags) => setTags(tags)}/>
+                <TagsInput 
+                    value={tags} onlyUnique={true} 
+                    onChange={(tags) => setTags(tags)}
+                />
                 <button 
                     className="big-button"
                     disabled={!(title.length > 0 && options.length > 1)}
