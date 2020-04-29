@@ -46,6 +46,18 @@ export const startRemoveQuestion = (dispatch, refID, id, creator) => {
     }
 }
 
+export const voteQuestion = (id, updates) => ({
+    type: 'VOTE_QUESTION',
+    id,
+    updates
+})
+
+export const startVoteQuestion = (dispatch, refID, id, updates) => {
+    return database.ref(`all-questions/${refID}/options`).update(updates).then(() => {
+        dispatch(voteQuestion(id, updates))
+    })
+}
+
 
 
 //startAddQuestion method for database structure with seperate user questions

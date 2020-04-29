@@ -5,7 +5,18 @@ const questionsReducer = (state = questionsReducersDefaultState, action) => {
         case 'ADD_QUESTION':
             return [...state, action.question];
         case 'REMOVE_QUESTION':
-            return state.filter((question) => question.id !== action.id)
+            return state.filter((question) => question.id !== action.id);
+        case 'VOTE_QUESTION':
+            return state.map((question) => {
+                if(question.id === action.id) {
+                    return {
+                        ...question,
+                        options: action.updates
+                    }
+                } else {
+                    return question;
+                }
+            });
         case 'SET_QUESTIONS':
             return action.questions;
         default:

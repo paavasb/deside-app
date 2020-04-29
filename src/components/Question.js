@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import VoteOptions from './VoteOptions'
+import QuestionsContext from '../context/questions-context'
+import { startVoteQuestion } from '../actions/questions'
 
 const Question = (props) => {
+    const { questions, dispatch } = useContext(QuestionsContext)
     const [answered, setAnswered] = useState(false)
     const [question, setQuestion] = useState(props.question)
-    const [chosenOption, setChosenOption] = useState('');
+    const [chosenOption, setChosenOption] = useState('')
     
     const voteForOption = (voteText) => {
         setAnswered(true);
@@ -12,6 +15,7 @@ const Question = (props) => {
         const newOptions = question.options.map((option) => (
             option.text === voteText ? {text: option.text, votes: option.votes+1} : option)
         )
+        startVoteQuestion(dispatch, question.refID, question.id, newOptions)
         setQuestion({...question, options: newOptions})
     }
 
