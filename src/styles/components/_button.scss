@@ -3,6 +3,7 @@
     border: none;
     border-left: 2px outset darken($color: $deep-sky-blue, $amount: 50);
     border-bottom: 2px outset darken($color: $deep-sky-blue, $amount: 50);
+    border-radius: 3px;
     color: white;
     display: inline-block;
     font-size: $font-size-large;
@@ -79,6 +80,7 @@
     border: none;
     border-left: 4px outset darken(rgb(0, 174, 255), 10%);
     border-bottom: 4px outset darken(rgb(0, 174, 255), 10%);
+    border-radius: 3px;
     color: white;
     font-weight: 500;
     font-size: $l-size;

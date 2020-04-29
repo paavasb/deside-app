@@ -4,6 +4,7 @@
     border: none;
     border-left: 3px solid darken($color: $dark-blue, $amount: 5);
     border-bottom: 3px solid darken($color: $dark-blue, $amount: 5);
+    border-radius: 5px;
     display: flex;
     margin: $m-size;
     overflow: hidden;

@@ -14,13 +14,16 @@
 }
 
 .header__logo {
-    //background: url('/images/logo.png');
+    background: url('/images/logo.png');
 }
 
 .header__img {
     max-width: 20%;
     max-height: 100%;
     margin: $m-size;
+    border-radius: 8px;
+    border-left: 3px outset rgba(212, 4, 4, 0.171);
+    border-bottom: 3px outset rgba(190, 13, 13, 0.322);
 }
 
 .header__title {
