@@ -7,13 +7,13 @@ import NotFoundPage from '../components/NotFoundPage';
 import LoginPage from '../components/LoginPage';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
-import IndecisionApp from '../components/IndecisionApp';
 import AddQuestion from '../components/AddQuestion';
 import Questions from '../components/Questions';
 import QuestionsContext from '../context/questions-context';
+import YourQuestions from '../components/YourQuestions';
 import questionsReducer from '../reducers/questions';
 import questionsList from '../playground/questions';
-import { setQuestions } from '../actions/questions';
+import { setQuestions, startSetQuestion } from '../actions/questions';
 
 export const history = createHistory();
 
@@ -22,16 +22,7 @@ const AppRouter = () => {
     const [questions, dispatch] = useReducer(questionsReducer, []);
 
     useEffect(() => {
-        database.ref('all-questions').once('value').then((snapshot) => {
-            const questions = [];
-            snapshot.forEach((childSnapshot) => {
-                questions.push({
-                    ...childSnapshot.val()
-                })
-            })
-            setQuestions(dispatch, questions)
-            //dispatch({ type: 'SET_QUESTIONS', questions })
-        })
+        startSetQuestion(dispatch)
     }, []) 
     
     useEffect(() => {
@@ -47,6 +38,7 @@ const AppRouter = () => {
             <PrivateRoute path="/dashboard" component={AddQuestion}/>
             <PrivateRoute path="/add" component={AddQuestion}/>
             <PrivateRoute path="/questions" component={Questions}/>
+            <PrivateRoute path="/yourquestions" component={YourQuestions}/>
             <Route component={NotFoundPage}/>
         </Switch>
     </QuestionsContext.Provider>

@@ -27,6 +27,7 @@ const Question = (props) => {
                 answered={answered}
                 voteForOption={voteForOption}
                 chosenOption={chosenOption}
+                selfQuestion={false}
             />
             <div className="react-tagsinput">
                 <h3 className="react-tagsinput__text">Tags: </h3>

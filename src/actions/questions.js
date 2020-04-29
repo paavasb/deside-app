@@ -4,24 +4,69 @@ import * as firebase from 'firebase';
 export const addQuestion = (question) => ({
     type: 'ADD_QUESTION',
     question
-});
+})
 
 export const startAddQuestion = (dispatch, questionData) => {
     return database.ref(`all-questions`).push(questionData).then((ref) => {
-        database.ref(`users/${questionData.creator}/questions`).push(questionData).then((ref) => {
-            dispatch(addQuestion({
-                ...questionData
-            }))
-        })
+        dispatch(addQuestion({
+            refID: ref.key,
+            ...questionData
+        }))
     })
 }
 
-export const setQuestions = (dispatch, questions) => {
-    dispatch({
-        type: 'SET_QUESTIONS',
-        questions
+export const setQuestions = (questions) => ({
+    type: 'SET_QUESTIONS',
+    questions
+ })
+
+export const startSetQuestion = (dispatch) => {
+    return database.ref(`all-questions`).once('value').then((snapshot) => {
+        const questions = []
+        snapshot.forEach((childSnapshot) => {
+            questions.push({
+                refID: childSnapshot.key,
+                ...childSnapshot.val()
+            })
+        })
+        dispatch(setQuestions(questions))
     })
 }
+
+export const removeQuestion = ({ id } = {}) => ({
+    type: 'REMOVE_QUESTION',
+    id
+})
+
+export const startRemoveQuestion = (dispatch, refID, id, creator) => {
+    if(creator === firebase.auth().currentUser.uid) {
+        return database.ref(`all-questions/${refID}`).remove().then(() => {
+            dispatch(removeQuestion({ id }))
+        })
+    }
+}
+
+
+
+//startAddQuestion method for database structure with seperate user questions
+// export const startAddQuestion = (dispatch, questionData) => {
+//     return database.ref(`all-questions`).push(questionData).then((ref) => {
+//         database.ref(`users/${questionData.creator}/questions`).push(questionData).then((ref2) => {
+//             console.log(ref.key)
+//             dispatch(addQuestion({
+//                 refID: ref.key,
+//                 ...questionData
+//             }))
+//         })
+//     })
+// }
+
+// export const setQuestions = (dispatch, questions) => {
+//     dispatch({
+//         type: 'SET_QUESTIONS',
+//         questions
+//     })
+// }
 
 // return database.ref(`users/${uid}/questions`).push(question).then((ref)=> {
 //     console.log('Hey');

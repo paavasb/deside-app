@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: $l-size $m-size;
+    padding: $s-size $m-size;
     @media (max-width: $desktop-breakpoint) {
         flex-direction: column;
     }
@@ -33,7 +33,7 @@
     color: white;
     padding: $xs-size;
     margin: $l-size;
-    height: 10vh;
+    height: 15vh;
     width: 10vw;
     @media (max-width: $desktop-breakpoint) {
         width: 40vw;

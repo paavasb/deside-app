@@ -4,6 +4,8 @@ const questionsReducer = (state = questionsReducersDefaultState, action) => {
     switch (action.type) {
         case 'ADD_QUESTION':
             return [...state, action.question];
+        case 'REMOVE_QUESTION':
+            return state.filter((question) => question.id !== action.id)
         case 'SET_QUESTIONS':
             return action.questions;
         default:

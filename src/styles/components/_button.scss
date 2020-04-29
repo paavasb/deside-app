@@ -15,8 +15,11 @@
 
 .button--login {
     background: fade-out($color: $deep-sky-blue, $amount: .5);
+    border-left: 2px solid darken(fade-out($color: $deep-sky-blue, $amount: .5), $amount: 50);
+    border-bottom: 2px solid darken(fade-out($color: $deep-sky-blue, $amount: .5), $amount: 50);
     color: fade-out($color: black, $amount: .1);
     font-weight: 500;
+    margin: $s-size;
 }
 
 .button--link {
@@ -47,6 +50,18 @@
 
 .button--removeAll {
     font-size: x-small;
+}
+
+.button--deleteQuestion {
+    background: #190491;
+    border: none;
+    border-left: 2px solid darken($color: #190491, $amount: 50);
+    border-bottom: 2px solid darken($color: #190491, $amount: 50);
+    font-size: medium;
+    font-weight: 400;
+    margin: $m-size;
+    margin-left: $s-size;
+    padding: $m-size; 
 }
 
 .button--removeAll:disabled {

@@ -26,7 +26,7 @@ const VoteOption = (props) => {
                     e.preventDefault()
                     props.voteForOption(props.text)
                 }}
-                disabled={props.answered}
+                disabled={props.answered || props.selfQuestion}
             >
                 Vote
             </button>

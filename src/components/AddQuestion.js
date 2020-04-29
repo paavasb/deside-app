@@ -9,6 +9,7 @@ import AddOption from './AddOption';
 import moment from 'moment';
 import questionsReducer from '../reducers/questions';
 import * as firebase from 'firebase';
+import uuid from  'uuid';
 
 const AddQuestion = () => {
     const { questions, dispatch } = useContext(QuestionsContext)
@@ -37,7 +38,8 @@ const AddQuestion = () => {
             options: options.map((value) => ({text: value, votes: 0})),
             tags: tags.length === 0 ? defaultTags : tags,
             createdAt: moment().format(),
-            creator: firebase.auth().currentUser.uid
+            creator: firebase.auth().currentUser.uid,
+            id: uuid()
         }
         startAddQuestion(dispatch, question);
     }

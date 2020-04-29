@@ -9,7 +9,7 @@ const Questions = () => {
     return (
         <div className="content-container">
             {questions.map((question, index) => (
-                <Question key={question.title} question={question}/>
+                <Question key={question.id} question={question}/>
             ))}
         </div>
     )

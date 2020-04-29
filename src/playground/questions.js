@@ -10,7 +10,7 @@ export default [{
         text: 'Papa John\'s', votes: 7
     }],
     tags: ['Food', 'Pizza'],
-    createdAt: moment(0).format(),
+    createdAt: moment().format(),
     creator: '1234'
 },
 {
@@ -23,7 +23,7 @@ export default [{
         text: 'Play', votes: 3
     }],
     tags: ['Party', 'Vandy'],
-    createdAt: moment(0).format(),
+    createdAt: moment().format(),
     creator: '42060'
 },
 {
@@ -38,6 +38,6 @@ export default [{
         text: 'Stambaugh', votes: 36
     }],
     tags: ['Vandy', 'Housing'],
-    createdAt: moment(10).format(),
+    createdAt: moment().format(),
     creator: '42060'
 }]

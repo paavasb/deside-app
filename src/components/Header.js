@@ -12,6 +12,9 @@ export const Header = ({ startLogout }) => {
                     <Link className="button button--link" to="/add" >
                         <p>Add a Question</p>
                     </Link>
+                    <Link className="button button--link" to="/yourquestions" >
+                        <p>Your Questions</p>
+                    </Link>
                     <Link className="button button--link" to="/questions" >
                         <p>Answer Questions</p>
                     </Link>
