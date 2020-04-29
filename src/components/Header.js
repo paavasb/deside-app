@@ -8,7 +8,7 @@ export const Header = ({ startLogout }) => {
         <header className="header">
             <div className="content-container-header">
                 <div className="header__content">
-                    <h1 className="header__title">DeSide</h1>
+                    <img className="header__img" src="images/logo.png" />
                     <Link className="button button--link" to="/add" >
                         <p>Add a Question</p>
                     </Link>
@@ -30,6 +30,13 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(undefined, mapDispatchToProps)(Header);
+
+
+//DeSide Title
+// <div className="header__logo">
+//  <h1 className="header__title">DeSide</h1>
+// </div>
+
 
 // import React from 'react';
 

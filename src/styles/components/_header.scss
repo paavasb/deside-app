@@ -1,6 +1,7 @@
 .header {
     background: $off-black;
     color: white;
+    display: flex;
     margin-bottom: $xl-size;
     padding: $m-size 0;
 }
@@ -12,6 +13,16 @@
     padding: $s-size 0;
 }
 
+.header__logo {
+    //background: url('/images/logo.png');
+}
+
+.header__img {
+    max-width: 20%;
+    max-height: 100%;
+    margin: $m-size;
+}
+
 .header__title {
     color: lighten($color: rgba(184, 184, 184, 0.671), $amount: 100);
     font-size: xx-large;
@@ -19,6 +30,7 @@
     h1 {
         margin: 0;
     }
+    opacity: 0;
 }
 
 .header__subtitle {
