@@ -6,21 +6,28 @@ import { startVoteQuestion, addVoted, checkVoted } from '../actions/questions'
 const Question = (props) => {
     const { questions, dispatch } = useContext(QuestionsContext)
     const [answered, setAnswered] = useState(false)
+    const [showVotes, setShowVotes] = useState(false)
     const [question, setQuestion] = useState(props.question)
     const [chosenOption, setChosenOption] = useState('')
+    const [voteText, setVoteText] = useState('Vote')
 
     useEffect(() => {
         async function checkingVoted() {
             const chosenOptionText = await checkVoted(question)
             setChosenOption(chosenOptionText)
             setAnswered(!!chosenOptionText)
+            setShowVotes(!!chosenOptionText)
+            if(!!chosenOptionText) {
+                setVoteText('Voted')
+            }
         }
         checkingVoted()
     }, [])
 
     const voteForOption = (voteText) => {
-        setAnswered(true);
+        setAnswered(true)
         setChosenOption(voteText)
+        setVoteText('Voting...')
         const newOptions = question.options.map((option) => (
             option.text === voteText ? {text: option.text, votes: option.votes+1} : option)
         )
@@ -32,7 +39,9 @@ const Question = (props) => {
 
         votePromise.then((answeredOptionText) => {
             if(!answeredOptionText) {
+                setShowVotes(true)
                 setQuestion({...question, options: newOptions})
+                setVoteText('Voted')
             } else {
                 console.log('Question already answered')
             }
@@ -49,9 +58,11 @@ const Question = (props) => {
             <VoteOptions 
                 options={question.options}
                 answered={answered}
+                showVotes={showVotes}
                 voteForOption={voteForOption}
                 chosenOption={chosenOption}
                 selfQuestion={false}
+                voteText={voteText}
             />
             <div className="react-tagsinput">
                 <h3 className="react-tagsinput__text">Tags: </h3>

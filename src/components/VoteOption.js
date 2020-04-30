@@ -18,7 +18,7 @@ const VoteOption = (props) => {
         <div className="option">
             <div className={textClassSelector()}>
                 <h4>{props.count}. {props.text} </h4>
-                {(props.answered || props.selfQuestion) && <p>Votes: {props.votes}</p>}
+                {(props.showVotes || props.selfQuestion) && <p>Votes: {props.votes}</p>}
             </div>
             <button 
                 className="option__button"
@@ -28,7 +28,7 @@ const VoteOption = (props) => {
                 }}
                 disabled={props.answered || props.selfQuestion}
             >
-                Vote
+                {props.voteText}
             </button>
         </div>
     )
