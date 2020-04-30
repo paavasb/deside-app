@@ -1,26 +1,42 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import VoteOptions from './VoteOptions'
 import QuestionsContext from '../context/questions-context'
-import { startVoteQuestion, addVoted } from '../actions/questions'
+import { startVoteQuestion, addVoted, checkVoted } from '../actions/questions'
 
 const Question = (props) => {
     const { questions, dispatch } = useContext(QuestionsContext)
     const [answered, setAnswered] = useState(false)
     const [question, setQuestion] = useState(props.question)
     const [chosenOption, setChosenOption] = useState('')
-    
+
+    useEffect(() => {
+        async function checkingVoted() {
+            const chosenOptionText = await checkVoted(question)
+            setChosenOption(chosenOptionText)
+            setAnswered(!!chosenOptionText)
+        }
+        checkingVoted()
+    }, [])
+
     const voteForOption = (voteText) => {
-        //FIXME: Don't allow answering at all if question is already answered
         setAnswered(true);
         setChosenOption(voteText)
         const newOptions = question.options.map((option) => (
             option.text === voteText ? {text: option.text, votes: option.votes+1} : option)
         )
-        if(addVoted(question, newOptions, voteText, dispatch)) {
-            setQuestion({...question, options: newOptions})
-        }
-        //startVoteQuestion(dispatch, question.refID, question.id, newOptions)
-        //
+        const votePromise = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(addVoted(question, newOptions, voteText, dispatch))
+            }, 5000)
+        })
+
+        votePromise.then((answeredOptionText) => {
+            if(!answeredOptionText) {
+                setQuestion({...question, options: newOptions})
+            } else {
+                console.log('Question already answered')
+            }
+        })
     }
 
     const chosenOptionText = `Thanks for answering this question! You chose ${chosenOption}.`

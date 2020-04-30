@@ -18,7 +18,7 @@ const VoteOption = (props) => {
         <div className="option">
             <div className={textClassSelector()}>
                 <h4>{props.count}. {props.text} </h4>
-                <p>Votes: {props.votes}</p>
+                {(props.answered || props.selfQuestion) && <p>Votes: {props.votes}</p>}
             </div>
             <button 
                 className="option__button"

@@ -62,20 +62,46 @@ export const startVoteQuestion = (dispatch, refID, id, updates, optionText, user
 export const addVoted = (question, updates, optionText, dispatch) => {
     const uid = firebase.auth().currentUser.uid
     let answered = false
-    database.ref(`users-answers/${uid}`).once('value').then((snapshot) => {
+    let answeredOptionText = ''
+    return database.ref(`users-answers/${uid}`).once('value').then((snapshot) => {
         snapshot.forEach((childSnapshot) => {
             if(childSnapshot.val().questionRefID === question.refID) {
                 answered = true
+                answeredOptionText = childSnapshot.val().optionText
             }
         })
+        console.log(answeredOptionText)
         if(!answered) {
             startVoteQuestion(dispatch, question.refID, question.id, updates, optionText, uid)
-            return true
-        } else {
-            return false
         }
+        console.log(answeredOptionText)
+        return answeredOptionText
     })
 }
+
+export const checkVoted = (question) => {
+    const uid = firebase.auth().currentUser.uid
+    let answeredOptionText = ''
+    return database.ref(`users-answers/${uid}`).once('value').then((snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            if(childSnapshot.val().questionRefID === question.refID) {
+                answeredOptionText = childSnapshot.val().optionText
+                return
+            }
+        })
+        return answeredOptionText
+    })
+}
+
+export const checkVotedPromise = (question) => new Promise((resolve, reject) => {
+    console.log('In Promise')   
+    setTimeout(() => {
+            const someStr = checkVoted(question) //'rand'
+            resolve(someStr)
+            //resolve(checkVoted(question))
+        }, 5000)
+})
+
 
 
 // StartVoteQuestion method before addVoted was added
