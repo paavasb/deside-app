@@ -52,13 +52,39 @@ export const voteQuestion = (id, updates) => ({
     updates
 })
 
-export const startVoteQuestion = (dispatch, refID, id, updates) => {
+export const startVoteQuestion = (dispatch, refID, id, updates, optionText, userID) => {
     return database.ref(`all-questions/${refID}/options`).update(updates).then(() => {
+        database.ref(`users-answers/${userID}`).push({ questionRefID: refID, optionText })
         dispatch(voteQuestion(id, updates))
     })
 }
 
+export const addVoted = (question, updates, optionText, dispatch) => {
+    const uid = firebase.auth().currentUser.uid
+    let answered = false
+    database.ref(`users-answers/${uid}`).once('value').then((snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            if(childSnapshot.val().questionRefID === question.refID) {
+                answered = true
+            }
+        })
+        if(!answered) {
+            startVoteQuestion(dispatch, question.refID, question.id, updates, optionText, uid)
+            return true
+        } else {
+            return false
+        }
+    })
+}
 
+
+// StartVoteQuestion method before addVoted was added
+// export const startVoteQuestion = (dispatch, refID, id, updates) => {
+//     return database.ref(`all-questions/${refID}/options`).update(updates).then(() => {
+//         database
+//         dispatch(voteQuestion(id, updates))
+//     })
+// }
 
 //startAddQuestion method for database structure with seperate user questions
 // export const startAddQuestion = (dispatch, questionData) => {

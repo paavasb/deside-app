@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import VoteOptions from './VoteOptions'
 import QuestionsContext from '../context/questions-context'
-import { startVoteQuestion } from '../actions/questions'
+import { startVoteQuestion, addVoted } from '../actions/questions'
 
 const Question = (props) => {
     const { questions, dispatch } = useContext(QuestionsContext)
@@ -10,13 +10,17 @@ const Question = (props) => {
     const [chosenOption, setChosenOption] = useState('')
     
     const voteForOption = (voteText) => {
+        //FIXME: Don't allow answering at all if question is already answered
         setAnswered(true);
         setChosenOption(voteText)
         const newOptions = question.options.map((option) => (
             option.text === voteText ? {text: option.text, votes: option.votes+1} : option)
         )
-        startVoteQuestion(dispatch, question.refID, question.id, newOptions)
-        setQuestion({...question, options: newOptions})
+        if(addVoted(question, newOptions, voteText, dispatch)) {
+            setQuestion({...question, options: newOptions})
+        }
+        //startVoteQuestion(dispatch, question.refID, question.id, newOptions)
+        //
     }
 
     const chosenOptionText = `Thanks for answering this question! You chose ${chosenOption}.`
