@@ -28,7 +28,7 @@ const VoteOption = (props) => {
                 }}
                 disabled={props.answered || props.selfQuestion}
             >
-                {props.voteText}
+                {props.voteText || 'Vote'}
             </button>
         </div>
     )

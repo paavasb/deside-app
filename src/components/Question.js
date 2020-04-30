@@ -12,6 +12,7 @@ const Question = (props) => {
     const [voteText, setVoteText] = useState('Vote')
 
     useEffect(() => {
+        let mounted = true
         async function checkingVoted() {
             const chosenOptionText = await checkVoted(question)
             setChosenOption(chosenOptionText)
@@ -21,7 +22,10 @@ const Question = (props) => {
                 setVoteText('Voted')
             }
         }
-        checkingVoted()
+        if(mounted) {
+            checkingVoted()
+        }
+        return () => mounted = false
     }, [])
 
     const voteForOption = (voteText) => {
@@ -69,7 +73,6 @@ const Question = (props) => {
                 {noTags && <p className="react-tagsinput__noTag">There are no tags for this question</p>}
                 {(!noTags) && question.tags.map((tag) => <h4 key={tag} className="react-tagsinput-tag">{tag}</h4>)}
             </div>
-
             {answered && <h4>{chosenOptionText}</h4>}
         </div>
     )

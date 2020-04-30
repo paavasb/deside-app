@@ -70,11 +70,9 @@ export const addVoted = (question, updates, optionText, dispatch) => {
                 answeredOptionText = childSnapshot.val().optionText
             }
         })
-        console.log(answeredOptionText)
         if(!answered) {
             startVoteQuestion(dispatch, question.refID, question.id, updates, optionText, uid)
         }
-        console.log(answeredOptionText)
         return answeredOptionText
     })
 }
