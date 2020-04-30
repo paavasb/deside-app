@@ -4,13 +4,18 @@
     display: flex;
     margin-bottom: $xl-size;
     padding: $m-size 0;
+    align-items: center;
 }
 
 .header__content {
     align-items: center;
     display: flex;
     justify-content: space-between;
-    padding: $s-size 0;
+    padding: $xs-size 0;
+    @media (max-width: $desktop-breakpoint) {
+        flex-direction: column;
+        margin-bottom: 0;
+    }
 }
 
 .header__logo {
@@ -24,6 +29,11 @@
     border-radius: 8px;
     border-left: 3px outset rgba(212, 4, 4, 0.171);
     border-bottom: 3px outset rgba(190, 13, 13, 0.322);
+    @media (max-width: $desktop-breakpoint) {
+        margin-left: 0;
+        margin-right: $s-size;
+        max-width: 40%;
+    }
 }
 
 .header__title {

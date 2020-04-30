@@ -7,8 +7,14 @@
     border-radius: 5px;
     display: flex;
     margin: $m-size;
-    overflow: hidden;
+    overflow: auto;
     padding: 1rem 0 1rem 1rem;
+    @media (max-width: $desktop-breakpoint) {
+      margin: $s-size;
+      //margin-left: $m-size;
+      padding: $s-size;
+      //flex-direction: column;
+  }
   }
   
   .react-tagsinput--focused {

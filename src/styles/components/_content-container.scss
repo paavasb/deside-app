@@ -5,9 +5,15 @@
 }
 
 .content-container-header {
+    align-items: center;
     margin: 0 $xl-size;
     max-width: 150rem;
     padding: 0 $l-size;
+    display: flex;
+    @media (max-width: $desktop-breakpoint) {
+        margin: 0;
+        //flex-direction: column;
+    }
 }
 
 .content-container--question {

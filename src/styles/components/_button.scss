@@ -33,7 +33,30 @@
     font-weight: 200;
     border: none;
     color: $off-white;
+    margin: $m-size;
     padding: 0;
+    @media (max-width: $desktop-breakpoint) {
+        line-height: 0.85;
+        margin: 0;
+    }
+}
+
+.button--link:active{
+    color: white;
+    font-weight: 400;
+}
+
+.button--link-active {
+    background: none;
+    font-weight: 400;
+    border: none;
+    color: white;
+    margin: $m-size;
+    padding: 0;
+    @media (max-width: $desktop-breakpoint) {
+        line-height: 0.85;
+        margin: 0;
+    }
 }
 
 .button--logout {
@@ -63,11 +86,18 @@
     border: none;
     border-left: 2px outset darken($color: #190491a1, $amount: 50);
     border-bottom: 2px outset darken($color: #190491a1, $amount: 50);
-    font-size: medium;
+    display: flex;
+    font-size: large;
     font-weight: 400;
     margin: $m-size;
-    margin-left: $s-size;
+    margin-left: $m-size;
     padding: $m-size; 
+    @media (max-width: $desktop-breakpoint) {
+        margin: $s-size;
+        //margin-left: $m-size;
+        padding: $s-size;
+        //flex-direction: column;
+    }
 }
 
 .button--removeAll:disabled {
