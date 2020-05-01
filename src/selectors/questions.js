@@ -6,9 +6,16 @@ const getVisibleQuestions = (questions, {text, tag, sortBy, startDate, endDate})
         const startDateMatch = startDate ? startDate.isSameOrBefore(createdAtMoment, 'day') : true
         const endDateMatch = endDate ? endDate.isSameOrAfter(createdAtMoment, 'day') : true
         const textMatch = question.title.toLowerCase().includes(text.toLowerCase())
-        const tagMatch = !tag ? true : question.tags.map((tag) => tag.toLowerCase()).includes(tag.toLowerCase())
+        let tagsMatch = true
+        const qTags = question.tags.map((tag) => tag.toLowerCase())
+        tag.forEach((oneTag) => {
+            if(!qTags.includes(oneTag.toLowerCase())) {
+                tagsMatch = false
+            }
+        })
+        //const tagMatch = !tag ? true : question.tags.map((tag) => tag.toLowerCase()).includes(tag.toLowerCase())
 
-        return textMatch && tagMatch && startDateMatch && endDateMatch
+        return textMatch && tagsMatch && startDateMatch && endDateMatch
     }).sort((a, b) => {
         if(sortBy === 'date') {
             return a.createdAt < b.createdAt ? 1 : -1

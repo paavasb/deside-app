@@ -4,10 +4,10 @@ import moment from 'moment';
 
 export const filtersReducersDefaultState = {
     text: '',
-    tag: '',
+    tag: [],
     sortBy: 'votes',
-    startDate: moment().startOf('month'),
-    endDate: moment().endOf('month'),
+    startDate: moment().startOf('year'),
+    endDate: moment().endOf('year'),
 };
 
 const filtersReducers = (state = filtersReducersDefaultState, action) => {

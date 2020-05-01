@@ -76,7 +76,10 @@
     border: none;
     border-left: 2px outset darken($color: #0416b983, $amount: 50);
     border-bottom: 2px outset darken($color: #0416b983, $amount: 50);
-    margin-bottom: $s-size;
+    margin-bottom: 0;
+    @media (max-width: $desktop-breakpoint) {
+        margin-bottom: $s-size;
+    }
 }
 
 .button--expenses {

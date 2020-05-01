@@ -1,4 +1,5 @@
 .react-tagsinput {
+    align-items: center;
     //background-color: fade-out($color: black, $amount: 0.95);
     background-color: lighten($color: $dark-blue, $amount: 10);
     border: none;
@@ -7,14 +8,14 @@
     border-radius: 5px;
     display: flex;
     margin: $m-size;
-    overflow: auto;
+    overflow: scroll;
     padding: 1rem 0 1rem 1rem;
     @media (max-width: $desktop-breakpoint) {
       margin: $s-size;
       //margin-left: $m-size;
-      padding: $s-size;
+      padding: $xxs-size;
       //flex-direction: column;
-  }
+    }
   }
   
   .react-tagsinput--focused {
@@ -35,6 +36,10 @@
     align-items: stretch;
     margin: 10px;
     padding: 10px;
+    @media (max-width: $desktop-breakpoint) {
+      margin: $xxs-size;
+      padding: $xs-size;
+    }
   }
   
   .react-tagsinput-remove {
@@ -56,8 +61,23 @@
     margin-bottom: 6px;
     margin-top: 1px;
     outline: none;
+    overflow: scroll;
     padding: 5px;
     width: 80px;
+  }
+
+  .react-tagsinput-search {
+    //background: transparent;
+    border: 0;
+    color: rgba(223, 190, 250, 0.534);
+    font-family: sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    margin-bottom: 6px;
+    margin-top: 1px;
+    outline: none;
+    padding: 5px;
+    //width: 200px;
   }
 
   .react-tagsinput__text {
@@ -72,4 +92,76 @@
     font-size: small;
     font-weight: 300;
     margin: 10px;
+  }
+
+  .text-input-react-tagsinput {
+    //align-items: center;
+    background: white;
+    //background-color: fade-out($color: black, $amount: 0.95);
+    //background-color: lighten($color: $dark-blue, $amount: 10);
+    border: 1px solid #cacccd;
+    border-radius: 3px;
+    //height: 50px;
+    font-size: $font-size-large;
+    font-weight: 300;
+    padding: 1px $s-size;
+    padding-left: $s-size;
+    margin-right: $m-size;
+    display: inline-block;
+    vertical-align: middle;
+    @media (max-width: $desktop-breakpoint) {
+      line-height: 0.8;
+      margin: 0;
+      margin-bottom: $s-size;
+      padding: 0;
+      text-align: center;
+  }
+  }
+
+  .text-input-react-tagsinput-input {
+    background: white;
+    border: 0;
+    color: black;
+    //display: flex;
+    //justify-content: center;
+    //align-items: center;
+    //font-family: sans-serif;
+    font-size: $font-size-large;
+    font-weight: 300;
+    // margin-bottom: 6px;
+    // margin-top: 1px;
+    outline: none;
+    overflow: scroll;
+    padding: 5px 2px;
+    //width: 80px;
+    vertical-align: middle;
+    @media (max-width: $desktop-breakpoint) {
+      text-align: center;
+      padding: 0;
+      height: 50px;
+    }
+  }
+
+  .text-input-react-tagsinput-tag {
+    background-color: #014c8a;
+    border-radius: 2px;
+    //border-left: 2px solid darken($color: #014c8a, $amount: 10);
+    border-bottom: 2px solid darken($color: #014c8a, $amount: 10);
+    color: white;
+    display: inline-block;
+    font-family: sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    align-items: stretch;
+    vertical-align: middle;
+    //height: 30px;
+    margin: 0 2px;
+    padding: 5px;
+    @media (max-width: $desktop-breakpoint) {
+      margin: 5px;
+    }
+  }
+
+  .text-input-react-tagsinput-tag a::before {
+    content: " ×";
   }

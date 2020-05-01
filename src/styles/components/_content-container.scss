@@ -5,6 +5,10 @@
     margin: auto;
     max-width: 100rem;
     padding: $s-size $l-size;
+    @media (max-width: $desktop-breakpoint) {
+        padding: $s-size $xs-size;
+        //flex-direction: column;
+    }
 }
 
 .content-container-questions {
@@ -13,6 +17,7 @@
     padding: $s-size $xl-size;
     @media (max-width: $desktop-breakpoint) {
         margin: $s-size;
+        padding: $s-size $xs-size;
         //flex-direction: column;
     }
 }

@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react'
+import TagsInput from 'react-tagsinput'
 import { DateRangePicker } from 'react-dates'
 import { setTextFilter, sortByDate, sortByVotes, setStartDate, setEndDate, setTagFilter } from '../actions/filters'
 import FiltersContext from '../context/filters-context'
@@ -7,7 +8,8 @@ const QuestionsFilters = () => {
     const { filters, filtersDispatch } = useContext(FiltersContext)
     const [calendarFocused, setCalendarFocused] = useState()
     const [text, setText] = useState(filters.text)
-    const [tag, setTag] = useState(filters.tags)
+    const [tag, setTag] = useState(filters.tag)
+    const [placeHolderText, setPlaceholderText] = useState(filters.tag.length === 0 ? "Search Question Tags" : "")
 
     const onDatesChange = ({ startDate, endDate }) => {
         filtersDispatch(setStartDate(startDate))
@@ -26,9 +28,11 @@ const QuestionsFilters = () => {
         filtersDispatch(setTextFilter(text))
     }
 
-    const onTagValueChange = (e) => {
-        e.preventDefault()
-        setTag(e.target.value)
+    const onTagValueChange = (tags) => {
+        //e.preventDefault()
+        //setTag(e.target.value)
+        setTag(tags)
+        setPlaceholderText(tags.length === 0 ? "Search Question Tags" : "")
     }
     const onTagChange = () => {
         filtersDispatch(setTagFilter(tag))
@@ -62,12 +66,17 @@ const QuestionsFilters = () => {
                         value={text}
                         onChange={onTextValueChange}
                     />
-                    <input 
-                        type="text"
-                        className="text-input"
-                        placeholder="Search Question Tags"
-                        value={tag}
+                    <TagsInput 
+                        value={tag} onlyUnique={true} 
                         onChange={onTagValueChange}
+                        className='text-input-react-tagsinput'
+                        inputProps={{
+                            className: 'text-input-react-tagsinput-input',
+                            placeholder: placeHolderText
+                        }}
+                        tagProps={{
+                            className: 'text-input-react-tagsinput-tag'
+                        }}
                     />
                     <button className="button button--search" onClick={onTextTagChange}>Search for Question</button>
                 </div>
@@ -97,3 +106,11 @@ const QuestionsFilters = () => {
 }
 
 export default QuestionsFilters
+
+// <input 
+// type="text"
+// className="text-input"
+// placeholder="Search Question Tags"
+// value={tag}
+// onChange={onTagValueChange}
+// />

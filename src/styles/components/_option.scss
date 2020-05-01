@@ -6,15 +6,21 @@
     padding: $s-size $m-size;
     @media (max-width: $desktop-breakpoint) {
         flex-direction: column;
+        padding: 0 $s-size;
     }
 }
 
 .option__text {
     color: white;
-    font-weight: 500;
-    font-size: 2rem;
+    font-weight: bold;
+    font-size: x-large;
     margin: 0;
+    padding: $m-size ;
     word-break: break-all;
+    @media (max-width: $desktop-breakpoint) {
+        font-size: small;
+        padding: $xxs-size;
+    }
 }
 
 .option__text--chosen {
@@ -28,8 +34,8 @@
 .option__button {
     background: rgba(44, 46, 77, 0.87);
     border: none;
-    border-left: .3rem solid darken($color: rgba(44, 46, 77, 0.87), $amount: 2);
-    border-bottom: .3rem solid darken($color: rgba(44, 46, 77, 0.87), $amount: 2);
+    border-left: .3rem outset darken($color: rgba(44, 46, 77, 0.87), $amount: 4);
+    border-bottom: .3rem solid darken($color: rgba(44, 46, 77, 0.87), $amount: 4);
     border-radius: 4px;
     color: white;
     padding: $xs-size;
@@ -37,7 +43,10 @@
     height: 15vh;
     width: 10vw;
     @media (max-width: $desktop-breakpoint) {
-        width: 40vw;
+        height: 5vh;
+        width: 80vw;
+        margin: 0;
+        margin-bottom: $xs-size;
     }
 }
 
