@@ -71,6 +71,14 @@
     background: #888888;
 }
 
+.button--search {
+    background: #0416b983;
+    border: none;
+    border-left: 2px outset darken($color: #0416b983, $amount: 50);
+    border-bottom: 2px outset darken($color: #0416b983, $amount: 50);
+    margin-bottom: $s-size;
+}
+
 .button--expenses {
     @media (min-width: $desktop-breakpoint) {
         width: 20vw;

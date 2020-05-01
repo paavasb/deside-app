@@ -4,6 +4,15 @@
     font-size: $font-size-large;
     font-weight: 300;
     padding: $s-size;
+    margin-right: $m-size;
+    display: inline-block;
+    @media (max-width: $desktop-breakpoint) {
+        line-height: 0.8;
+        margin: 0;
+        margin-bottom: $s-size;
+        padding: 0;
+        text-align: center;
+    }
 }
 
 .select {

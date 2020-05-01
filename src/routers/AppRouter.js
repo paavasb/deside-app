@@ -14,12 +14,15 @@ import YourQuestions from '../components/YourQuestions';
 import questionsReducer from '../reducers/questions';
 import questionsList from '../playground/questions';
 import { setQuestions, startSetQuestion } from '../actions/questions';
+import filtersReducers, { filtersReducersDefaultState } from '../reducers/filters';
+import FiltersContext from '../context/filters-context';
 
 export const history = createHistory();
 
 const AppRouter = () => {
 
     const [questions, dispatch] = useReducer(questionsReducer, []);
+    const [filters, filtersDispatch] = useReducer(filtersReducers, filtersReducersDefaultState);
 
     useEffect(() => {
         startSetQuestion(dispatch)
@@ -33,14 +36,16 @@ const AppRouter = () => {
     return (
     <Router history={history}>
     <QuestionsContext.Provider value={{questions, dispatch}}>
-        <Switch>
-            <PublicRoute path="/" component={LoginPage} exact={true}/>
-            <PrivateRoute path="/dashboard" component={AddQuestion}/>
-            <PrivateRoute path="/add" component={AddQuestion}/>
-            <PrivateRoute path="/questions" component={Questions}/>
-            <PrivateRoute path="/yourquestions" component={YourQuestions}/>
-            <Route component={NotFoundPage}/>
-        </Switch>
+        <FiltersContext.Provider value={{filters, filtersDispatch}}>
+            <Switch>
+                <PublicRoute path="/" component={LoginPage} exact={true}/>
+                <PrivateRoute path="/dashboard" component={AddQuestion}/>
+                <PrivateRoute path="/add" component={AddQuestion}/>
+                <PrivateRoute path="/questions" component={Questions}/>
+                <PrivateRoute path="/yourquestions" component={YourQuestions}/>
+                <Route component={NotFoundPage}/>
+            </Switch>
+        </FiltersContext.Provider>
     </QuestionsContext.Provider>
     </Router>
 )};

@@ -1,7 +1,20 @@
 .content-container {
+    justify-items: center;
+    //display: flex;
+    //flex-direction: column;
     margin: auto;
     max-width: 100rem;
     padding: $s-size $l-size;
+}
+
+.content-container-questions {
+    margin: auto;
+    max-width: 100rem;
+    padding: $s-size $xl-size;
+    @media (max-width: $desktop-breakpoint) {
+        margin: $s-size;
+        //flex-direction: column;
+    }
 }
 
 .content-container-header {
@@ -17,6 +30,24 @@
 }
 
 .content-container--question {
-    background: fade-out($color: black, $amount: 0.95);
+    background: fade-out($color: black, $amount: 0.9);
     margin-bottom: $xl-size;
+}
+
+.content-container-search {
+    background: fade-out($color: black, $amount: 0.75);
+    //display: flex;
+    //flex: 1;
+    // align-items: center;
+    // align-content: center;
+    // justify-items: center;
+    //flex-direction: column;
+    margin: $m-size;
+    //max-width: 150rem;
+    padding: $m-size;
+    @media (max-width: $desktop-breakpoint) {
+        margin: 0;
+        //display: inline-block;
+        //flex-direction: column;
+    }
 }
