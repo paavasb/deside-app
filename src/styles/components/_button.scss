@@ -36,14 +36,45 @@
     margin: $m-size;
     padding: 0;
     @media (max-width: $desktop-breakpoint) {
+        border-bottom: 1px solid lighten($light-blue, 10%);
         line-height: 0.85;
         margin: 0;
+        width: 40vw;
+    }
+}
+.button--link-last {
+    background: none;
+    font-weight: 200;
+    border: none;
+    color: $off-white;
+    margin: $m-size;
+    padding: 0;
+    @media (max-width: $desktop-breakpoint) {
+        //border-bottom: 1px solid lighten($light-blue, 10%);
+        line-height: 0.85;
+        margin: 0;
+        width: 40vw;
     }
 }
 
 .button--link:active{
     color: white;
     font-weight: 400;
+}
+
+.button--link-last-active{
+    background: none;
+    font-weight: 400;
+    border: none;
+    color: white;
+    margin: $m-size;
+    padding: 0;
+    @media (max-width: $desktop-breakpoint) {
+        //border-bottom: 1px solid lighten($light-blue, 10%);
+        line-height: 0.85;
+        margin: 0;
+        width: 40vw;
+    }
 }
 
 .button--link-active {
@@ -54,8 +85,10 @@
     margin: $m-size;
     padding: 0;
     @media (max-width: $desktop-breakpoint) {
+        border-bottom: 1px solid lighten($light-blue, 10%);
         line-height: 0.85;
         margin: 0;
+        width: 40vw;
     }
 }
 
@@ -65,6 +98,9 @@
     border: 2px outset darken($off-black, 2.5);
     color: $off-white;
     padding: $s-size;
+    @media (max-width: $desktop-breakpoint) {
+        margin-top: $s-size;
+    }
 }
 
 .button--secondary {
