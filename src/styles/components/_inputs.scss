@@ -22,6 +22,10 @@
     background: #bbf5ff;
     border: 1px outset darken($color: #bbf5ff, $amount: 5);
     padding: $m-size;
+    @media (max-width: $desktop-breakpoint) {
+        min-width: 188px;
+        max-width: 188px;
+    }
 }
 
 .text-area {
