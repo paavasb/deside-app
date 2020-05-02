@@ -2,10 +2,12 @@ import React, { useState, useContext, useEffect } from 'react'
 import VoteOptions from './VoteOptions'
 import QuestionsContext from '../context/questions-context'
 import { startVoteQuestion, addVoted, checkVoted } from '../actions/questions'
+import AnsweredContext from '../context/answered-context'
 
 const Question = (props) => {
     const { questions, dispatch } = useContext(QuestionsContext)
-    const [answered, setAnswered] = useState(false)
+    const { answered, answeredDispatch } = useContext(AnsweredContext)
+    const [isAnswered, setIsAnswered] = useState(false)
     const [showVotes, setShowVotes] = useState(false)
     const [question, setQuestion] = useState(props.question)
     const [chosenOption, setChosenOption] = useState('')
@@ -16,12 +18,13 @@ const Question = (props) => {
         async function checkingVoted() {
             const chosenOptionText = await checkVoted(question)
             setChosenOption(chosenOptionText)
-            setAnswered(!!chosenOptionText)
+            setIsAnswered(!!chosenOptionText)
             setShowVotes(!!chosenOptionText)
             if(!!chosenOptionText) {
                 setVoteText('Voted')
             }
         }
+        //console.log(answered)
         if(mounted) {
             checkingVoted()
         }
@@ -29,7 +32,7 @@ const Question = (props) => {
     }, [])
 
     const voteForOption = (voteText) => {
-        setAnswered(true)
+        setIsAnswered(true)
         setChosenOption(voteText)
         setVoteText('Voting...')
         const newOptions = question.options.map((option) => (
@@ -37,9 +40,10 @@ const Question = (props) => {
         )
         const votePromise = new Promise((resolve, reject) => {
             setTimeout(() => {
-                resolve(addVoted(question, newOptions, voteText, dispatch))
+                resolve(addVoted(question, newOptions, voteText, dispatch, answeredDispatch))
             }, 5000)
         })
+        //console.log(answered)
 
         votePromise.then((answeredOptionText) => {
             if(!answeredOptionText) {
@@ -61,7 +65,7 @@ const Question = (props) => {
             <h2>{question.title}</h2>
             <VoteOptions 
                 options={question.options}
-                answered={answered}
+                answered={isAnswered}
                 showVotes={showVotes}
                 voteForOption={voteForOption}
                 chosenOption={chosenOption}
@@ -73,7 +77,7 @@ const Question = (props) => {
                 {noTags && <p className="react-tagsinput__noTag">There are no tags for this question</p>}
                 {(!noTags) && question.tags.map((tag) => <h4 key={tag} className="react-tagsinput-tag">{tag}</h4>)}
             </div>
-            {answered && <h4>{chosenOptionText}</h4>}
+            {isAnswered && <h4>{chosenOptionText}</h4>}
         </div>
     )
 }

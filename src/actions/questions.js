@@ -1,5 +1,6 @@
 import database from '../firebase/firebase';
 import * as firebase from 'firebase';
+import { startAddAnsweredQuestion } from './answered';
 
 export const addQuestion = (question) => ({
     type: 'ADD_QUESTION',
@@ -52,14 +53,15 @@ export const voteQuestion = (id, updates) => ({
     updates
 })
 
-export const startVoteQuestion = (dispatch, refID, id, updates, optionText, userID) => {
+export const startVoteQuestion = (dispatch, answeredDispatch, refID, id, updates, optionText, userID) => {
     return database.ref(`all-questions/${refID}/options`).update(updates).then(() => {
         database.ref(`users-answers/${userID}`).push({ questionRefID: refID, optionText })
+        startAddAnsweredQuestion(answeredDispatch, refID)
         dispatch(voteQuestion(id, updates))
     })
 }
 
-export const addVoted = (question, updates, optionText, dispatch) => {
+export const addVoted = (question, updates, optionText, dispatch, answeredDispatch) => {
     const uid = firebase.auth().currentUser.uid
     let answered = false
     let answeredOptionText = ''
@@ -71,7 +73,7 @@ export const addVoted = (question, updates, optionText, dispatch) => {
             }
         })
         if(!answered) {
-            startVoteQuestion(dispatch, question.refID, question.id, updates, optionText, uid)
+            startVoteQuestion(dispatch, answeredDispatch, question.refID, question.id, updates, optionText, uid)
         }
         return answeredOptionText
     })

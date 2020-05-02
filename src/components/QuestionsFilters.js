@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import TagsInput from 'react-tagsinput'
 import { DateRangePicker } from 'react-dates'
-import { setTextFilter, sortByDate, sortByVotes, setStartDate, setEndDate, setTagFilter } from '../actions/filters'
+import { setTextFilter, sortByDate, sortByVotes, setStartDate, setEndDate, setTagFilter, statusAll, statusAnswered, statusUnanswered } from '../actions/filters'
 import FiltersContext from '../context/filters-context'
 
 const QuestionsFilters = () => {
@@ -55,6 +55,19 @@ const QuestionsFilters = () => {
         }
     }
 
+    const onStatusChange = (e) => {
+        switch (e.target.value) {
+            case "all":
+                return filtersDispatch(statusAll())
+            case "answered":
+                return filtersDispatch(statusAnswered())
+            case "unanswered":
+                return filtersDispatch(statusUnanswered())
+            default:
+                return filtersDispatch(statusAll())
+        }
+    }
+
     return (
         <div className="content-container-search">
             <div className="input-group">
@@ -81,6 +94,15 @@ const QuestionsFilters = () => {
                     <button className="button button--search" onClick={onTextTagChange}>Search for Question</button>
                 </div>
                 <div className="input-group__row">
+                    <select
+                        className="select"
+                        value={filters.status}
+                        onChange={onStatusChange}
+                    >
+                        <option value="all">All Questions</option>
+                        <option value="answered">Answered</option>
+                        <option value="unanswered">Unanswered</option>
+                    </select>
                     <select
                         className="select"
                         value={filters.sortBy}

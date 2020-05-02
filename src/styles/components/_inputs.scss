@@ -19,6 +19,9 @@
 
 .select {
     @extend .text-input;
+    background: #bbf5ff;
+    border: 1px outset darken($color: #bbf5ff, $amount: 5);
+    padding: $m-size;
 }
 
 .text-area {

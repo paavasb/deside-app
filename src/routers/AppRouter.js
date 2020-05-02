@@ -16,27 +16,31 @@ import questionsList from '../playground/questions';
 import { setQuestions, startSetQuestion } from '../actions/questions';
 import filtersReducers, { filtersReducersDefaultState } from '../reducers/filters';
 import FiltersContext from '../context/filters-context';
+import AnsweredContext from '../context/answered-context';
+import answeredReducer from '../reducers/answered';
+import { startSetAnsweredQuestions } from '../actions/answered';
 
 export const history = createHistory();
 
 const AppRouter = () => {
 
     const [questions, dispatch] = useReducer(questionsReducer, []);
-    const [filters, filtersDispatch] = useReducer(filtersReducers, filtersReducersDefaultState);
+    //const [filters, filtersDispatch] = useReducer(filtersReducers, filtersReducersDefaultState);
+    //const [answered, answeredDispatch] = useReducer(answeredReducer, [])
 
     useEffect(() => {
         startSetQuestion(dispatch)
     }, []) 
+
     
-    useEffect(() => {
-        const json = JSON.stringify(questions);
-        localStorage.setItem('questions', json); 
-      }, [questions])
+    // useEffect(() => {
+    //     const json = JSON.stringify(questions);
+    //     localStorage.setItem('questions', json); 
+    //   }, [questions])
 
     return (
     <Router history={history}>
-    <QuestionsContext.Provider value={{questions, dispatch}}>
-        <FiltersContext.Provider value={{filters, filtersDispatch}}>
+        <QuestionsContext.Provider value={{questions, dispatch}}>              
             <Switch>
                 <PublicRoute path="/" component={LoginPage} exact={true}/>
                 <PrivateRoute path="/dashboard" component={AddQuestion}/>
@@ -44,9 +48,8 @@ const AppRouter = () => {
                 <PrivateRoute path="/questions" component={Questions}/>
                 <PrivateRoute path="/yourquestions" component={YourQuestions}/>
                 <Route component={NotFoundPage}/>
-            </Switch>
-        </FiltersContext.Provider>
-    </QuestionsContext.Provider>
+            </Switch> 
+        </QuestionsContext.Provider>
     </Router>
 )};
 

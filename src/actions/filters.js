@@ -1,5 +1,10 @@
 // Filter Actions
 
+export const setFilters = (filters) => ({
+    type: 'SET_FILTER',
+    filters
+})
+
 export const setTextFilter = (text = '') => ({
     type: 'SET_TEXT_FILTER',
     text
@@ -31,3 +36,18 @@ export const setEndDate = (endDate) => ({
     type: 'SET_END_DATE',
     endDate
 });
+
+export const statusAll = () => ({
+    type: 'SET_STATUS',
+    status: 'all'
+})
+
+export const statusAnswered = () => ({
+    type: 'SET_STATUS',
+    status: 'answered'
+})
+
+export const statusUnanswered = () => ({
+    type: 'SET_STATUS',
+    status: 'unanswered'
+})

@@ -18,6 +18,7 @@
     padding: $m-size ;
     word-break: break-all;
     @media (max-width: $desktop-breakpoint) {
+        align-items: center;
         font-size: small;
         padding: $xxs-size;
     }
