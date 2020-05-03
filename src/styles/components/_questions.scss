@@ -11,12 +11,14 @@
     font-size: xx-large;
     font-weight: 500;
     padding: $l-size $m-size;
+    padding-top: 0;
     margin: $m-size 0 $s-size 0;
     @media (max-width: $desktop-breakpoint) {
         font-size: medium;
         margin: $s-size 0;
         margin-top: 0;
         padding: $s-size;
+        padding-top: $xxs-size;
         text-align: center;
     }
 }
