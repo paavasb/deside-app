@@ -126,7 +126,10 @@
 }
 
 .button--removeAll {
-    font-size: x-small;
+    font-size: medium;
+    //margin-left: $m-size;
+    padding: 0 $s-size;
+    margin: $m-size 0;
 }
 
 .button--deleteQuestion {
@@ -141,7 +144,7 @@
     margin-left: $m-size;
     padding: $m-size; 
     @media (max-width: $desktop-breakpoint) {
-        margin: $s-size;
+        margin: $s-size $m-size;
         //margin-left: $m-size;
         padding: $s-size;
         //flex-direction: column;

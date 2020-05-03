@@ -75,22 +75,24 @@ const AddQuestion = () => {
 
     return (
         <div className="content-container">
-            <h1>Add a question!</h1>
-            <form onSubmit={onSubmitHandler}>
-                <textarea value={title} onChange={handleTitleChange}/>
-                <Options options={options} handleDeleteOptions={handleDeleteOptions} handleDeleteOption={handleDeleteOption}/>
-                <AddOption handleAddOption={handleAddOption}/>
-                <TagsInput 
-                    value={tags} onlyUnique={true} 
-                    onChange={(tags) => setTags(tags)}
-                />
-                <button 
-                    className="big-button"
-                    disabled={!(title.length > 0 && options.length > 1)}
-                >
-                    Submit Question
-                </button>
-            </form>
+            <div className="add-question">
+                <h1 className="add-question__text">Add a Question</h1>
+                <form onSubmit={onSubmitHandler}>
+                    <input value={title} onChange={handleTitleChange} className="add-question__input"/>
+                    <Options options={options} handleDeleteOptions={handleDeleteOptions} handleDeleteOption={handleDeleteOption}/>
+                    <AddOption handleAddOption={handleAddOption}/>
+                    <TagsInput 
+                        value={tags} onlyUnique={true} 
+                        onChange={(tags) => setTags(tags)}
+                    />
+                    <button 
+                        className="big-button"
+                        disabled={!(title.length > 0 && options.length > 1)}
+                    >
+                        Submit Question
+                    </button>
+                </form>
+            </div>
 
         </div>
         )

@@ -16,6 +16,7 @@
     max-width: 100rem;
     padding: $s-size $xl-size;
     @media (max-width: $desktop-breakpoint) {
+        //justify-content: center;
         margin: $s-size;
         padding: $s-size $xs-size;
         //flex-direction: column;

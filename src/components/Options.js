@@ -8,16 +8,18 @@ const Options = (props) => {
 
 
     return (
-        <div>
+        <div className="add-question">
             <div>
-                <h3>Your Options</h3>
-                <button
-                    className="button button--removeAll" 
-                    disabled={props.options.length === 0}
-                    onClick={props.handleDeleteOptions}
-                >
-                    Remove All
-                </button>
+                <div className="add-question__options">
+                    <h3 className="add-question__options__title">Your Options</h3>
+                    <button
+                        className="button button--removeAll" 
+                        disabled={props.options.length === 0}
+                        onClick={props.handleDeleteOptions}
+                    >
+                        Remove All
+                    </button>
+                </div>
                 {props.options.length === 0 && <p className="widget__message">Please add options to get started</p>}
                 {props.options.length === 1 && <p className="widget__message">Please add atleast 2 options</p>}
                 {

@@ -1,3 +1,4 @@
+//@import "~bootstrap/scss/bootstrap";
 @import './base/settings';
 @import './base/base';
 @import './components/add-option';
@@ -20,3 +21,5 @@
 @import './components/loader';
 @import './components/tags';
 @import './components/react-dates-override';
+@import './components/add-question';
+@import './components/questions'

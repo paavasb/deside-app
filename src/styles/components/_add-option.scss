@@ -1,14 +1,21 @@
 .add-option-error {
     color: $off-white;
+    font-size: small;
     font-style: italic;
     margin: $m-size 0 0 0;
     padding: 0 $m-size;
+    @media (max-width: $desktop-breakpoint) {
+        font-size: x-small;
+    }
 }
 
 .add-option {
     display: flex;
     flex-direction: column;
     padding: $m-size;
+    @media (max-width: $desktop-rem) {
+        padding: 0 $xs-size $m-size;
+    }
 }
 
 .add-option__input {
@@ -19,6 +26,7 @@
     border-bottom: .3rem solid darken($dark-blue, 10%);
     color: $off-white;
     flex-grow: 1;
+    font-size: medium;
     margin: 0 0 $s-size 0;
     padding: $s-size;
 }
@@ -28,6 +36,6 @@
         flex-direction: row;
     }
     .add-option__input {
-        margin: 0$s-size 0 0;
+        margin: 0 $s-size 0 0;
     }
 }

@@ -1,4 +1,5 @@
 import React from 'react'
+import ProgressBar from 'react-bootstrap/ProgressBar'
 
 const VoteOption = (props) => {
 
@@ -17,8 +18,9 @@ const VoteOption = (props) => {
     return (
         <div className="option">
             <div className={textClassSelector()}>
-                <h4>{props.count}. {props.text} </h4>
-                {(props.showVotes || props.selfQuestion) && <p>Votes: {props.votes}</p>}
+                <h4 className={textClassSelector()}>{props.count}. {props.text} </h4>
+                {(props.showVotes || props.selfQuestion) && <p className={textClassSelector()}>Votes: {props.votes}</p>}
+                {(props.showVotes || props.selfQuestion) && <ProgressBar now={100 * (props.votes / props.totalVotes)} />}
             </div>
             <button 
                 className="option__button"

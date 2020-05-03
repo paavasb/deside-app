@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: $s-size $m-size;
+    padding: 0 $s-size;
     @media (max-width: $desktop-breakpoint) {
         flex-direction: column;
         padding: 0 $s-size;
@@ -12,10 +12,10 @@
 
 .option__text {
     color: white;
-    font-weight: bold;
+    font-weight: 400;
     font-size: x-large;
     margin: 0;
-    padding: $m-size ;
+    padding: $xs-size $m-size;
     word-break: break-all;
     @media (max-width: $desktop-breakpoint) {
         align-items: center;
@@ -64,14 +64,20 @@
     display: flex;
     justify-content: space-between;
     padding: $l-size $m-size;
+    @media (max-width: $desktop-breakpoint) {
+        padding: $m-size;
+    }
 }
 
 .option-input__text {
     color: white;
     font-weight: 500;
-    font-size: 2rem;
+    font-size: large;
     margin: 0;
     word-break: break-all;
+    @media (max-width: $desktop-breakpoint) {
+        font-size: medium;
+    }
 }
 
 .option-input__button {

@@ -62,7 +62,7 @@ const Question = (props) => {
 
     return (
         <div className="content-container content-container--question">
-            <h2>{question.title}</h2>
+            <h2 className="questions__text">{question.title}</h2>
             <VoteOptions 
                 options={question.options}
                 answered={isAnswered}
