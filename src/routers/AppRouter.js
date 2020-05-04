@@ -2,7 +2,6 @@ import React, { useReducer, useEffect } from 'react';
 import database from '../firebase/firebase';
 import { Router, Route, Switch} from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
-import DashboardPage from '../components/DashboardPage';
 import NotFoundPage from '../components/NotFoundPage';
 import LoginPage from '../components/LoginPage';
 import PrivateRoute from './PrivateRoute';

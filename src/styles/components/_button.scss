@@ -57,6 +57,11 @@
     }
 }
 
+.button--link:hover{
+    color:lightness($color: $off-white);
+    font-weight: 400;
+}
+
 .button--link:active{
     color: white;
     font-weight: 400;
@@ -90,6 +95,16 @@
         margin: 0;
         width: 40vw;
     }
+}
+
+.button--link-last:hover{
+    color:lightness($color: $off-white);
+    font-weight: 400;
+}
+
+.button--link-:active{
+    color: white;
+    font-weight: 400;
 }
 
 .button--logout {
