@@ -60,7 +60,8 @@ export const voteQuestion = (id, updates) => ({
 
 export const startVoteQuestion = (dispatch, answeredDispatch, refID, id, updates, optionText, userID) => {
     return database.ref(`all-questions/${refID}/options`).update(updates).then(() => {
-        database.ref(`users-answers/${userID}`).push({ questionRefID: refID, optionText })
+        //database.ref(`users/${userID}/answered`).push({ questionRefID: refID, optionText })
+        //database.ref(`users-answers/${userID}`).push({ questionRefID: refID, optionText })
         startAddAnsweredQuestion(answeredDispatch, refID)
         dispatch(voteQuestion(id, updates))
     })
@@ -70,7 +71,8 @@ export const addVoted = (question, updates, optionText, dispatch, answeredDispat
     const uid = firebase.auth().currentUser.uid
     let answered = false
     let answeredOptionText = ''
-    return database.ref(`users-answers/${uid}`).once('value').then((snapshot) => {
+    // return database.ref(`users-answers/${uid}`).once('value').then((snapshot) => {
+    return database.ref(`users/${uid}/answered`).once('value').then((snapshot) => {
         snapshot.forEach((childSnapshot) => {
             if(childSnapshot.val().questionRefID === question.refID) {
                 answered = true
@@ -79,7 +81,7 @@ export const addVoted = (question, updates, optionText, dispatch, answeredDispat
         })
         if(!answered) {
             startVoteQuestion(dispatch, answeredDispatch, question.refID, question.id, updates, optionText, uid)
-            startAddAnswered(userDispatch, uid, question.refID)
+            startAddAnswered(userDispatch, uid, { questionRefID: question.refID, optionText })
         }
         return answeredOptionText
     })
@@ -88,7 +90,8 @@ export const addVoted = (question, updates, optionText, dispatch, answeredDispat
 export const checkVoted = (question) => {
     const uid = firebase.auth().currentUser.uid
     let answeredOptionText = ''
-    return database.ref(`users-answers/${uid}`).once('value').then((snapshot) => {
+    // return database.ref(`users-answers/${uid}`).once('value').then((snapshot) => {
+    return database.ref(`users/${uid}/answered`).once('value').then((snapshot) => {
         snapshot.forEach((childSnapshot) => {
             if(childSnapshot.val().questionRefID === question.refID) {
                 answeredOptionText = childSnapshot.val().optionText

@@ -48,12 +48,12 @@ const userReducer = (state = userReducerDefaultState, action) => {
         case 'ADD_ANSWERED':
             return {
                 ...state,
-                answered: [...state.answered, action.answeredID]
+                answered: [...state.answered, action.answeredQuestion]
             }
         case 'SET_ANSWERED':
             return {
                 ...state,
-                answered: action.answeredIDs
+                answered: action.answeredQuestions
             }
         default:
             return state

@@ -15,7 +15,7 @@ import answeredReducer from '../reducers/answered'
 import { setFilters } from '../actions/filters'
 import filtersReducers, { filtersReducersDefaultState } from '../reducers/filters'
 import userReducer, { userReducerDefaultState } from '../reducers/user'
-import { startSetUser } from '../actions/user'
+import { startSetUser, startSetAnswered } from '../actions/user'
 import UserContext from '../context/user-context'
 
 const Questions = () => {
@@ -33,6 +33,7 @@ const Questions = () => {
             console.log('Questions UseEffect')
             console.log('User ', user)
             await startSetAnsweredQuestions(answeredDispatch)
+            //await startSetAnswered(userDispatch)
         }
         //startSetUser(userDispatch)
         //filtersDispatch(setFilters(filtersReducersDefaultState))
@@ -46,17 +47,17 @@ const Questions = () => {
 
     return (
         <FiltersContext.Provider value={{filters, filtersDispatch}}> 
-        <AnsweredContext.Provider value={{answered, answeredDispatch}}>
-            <div className="content-container">
-                <QuestionsFilters />
-                <div className="content-container-questions">
-                    {visibleQuestions.map((question, index) => {
-                            return (<Question key={question.id} question={question} />)                  
-                        }
-                    )}
+            <AnsweredContext.Provider value={{answered, answeredDispatch}}>
+                <div className="content-container">
+                    <QuestionsFilters />
+                    <div className="content-container-questions">
+                        {visibleQuestions.map((question, index) => {
+                                return (<Question key={question.id} question={question} />)                  
+                            }
+                        )}
+                    </div>
                 </div>
-            </div>
-        </AnsweredContext.Provider>
+            </AnsweredContext.Provider>
         </FiltersContext.Provider> 
     )
 }

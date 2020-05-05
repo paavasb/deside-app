@@ -17,7 +17,7 @@ export const setAnsweredQuestions = (answered_questions) => ({
 
 export const startSetAnsweredQuestions = (answeredDispatch) => {
     const uid = firebase.auth().currentUser.uid
-    return database.ref(`users-answers/${uid}`).once('value').then((snapshot) => {
+    return database.ref(`users/${uid}/answered`).once('value').then((snapshot) => {
         const answered_questions = []
         snapshot.forEach((childSnapshot) => {
             answered_questions.push(childSnapshot.val().questionRefID)

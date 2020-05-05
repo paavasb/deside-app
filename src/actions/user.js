@@ -1,6 +1,5 @@
-import database from '../firebase/firebase';
-import * as firebase from 'firebase';
-import { startAddAnsweredQuestion } from './answered';
+import database from '../firebase/firebase'
+import * as firebase from 'firebase'
 
 export const setUser = (user) => ({
     type: 'SET_USER',
@@ -45,7 +44,7 @@ export const startSetUser = (userDispatch) => {
             const answered = []
             if(snapshot.val().answered !== undefined) {
                 Object.entries(snapshot.val().answered).forEach(([key, value]) => 
-                    answered.push(value.answeredID))
+                    answered.push({questionRefID: value.questionRefID, optionText: value.optionText}))
                 // snapshot.val().answered.forEach((answeredIDs) => {
                 //     answered.push(answeredIDs.answeredID)
                 // })
@@ -177,29 +176,30 @@ export const startSetFollowing = (userDispatch, userID) => {
     })
 }
 
-export const addAnswered = (answeredID) => ({
+export const addAnswered = (answeredQuestion) => ({
     type: 'ADD_ANSWERED',
-    answeredID
+    answeredQuestion
 })
 
-export const startAddAnswered = (userDispatch, userID, answeredID) => {
-    return database.ref(`users/${userID}/answered`).push({ answeredID }).then((ref) => {
-        userDispatch(addAnswered(answeredID))
+export const startAddAnswered = (userDispatch, userID, answeredQuestion) => {
+    return database.ref(`users/${userID}/answered`).push(answeredQuestion).then((ref) => {
+        userDispatch(addAnswered(answeredQuestion))
     })
 }
 
-export const setAnswered = (answeredIDs) => ({
+export const setAnswered = (answeredQuestions) => ({
     type: 'SET_FOLLOWING',
-    answeredIDs
+    answeredQuestions
 })
 
-export const startSetAnswered = (userDispatch, userID) => {
-    const answeredIDs = []
+export const startSetAnswered = (userDispatch) => {
+    const userID = firebase.auth().currentUser.uid
+    const answeredQuestions = []
     return database.ref(`users/${userID}/answered`).once('value').then((snapshot) => {
         snapshot.forEach((childSnapshot) => {
-            answeredIDs.push(childSnapshot.val().answeredID)
+            answeredQuestions.push(childSnapshot.val().answeredQuestion)
         })
-        userDispatch(setAnswered(answeredIDs))
+        userDispatch(setAnswered(answeredQuestions))
     })
 }
 
