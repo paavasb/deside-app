@@ -1,5 +1,5 @@
-import database from '../firebase/firebase';
-import * as firebase from 'firebase';
+import database from '../firebase/firebase'
+import * as firebase from 'firebase'
 
 export const addAnsweredQuestion = (answered_question) => ({
     type: 'ADD_ANSWERED_QUESTION',

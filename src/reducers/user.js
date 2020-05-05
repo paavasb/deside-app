@@ -3,6 +3,7 @@ export const userReducerDefaultState = {
     username: '',
     questions: [],
     following: [],
+    followers: [],
     answered: []
 }
 

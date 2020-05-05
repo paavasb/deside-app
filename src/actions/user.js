@@ -17,6 +17,7 @@ export const startSetUser = (userDispatch) => {
                 username: "",
                 questions: [],
                 following: [],
+                followers: [],
                 answered: []
             }
             database.ref(`users/${userID}`).set(user).then(() => {
@@ -41,6 +42,11 @@ export const startSetUser = (userDispatch) => {
                 //     following.push(follow.followingID)
                 // })
             }
+            const followers = []
+            if(snapshot.val().followers !==  undefined) {
+                Object.entries(snapshot.val().followers).forEach(([key, value]) => 
+                    followers.push(value.followerID))
+            }
             const answered = []
             if(snapshot.val().answered !== undefined) {
                 Object.entries(snapshot.val().answered).forEach(([key, value]) => 
@@ -54,6 +60,7 @@ export const startSetUser = (userDispatch) => {
                 username,
                 questions,
                 following,
+                followers,
                 answered
             }
             userDispatch(setUser(user))
@@ -157,7 +164,9 @@ export const addFollowing = (followingID) => ({
 
 export const startAddFollowing = (userDispatch, userID, followingID) => {
     return database.ref(`users/${userID}/following`).push({ followingID }).then((ref) => {
-        userDispatch(addFollowing(followingID))
+        database.ref(`users/${followingID}/followers`).push({ followerID: userID }).then((ref) => {
+            userDispatch(addFollowing(followingID))
+        })
     })
 }
 

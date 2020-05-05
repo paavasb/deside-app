@@ -4,6 +4,8 @@ import QuestionsContext from '../context/questions-context'
 import { startVoteQuestion, addVoted, checkVoted } from '../actions/questions'
 import AnsweredContext from '../context/answered-context'
 import UserContext from '../context/user-context'
+import { getUsername } from '../actions/helperActions'
+import { startAddFollowing } from '../actions/user'
 
 const Question = (props) => {
     const { questions, dispatch } = useContext(QuestionsContext)
@@ -14,6 +16,7 @@ const Question = (props) => {
     const [question, setQuestion] = useState(props.question)
     const [chosenOption, setChosenOption] = useState('')
     const [voteText, setVoteText] = useState('Vote')
+    const [creatorName, setCreatorName] = useState('')
 
     useEffect(() => {
         let mounted = true
@@ -25,6 +28,8 @@ const Question = (props) => {
             if(!!chosenOptionText) {
                 setVoteText('Voted')
             }
+            const creatorUsername = await getUsername(question.creator)
+            setCreatorName(creatorUsername)
         }
         //console.log(answered)
         if(mounted) {
@@ -58,6 +63,15 @@ const Question = (props) => {
         })
     }
 
+    const addFollowingHandler = async () => {
+        await startAddFollowing(userDispatch, user.userID, question.creator)
+    }
+
+    const onFollowButtonHandler = (e) => {
+        e.preventDefault
+        addFollowingHandler()
+    }
+
     const chosenOptionText = `Thanks for answering this question! You chose ${chosenOption}.`
 
     let noTags = question.tags.length === 1 && question.tags[0] === 'none'
@@ -80,6 +94,8 @@ const Question = (props) => {
                 {(!noTags) && question.tags.map((tag) => <h4 key={tag} className="react-tagsinput-tag">{tag}</h4>)}
             </div>
             {isAnswered && <h4>{chosenOptionText}</h4>}
+            {<h4>Question Creator - {creatorName} ({question.creator})</h4>}
+            <button onClick={onFollowButtonHandler}>Follow!</button>
         </div>
     )
 }
