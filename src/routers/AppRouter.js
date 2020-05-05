@@ -18,6 +18,7 @@ import FiltersContext from '../context/filters-context';
 import AnsweredContext from '../context/answered-context';
 import answeredReducer from '../reducers/answered';
 import { startSetAnsweredQuestions } from '../actions/answered';
+import UserInfoPage from '../components/UserInfoPage';
 
 export const history = createHistory();
 
@@ -46,6 +47,7 @@ const AppRouter = () => {
                 <PrivateRoute path="/add" component={AddQuestion}/>
                 <PrivateRoute path="/questions" component={Questions}/>
                 <PrivateRoute path="/yourquestions" component={YourQuestions}/>
+                <PrivateRoute path="/user" component={UserInfoPage} />
                 <Route component={NotFoundPage}/>
             </Switch> 
         </QuestionsContext.Provider>

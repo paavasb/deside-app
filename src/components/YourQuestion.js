@@ -3,10 +3,12 @@ import VoteOptions from './VoteOptions'
 import Options from './Options'
 import QuestionsContext from '../context/questions-context'
 import { startRemoveQuestion } from '../actions/questions'
+import UserContext from '../context/user-context'
 
 const YourQuestion = (props) => {
     const question = props.question
     const { questions, dispatch } = useContext(QuestionsContext)
+    const { user, userDispatch } = useContext(UserContext)
     //const [question, setQuestion] = useState(props.question)
     //const [chosenOption, setChosenOption] = useState('');
 
@@ -15,7 +17,7 @@ const YourQuestion = (props) => {
 
     const handleDelete = (e) => {
         e.preventDefault()
-        startRemoveQuestion(dispatch, question.refID, question.id, question.creator)
+        startRemoveQuestion(dispatch, question.refID, question.id, question.creator, userDispatch)
     }
 
     return (

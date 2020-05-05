@@ -14,17 +14,32 @@ import { startSetAnsweredQuestions } from '../actions/answered'
 import answeredReducer from '../reducers/answered'
 import { setFilters } from '../actions/filters'
 import filtersReducers, { filtersReducersDefaultState } from '../reducers/filters'
+import userReducer, { userReducerDefaultState } from '../reducers/user'
+import { startSetUser } from '../actions/user'
+import UserContext from '../context/user-context'
 
 const Questions = () => {
     const { questions, dispatch } = useContext(QuestionsContext)
+    const { user, userDispatch } = useContext(UserContext)
     const [filters, filtersDispatch] = useReducer(filtersReducers, filtersReducersDefaultState)
     //const { filters, filtersDispatch } = useContext(FiltersContext)
     const [answered, answeredDispatch] = useReducer(answeredReducer, [])
+    //const [user, userDispatch] = useReducer(userReducer, userReducerDefaultState)
 
     //const [isAnswered, setIsAnswered] = useState('all')
     useEffect(() => {
-        startSetAnsweredQuestions(answeredDispatch)
+        let mounted = true
+        async function startUseEffect() {
+            console.log('Questions UseEffect')
+            console.log('User ', user)
+            await startSetAnsweredQuestions(answeredDispatch)
+        }
+        //startSetUser(userDispatch)
         //filtersDispatch(setFilters(filtersReducersDefaultState))
+        if(mounted) {
+            startUseEffect()
+        }
+        return () => mounted = false
     }, []) 
 
     let visibleQuestions = getVisibleQuestions(questions, filters, answered)

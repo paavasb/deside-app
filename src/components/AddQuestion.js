@@ -9,9 +9,11 @@ import moment from 'moment';
 import questionsReducer from '../reducers/questions';
 import * as firebase from 'firebase';
 import uuid from  'uuid';
+import UserContext from '../context/user-context';
 
 const AddQuestion = () => {
     const { questions, dispatch } = useContext(QuestionsContext)
+    const { user, userDispatch } = useContext(UserContext)
     //const [questions, dispatch] = useReducer(questionsReducer, []);
     const [title, setTitle] = useState('');
     const [options, setOptions] = useState([]);
@@ -40,7 +42,7 @@ const AddQuestion = () => {
             creator: firebase.auth().currentUser.uid,
             id: uuid()
         }
-        startAddQuestion(dispatch, question);
+        startAddQuestion(dispatch, question, userDispatch, user.userID);
     }
 
     // useEffect(() => {

@@ -1,18 +1,21 @@
 import database from '../firebase/firebase';
 import * as firebase from 'firebase';
 import { startAddAnsweredQuestion } from './answered';
+import { startAddUserQuestion, startRemoveUserQuestion, startAddAnswered } from './user';
 
 export const addQuestion = (question) => ({
     type: 'ADD_QUESTION',
     question
 })
 
-export const startAddQuestion = (dispatch, questionData) => {
+export const startAddQuestion = (dispatch, questionData, userDispatch, userID) => {
     return database.ref(`all-questions`).push(questionData).then((ref) => {
-        dispatch(addQuestion({
-            refID: ref.key,
-            ...questionData
-        }))
+        startAddUserQuestion(userDispatch, userID, ref.key).then(() => {
+            dispatch(addQuestion({
+                refID: ref.key,
+                ...questionData
+            }))
+        })
     })
 }
 
@@ -39,10 +42,12 @@ export const removeQuestion = ({ id } = {}) => ({
     id
 })
 
-export const startRemoveQuestion = (dispatch, refID, id, creator) => {
+export const startRemoveQuestion = (dispatch, refID, id, creator, userDispatch) => {
     if(creator === firebase.auth().currentUser.uid) {
         return database.ref(`all-questions/${refID}`).remove().then(() => {
-            dispatch(removeQuestion({ id }))
+            startRemoveUserQuestion(userDispatch, creator, refID).then(() => {
+                dispatch(removeQuestion({ id }))
+            })
         })
     }
 }
@@ -61,7 +66,7 @@ export const startVoteQuestion = (dispatch, answeredDispatch, refID, id, updates
     })
 }
 
-export const addVoted = (question, updates, optionText, dispatch, answeredDispatch) => {
+export const addVoted = (question, updates, optionText, dispatch, answeredDispatch, userDispatch) => {
     const uid = firebase.auth().currentUser.uid
     let answered = false
     let answeredOptionText = ''
@@ -74,6 +79,7 @@ export const addVoted = (question, updates, optionText, dispatch, answeredDispat
         })
         if(!answered) {
             startVoteQuestion(dispatch, answeredDispatch, question.refID, question.id, updates, optionText, uid)
+            startAddAnswered(userDispatch, uid, question.refID)
         }
         return answeredOptionText
     })

@@ -3,10 +3,12 @@ import VoteOptions from './VoteOptions'
 import QuestionsContext from '../context/questions-context'
 import { startVoteQuestion, addVoted, checkVoted } from '../actions/questions'
 import AnsweredContext from '../context/answered-context'
+import UserContext from '../context/user-context'
 
 const Question = (props) => {
     const { questions, dispatch } = useContext(QuestionsContext)
     const { answered, answeredDispatch } = useContext(AnsweredContext)
+    const { user, userDispatch } = useContext(UserContext)
     const [isAnswered, setIsAnswered] = useState(false)
     const [showVotes, setShowVotes] = useState(false)
     const [question, setQuestion] = useState(props.question)
@@ -40,7 +42,7 @@ const Question = (props) => {
         )
         const votePromise = new Promise((resolve, reject) => {
             setTimeout(() => {
-                resolve(addVoted(question, newOptions, voteText, dispatch, answeredDispatch))
+                resolve(addVoted(question, newOptions, voteText, dispatch, answeredDispatch, userDispatch))
             }, 5000)
         })
         //console.log(answered)
