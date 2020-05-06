@@ -1,5 +1,6 @@
 import database from '../firebase/firebase'
 import * as firebase from 'firebase'
+import uuid from  'uuid'
 
 export const setUser = (user) => ({
     type: 'SET_USER',
@@ -14,14 +15,16 @@ export const startSetUser = (userDispatch) => {
         if(snapshot.val() === null) {
             user = {
                 userID,
-                username: "",
+                username: uuid.v4().substr(0, 10),
                 questions: [],
                 following: [],
                 followers: [],
                 answered: []
             }
             database.ref(`users/${userID}`).set(user).then(() => {
-                userDispatch(setUser(user))
+                database.ref(`usernames/${userID}`).set(user.username).then(() => {
+                    userDispatch(setUser(user))
+                })
             })
         } else {
             const username = snapshot.val().username
@@ -137,8 +140,19 @@ export const removeUserQuestion = (question) => ({
 })
 
 export const startRemoveUserQuestion = (userDispatch, userID, questionRefID) => {
-    return database.ref(`users/${userID}/${questionRefID}`).remove().then(() => {
-        userDispatch(removeUserQuestion(questionRefID))
+    console.log('INSIDE')
+    let questionStoreRefID = ''
+    return database.ref(`users/${userID}/questions`).once('value').then((snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            if(childSnapshot.val().questionRefID === questionRefID) {
+                questionStoreRefID = childSnapshot.key
+                console.log(childSnapshot.key)
+            }
+        })
+        database.ref(`users/${userID}/questions/${questionStoreRefID}`).remove().then(() => {
+            console.log(questionStoreRefID)
+            userDispatch(removeUserQuestion(questionRefID))
+        })
     })
 }
 
