@@ -29,7 +29,7 @@ const userReducer = (state = userReducerDefaultState, action) => {
         case 'REMOVE_USER_QUESTION':
             return {
                 ...state,
-                questions: state.questions.filter((question) => question === action.question)
+                questions: state.questions.filter((question) => question !== action.question)
             }
         case 'SET_USER_QUESTIONS':
             return {
@@ -41,10 +41,30 @@ const userReducer = (state = userReducerDefaultState, action) => {
                 ...state,
                 following: [...state.following, action.followingID]
             }
+        case 'REMOVE_FOLLOWING': 
+            return {
+                ...state,
+                following: state.following.filter((follow) => follow !== action.followingID)
+            }
         case 'SET_FOLLOWING':
             return {
                 ...state,
                 following: action.followingIDs
+            }
+        case 'ADD_FOLLOWER':
+            return {
+                ...state,
+                followers: [...state.followers, action.followerID]
+            }
+        case 'REMOVE_FOLLOWER': 
+            return {
+                ...state,
+                followers: state.followers.filter((follow) => follow !== action.followerID)
+            }
+        case 'SET_FOLLOWERS':
+            return {
+                ...state,
+                followers: action.followerIDs
             }
         case 'ADD_ANSWERED':
             return {

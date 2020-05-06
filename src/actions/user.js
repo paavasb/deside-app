@@ -147,6 +147,7 @@ export const startRemoveUserQuestion = (userDispatch, userID, questionRefID) => 
             if(childSnapshot.val().questionRefID === questionRefID) {
                 questionStoreRefID = childSnapshot.key
                 console.log(childSnapshot.key)
+                return
             }
         })
         database.ref(`users/${userID}/questions/${questionStoreRefID}`).remove().then(() => {
@@ -184,6 +185,36 @@ export const startAddFollowing = (userDispatch, userID, followingID) => {
     })
 }
 
+export const removeFollowing = (followingID) => ({
+    type: 'REMOVE_FOLLOWING',
+    followingID
+})
+
+export const startRemoveFollowing = (userDispatch, userID, followingID) => {
+    return database.ref(`users/${userID}/following`).once('value').then((snapshot) => {
+        let followingRefID = ''
+        snapshot.forEach((childSnapshot) => {
+            if(childSnapshot.val().followingID === followingID) {
+                followingRefID = childSnapshot.key
+                return
+            }
+        })
+        database.ref(`users/${userID}/following/${followingRefID}`).remove().then(() => {
+            database.ref(`users/${followingID}/followers`).once('value').then((snapshot) => {
+                let followerRefID = ''
+                snapshot.forEach((childSnapshot) => {
+                    if(childSnapshot.val().followerID === userID) {
+                        followerRefID = childSnapshot.key
+                        return
+                    }
+                })
+                database.ref(`users/${followingID}/followers/${followerRefID}`).remove()
+            })
+            userDispatch(removeFollowing(followingID))
+        })
+    })
+}
+
 export const setFollowing = (followingIDs) => ({
     type: 'SET_FOLLOWING',
     followingIDs
@@ -198,6 +229,46 @@ export const startSetFollowing = (userDispatch, userID) => {
         userDispatch(setFollowing(followingIDs))
     })
 }
+
+export const addFollower = (followerID) => ({
+    type: 'ADD_FOLLOWER',
+    followerID
+})
+
+export const removeFollower = (followerID) => ({
+    type: 'REMOVE_FOLLOWER',
+    followerID
+})
+
+export const startRemoveFollower = (userDispatch, userID, followerID) => {
+    return database.ref(`users/${userID}/followers`).once('value').then((snapshot) => {
+        let followerRefID = ''
+        snapshot.forEach((childSnapshot) => {
+            if(childSnapshot.val().followerID === followerID) {
+                followerRefID = childSnapshot.key
+                return
+            }
+        })
+        database.ref(`users/${userID}/followers/${followerRefID}`).remove().then(() => {
+            database.ref(`users/${followerID}/following`).once('value').then((snapshot) => {
+                let followingRefID = ''
+                snapshot.forEach((childSnapshot) => {
+                    if(childSnapshot.val().followingID === userID) {
+                        followingRefID = childSnapshot.key
+                        return
+                    }
+                })
+                database.ref(`users/${followerID}/following/${followingRefID}`).remove()
+            })
+            userDispatch(removeFollower(followerID))
+        })
+    })
+}
+
+export const setFollower = (followerIDs) => ({
+    type: 'SET_FOLLOWERS',
+    followerIDs
+})
 
 export const addAnswered = (answeredQuestion) => ({
     type: 'ADD_ANSWERED',
