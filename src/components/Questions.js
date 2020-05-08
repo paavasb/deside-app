@@ -43,7 +43,7 @@ const Questions = () => {
         return () => mounted = false
     }, []) 
 
-    let visibleQuestions = getVisibleQuestions(questions, filters, answered)
+    let visibleQuestions = getVisibleQuestions(questions, filters, answered, user.following)
 
     return (
         <FiltersContext.Provider value={{filters, filtersDispatch}}> 

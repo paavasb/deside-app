@@ -18,6 +18,7 @@ const Question = (props) => {
     const [voteText, setVoteText] = useState('Vote')
     const [creatorName, setCreatorName] = useState('')
     const [followStatus, setFollowStatus] = useState('')
+    const [updating, setUpdating] = useState(false)
 
     useEffect(() => {
         let mounted = true
@@ -67,7 +68,9 @@ const Question = (props) => {
     }
 
     const addFollowingHandler = async () => {
+        setUpdating(true)
         await startAddFollowing(userDispatch, user.userID, question.creator)
+        setUpdating(false)
     }
 
     const onFollowButtonHandler = (e) => {
@@ -103,7 +106,8 @@ const Question = (props) => {
                     className="button button--follow" 
                     disabled={question.anonymous || (followStatus === 'Following')}
                 >
-                    {   question.anonymous ? 'Follow' :
+                    {   updating ? 'Updating...' :
+                        question.anonymous ? 'Follow' :
                         followStatus === 'Following' ? 
                         'Following' :
                         followStatus === 'Follower' ?

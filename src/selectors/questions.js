@@ -1,6 +1,6 @@
 import moment from 'moment'
 
-const getVisibleQuestions = (questions, {text, tag, sortBy, startDate, endDate, status}, answered) => {
+const getVisibleQuestions = (questions, {text, tag, sortBy, startDate, endDate, status}, answered, followingList) => {
     return questions.filter((question) => {
         const createdAtMoment = moment(question.createdAt)
         const startDateMatch = startDate ? startDate.isSameOrBefore(createdAtMoment, 'day') : true
@@ -11,6 +11,7 @@ const getVisibleQuestions = (questions, {text, tag, sortBy, startDate, endDate, 
         tag.forEach((oneTag) => {
             if(!qTags.includes(oneTag.toLowerCase())) {
                 tagsMatch = false
+                return
             }
         })
         let answeredMatch = true
@@ -23,7 +24,18 @@ const getVisibleQuestions = (questions, {text, tag, sortBy, startDate, endDate, 
         }
         //const tagMatch = !tag ? true : question.tags.map((tag) => tag.toLowerCase()).includes(tag.toLowerCase())
 
-        return answeredMatch && textMatch && tagsMatch && startDateMatch && endDateMatch
+        let followMatch = true
+        if(!!question.priv) {
+            followMatch = false
+            followingList.forEach((following) => {
+                if(following === question.creator) {
+                    followMatch = true
+                    return
+                }
+            })
+        }
+
+        return followMatch && answeredMatch && textMatch && tagsMatch && startDateMatch && endDateMatch
     }).sort((a, b) => {
         if(sortBy === 'date') {
             return a.createdAt < b.createdAt ? 1 : -1

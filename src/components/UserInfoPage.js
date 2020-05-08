@@ -2,7 +2,7 @@ import React, { useState, useReducer, useContext, useEffect } from 'react'
 import database from '../firebase/firebase';
 import * as firebase from 'firebase';
 import userReducer, { userReducerDefaultState } from '../reducers/user';
-import { startSetUsername, startRemoveFollowing, startRemoveFollower } from '../actions/user';
+import { startSetUsername, startRemoveFollowing, startRemoveFollower, startSetUser } from '../actions/user';
 import UserContext from '../context/user-context';
 import { getUsername, getUsernames } from '../actions/helperActions';
 
@@ -18,10 +18,10 @@ const UserInfoPage = () => {
 
     useEffect(() => {
         let mounted = true
-
         async function getFollowingUsernames() {
             //console.log('IDs: ', user.following)
             //const usernames = await getUsernames(user.following)
+            //await startSetUser(userDispatch)
             setFollowingUsernames(await getUsernames(user.following))
             // await user.following.forEach(async (followingID) => {
             //     let followingList = []
@@ -42,7 +42,7 @@ const UserInfoPage = () => {
         }
 
         if(mounted) {
-
+            //startSetUser(userDispatch)
             getFollowingUsernames()
             //console.log(followingUsernames)
             //console.log(user.following)
