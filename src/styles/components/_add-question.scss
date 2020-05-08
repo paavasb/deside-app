@@ -53,12 +53,29 @@
     }
 }
 
+.add-question__updating {
+    color: $off-white;
+    font-size: large;
+    font-weight: 300;
+    margin: 0 $m-size;
+    margin-top: $l-size;
+    opacity: .5;
+    padding: 0;
+    text-align: center;
+    //text-justify: kashida;
+    justify-content: center;
+    @media (max-width: $desktop-breakpoint) {
+        margin-top: $s-size;
+    }
+}
+
 .add-question__switches {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     margin: $m-size;
+    margin-top: 0;
     @media (max-width: $desktop-breakpoint) {
         flex-direction: column;
     }
@@ -71,6 +88,7 @@
     align-items: center;
     justify-content: center;
     padding: $s-size $m-size;
+    padding-top: 0;
     @media (max-width: $desktop-breakpoint) {
         padding: 0 $m-size;
     }

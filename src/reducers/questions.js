@@ -17,6 +17,28 @@ const questionsReducer = (state = questionsReducersDefaultState, action) => {
                     return question;
                 }
             });
+        case 'CHANGE_ANONYMOUS':
+            return state.map((question) => {
+                if(question.id === action.id) {
+                    return {
+                        ...question,
+                        anonymous: action.anonymous
+                    }
+                } else {
+                    return question;
+                }
+            });
+        case 'CHANGE_PRIVACY':
+            return state.map((question) => {
+                if(question.id === action.id) {
+                    return {
+                        ...question,
+                        priv: action.priv
+                    }
+                } else {
+                    return question;
+                }
+            })
         case 'SET_QUESTIONS':
             return action.questions;
         default:

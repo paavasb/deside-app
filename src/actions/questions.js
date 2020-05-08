@@ -111,7 +111,29 @@ export const checkVotedPromise = (question) => new Promise((resolve, reject) => 
         }, 5000)
 })
 
+export const changeAnonymous = (id, anonymous) => ({
+    type: 'CHANGE_ANONYMOUS',
+    id,
+    anonymous
+})
 
+export const startChangeAnonymous = (dispatch, refID, id, anonymous) => {
+    return database.ref(`all-questions/${refID}/anonymous`).set(anonymous).then(() => {
+        dispatch(changeAnonymous(id, anonymous))
+    })
+}
+
+export const changePrivacy = (id, priv) => ({
+    type: 'CHANGE_PRIVACY',
+    id,
+    priv
+})
+
+export const startChangePrivacy = (dispatch, refID, id, priv) => {
+    return database.ref(`all-questions/${refID}/priv`).set(priv).then(() => {
+        dispatch(changePrivacy(id, priv))
+    })
+}
 
 // StartVoteQuestion method before addVoted was added
 // export const startVoteQuestion = (dispatch, refID, id, updates) => {
