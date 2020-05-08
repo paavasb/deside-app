@@ -117,7 +117,7 @@ const QuestionsFilters = () => {
                         onDatesChange={onDatesChange}
                         focusedInput={calendarFocused}
                         onFocusChange={onFocusChange}
-                        showClearDates={true}
+                        showClearDates={!!calendarFocused}
                         numberOfMonths={1}
                         isOutsideRange={() => false}
                     />

@@ -42,7 +42,7 @@
 
 .content-container-search {
     background: fade-out($color: black, $amount: 0.75);
-    //display: flex;
+    // display: flex;
     //flex: 1;
     // align-items: center;
     // align-content: center;
@@ -53,6 +53,7 @@
     padding: $m-size;
     @media (max-width: $desktop-breakpoint) {
         margin: 0;
+        padding: $m-size $s-size;
         //display: inline-block;
         //flex-direction: column;
     }
