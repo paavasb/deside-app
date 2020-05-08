@@ -10,7 +10,7 @@
     color: $off-white;
     font-size: xx-large;
     font-weight: 500;
-    padding: $l-size $m-size;
+    padding: $m-size;
     padding-top: 0;
     margin: $m-size 0 $s-size 0;
     @media (max-width: $desktop-breakpoint) {
@@ -33,4 +33,30 @@
     color: $off-white;
     font-size: x-large;
     font-weight: 500;
+}
+
+.questions__info {
+    align-items: center;
+    align-content: center;
+    border-top: 4px outset lighten($light-blue, 10%);
+    display: flex;
+    flex-direction: row;
+    margin: $m-size 0 0 0;
+    padding: $m-size;
+    padding-bottom: $s-size;
+    justify-content: space-between;
+    @media (max-width: $desktop-breakpoint) {
+        margin: 0;
+        padding: 0 $m-size;
+        padding-top: $s-size;
+    }
+}
+
+.questions__info__text {
+    color: $off-white;
+    font-size: large;
+    font-weight: 400;
+    @media (max-width: $desktop-breakpoint) {
+        font-size: smaller;
+    }
 }

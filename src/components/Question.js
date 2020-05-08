@@ -93,11 +93,15 @@ const Question = (props) => {
                 {noTags && <p className="react-tagsinput__noTag">There are no tags for this question</p>}
                 {(!noTags) && question.tags.map((tag) => <h4 key={tag} className="react-tagsinput-tag">{tag}</h4>)}
             </div>
-            {isAnswered && <h4>{chosenOptionText}</h4>}
-            {<h4>Question Creator - {creatorName} ({question.creator})</h4>}
-            <button onClick={onFollowButtonHandler}>Follow!</button>
+            <div className="questions__info">
+                {<h4 className="questions__info__text">Question Creator: {question.anonymous ? 'Anonymous' : creatorName}</h4>}
+                <button onClick={onFollowButtonHandler} className="button button--follow" disabled={question.anonymous}>Follow!</button>
+            </div>
+            
         </div>
     )
 }
 
 export default Question
+
+//            {isAnswered && <h4>{chosenOptionText}</h4>}

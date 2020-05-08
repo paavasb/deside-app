@@ -183,6 +183,28 @@
     font-size: x-small;
 }
 
+.button--follow {
+    background: $deep-sky-blue; 
+    border-left: 2px outset darken($deep-sky-blue, 10);
+    border-bottom: 2px outset darken($deep-sky-blue, 10);
+    color: whitesmoke;
+    display: flex;
+    height: 30%;
+    font-weight: 300;
+    line-height: 1;
+    margin: $xxs-size;
+    padding: $xs-size $m-size;
+    @media (max-width: $desktop-breakpoint) {
+        font-size: x-small;
+        padding: $xxs-size $m-size;
+        margin: 0;
+    }
+}
+
+.button--follow:disabled {
+    opacity: .3;
+}
+
 .big-button {
     background: rgb(0, 174, 255);
     border: none;
