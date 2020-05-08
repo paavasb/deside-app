@@ -4,7 +4,7 @@ import QuestionsContext from '../context/questions-context'
 import { startVoteQuestion, addVoted, checkVoted } from '../actions/questions'
 import AnsweredContext from '../context/answered-context'
 import UserContext from '../context/user-context'
-import { getUsername } from '../actions/helperActions'
+import { getUsername, checkFollow } from '../actions/helperActions'
 import { startAddFollowing } from '../actions/user'
 
 const Question = (props) => {
@@ -17,6 +17,7 @@ const Question = (props) => {
     const [chosenOption, setChosenOption] = useState('')
     const [voteText, setVoteText] = useState('Vote')
     const [creatorName, setCreatorName] = useState('')
+    const [followStatus, setFollowStatus] = useState('')
 
     useEffect(() => {
         let mounted = true
@@ -25,6 +26,8 @@ const Question = (props) => {
             setChosenOption(chosenOptionText)
             setIsAnswered(!!chosenOptionText)
             setShowVotes(!!chosenOptionText)
+            const newFollowStatus = checkFollow(user.following, user.followers, question.creator)
+            setFollowStatus(newFollowStatus)
             if(!!chosenOptionText) {
                 setVoteText('Voted')
             }
@@ -95,7 +98,19 @@ const Question = (props) => {
             </div>
             <div className="questions__info">
                 {<h4 className="questions__info__text">Question Creator: {question.anonymous ? 'Anonymous' : creatorName}</h4>}
-                <button onClick={onFollowButtonHandler} className="button button--follow" disabled={question.anonymous}>Follow!</button>
+                <button 
+                    onClick={onFollowButtonHandler} 
+                    className="button button--follow" 
+                    disabled={question.anonymous || (followStatus === 'Following')}
+                >
+                    {   question.anonymous ? 'Follow' :
+                        followStatus === 'Following' ? 
+                        'Following' :
+                        followStatus === 'Follower' ?
+                        'Follow Back' :
+                        'Follow'
+                    }
+                </button>
             </div>
             
         </div>

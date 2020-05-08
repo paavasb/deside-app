@@ -24,6 +24,23 @@ export const getUsernames = async (userIDs) => {
     return usernames
 }
 
+export const checkFollow = (following, followers, id) => {
+    let followStatus = ''
+    following.forEach((follow) => {
+        if(follow === id) {
+            followStatus = 'Following'
+        }
+    })
+    if(!followStatus) {
+        followers.forEach((follower) => {
+            if(follower === id) {
+                followStatus = 'Follower'
+            }
+        })
+    }
+    return followStatus
+}
+
 // export const getUsernames = async (userIDs) => {
 //     let usernames = []
 //     await userIDs.forEach(async (userID) => {
