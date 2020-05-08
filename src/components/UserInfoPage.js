@@ -13,6 +13,8 @@ const UserInfoPage = () => {
     const [followingUsernames, setFollowingUsernames] = useState([])
     const [followersUsernames, setFollowersUsernames] = useState([])
     const [changeUsername, setChangeUsername] = useState(false)
+    const [showFollowing, setShowFollowing] = useState(false)
+    const [showFollowers, setShowFollowers] = useState(false)
 
     useEffect(() => {
         let mounted = true
@@ -99,20 +101,28 @@ const UserInfoPage = () => {
                     > Change Username </button>
                 }
             </form>
-            <h3>Following ({user.following.length}): </h3>
+            <h3>Following ({user.following.length})</h3>
+            <button onClick={(e) => {
+                e.preventDefault()
+                setShowFollowing(!showFollowing)}}>{showFollowing ? 'Hide Following' : 'Show Following'}</button>
             {
-                followingUsernames.map((followingUsername, index) => {
-                    return (
-                        <div key={followingUsername}>
-                        <p>{followingUsername}</p>
-                        <button onClick={() => unFollowHandler(user.following[index])}>Unfollow</button> 
-                        </div>
-                        
-                    )
-                })
+                showFollowing &&
+                    followingUsernames.map((followingUsername, index) => {
+                        return (
+                            <div key={followingUsername}>
+                            <p>{followingUsername}</p>
+                            <button onClick={() => unFollowHandler(user.following[index])}>Unfollow</button> 
+                            </div>
+                            
+                        )
+                    })
             }
-            <h3>Followers ({user.followers.length}): </h3>
+            <h3>Followers ({user.followers.length})</h3>
+            <button onClick={(e) => {
+                e.preventDefault()
+                setShowFollowers(!showFollowers)}}>{showFollowers ? 'Hide Followers' : 'Show Followers'}</button>
             {
+                showFollowers &&
                 followersUsernames.map((followerUsername, index) => {
                     return (
                         <div key={followerUsername}>
