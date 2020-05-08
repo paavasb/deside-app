@@ -52,3 +52,63 @@
         font-size: large;
     }
 }
+
+.add-question__switches {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: $m-size;
+    @media (max-width: $desktop-breakpoint) {
+        flex-direction: column;
+    }
+}
+
+.add-question__switch {
+    display: flex;
+    flex-direction: column;
+    //flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: $s-size $m-size;
+    @media (max-width: $desktop-breakpoint) {
+        padding: 0 $m-size;
+    }
+}
+
+.add-question__options {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.add-question__switch__text {
+    color: $off-white;
+    font-size: $m-size;
+    font-weight: 300;
+    margin: $s-size $m-size;
+    opacity: .5;
+}
+
+.add-question__switch__text--chosen {
+    color: $off-white;
+    font-weight: 500;
+    opacity: 1;
+}
+
+.add-question__switch__text--prompt {
+    border-bottom: 2px solid darken($off-white, 10);
+    color: darken($color: $off-white, $amount: 5);
+    font-size: large;
+    font-weight: 500;
+    padding: $s-size 0;
+    text-align: center;
+    //margin-left: $m-size;
+    //margin-right: 0;
+    opacity: 1;
+    width: 30vw;
+    @media (max-width: $desktop-breakpoint) {
+        margin: 0 $m-size;
+        width: 80vw;
+    }
+}

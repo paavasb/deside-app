@@ -10,6 +10,7 @@ import questionsReducer from '../reducers/questions';
 import * as firebase from 'firebase';
 import uuid from  'uuid';
 import UserContext from '../context/user-context';
+import Switch from "react-switch";
 
 const AddQuestion = () => {
     const { questions, dispatch } = useContext(QuestionsContext)
@@ -21,6 +22,8 @@ const AddQuestion = () => {
     const [createdAt, setCreatedAt] = useState(0);
     const [newOption, setNewOption] = useState('');
     const [error, setError] = useState('');
+    const [anonymous, setAnonymous] = useState(false);
+    const [priv, setPriv] = useState(false);
 
     const handleDeleteOptions = (e) => {
         e.preventDefault();
@@ -40,6 +43,8 @@ const AddQuestion = () => {
             tags: tags.length === 0 ? defaultTags : tags,
             createdAt: moment().format(),
             creator: firebase.auth().currentUser.uid,
+            anonymous,
+            priv,
             id: uuid()
         }
         startAddQuestion(dispatch, question, userDispatch, user.userID);
@@ -75,6 +80,15 @@ const AddQuestion = () => {
         setTitle(e.target.value); 
     }
 
+    const onAnonymousChange = (anon) => {
+        setAnonymous(anon)
+        console.log(anon)
+    }
+    const onPrivateChange = (pri) => {
+        setPriv(pri)
+        console.log(pri)
+    }
+
     return (
         <div className="content-container">
             <div className="add-question">
@@ -87,6 +101,42 @@ const AddQuestion = () => {
                         value={tags} onlyUnique={true} 
                         onChange={(tags) => setTags(tags)}
                     />
+                    <div className="add-question__switches">
+                        <div className="add-question__switch">
+                            <p className=" add-question__switch__text add-question__switch__text--prompt">Post As</p>
+                            <div className="add-question__options">
+                                <p className={anonymous ? "add-question__switch__text" : "add-question__switch__text add-question__switch__text--chosen"}>{user.username}</p>
+                                <Switch 
+                                    checked={anonymous} 
+                                    onChange={onAnonymousChange}
+                                    offColor='#282b36'
+                                    onColor='#282b36'
+                                    onHandleColor='#a5afd7'
+                                    offHandleColor='#a5afd7'
+                                    checkedIcon={false}
+                                    uncheckedIcon={false}
+                                />
+                                <p className={!anonymous ? "add-question__switch__text" : "add-question__switch__text add-question__switch__text--chosen"}>Anonymous</p>    
+                            </div>
+                        </div>
+                        <div className="add-question__switch">
+                            <p className="add-question__switch__text add-question__switch__text--prompt">Visibility</p>
+                            <div className="add-question__options">
+                                <p className={priv ? "add-question__switch__text" : "add-question__switch__text add-question__switch__text--chosen"}>Public</p>
+                                <Switch 
+                                    checked={priv} 
+                                    onChange={onPrivateChange}
+                                    offColor='#282b36'
+                                    onColor='#282b36'
+                                    onHandleColor='#a5afd7'
+                                    offHandleColor='#a5afd7'
+                                    checkedIcon={false}
+                                    uncheckedIcon={false}
+                                />
+                                <p className={!priv ? "add-question__switch__text" : "add-question__switch__text add-question__switch__text--chosen"}>Private</p>    
+                            </div>   
+                        </div>
+                    </div>     
                     <button 
                         className="big-button"
                         disabled={!(title.length > 0 && options.length > 1)}

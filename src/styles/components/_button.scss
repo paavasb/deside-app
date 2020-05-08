@@ -112,10 +112,18 @@
     font-weight: 200;
     border: 2px outset darken($off-black, 2.5);
     color: $off-white;
+    margin: $m-size;
     padding: $s-size;
     @media (max-width: $desktop-breakpoint) {
         margin-top: $s-size;
+        //margin-left: 0;
+        margin-right: $s-size;
     }
+}
+
+.button--logout:hover{
+    color:lightness($color: $off-white);
+    font-weight: 400;
 }
 
 .button--secondary {
@@ -143,8 +151,12 @@
 .button--removeAll {
     font-size: medium;
     //margin-left: $m-size;
-    padding: 0 $s-size;
+    padding: $s-size;
     margin: $m-size 0;
+    @media (max-width: $desktop-breakpoint) {
+        font-size: smaller;
+        padding: $xxs-size $s-size;
+    }
 }
 
 .button--deleteQuestion {
@@ -181,7 +193,7 @@
     font-weight: 500;
     font-size: $l-size;
     margin-bottom: $xl-size;
-    margin-top: $m-size;
+    //margin-top: $m-size;
     padding: 2.4rem;
     width: 100%;
 }
