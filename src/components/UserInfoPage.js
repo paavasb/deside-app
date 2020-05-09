@@ -5,11 +5,14 @@ import userReducer, { userReducerDefaultState } from '../reducers/user';
 import { startSetUsername, startRemoveFollowing, startRemoveFollower, startSetUser, startAddFollowing } from '../actions/user';
 import UserContext from '../context/user-context';
 import { getUsername, getUsernames, checkFollow, checkFollowingBack } from '../actions/helperActions';
+import userlistReducer, { userlistDefaultState } from '../reducers/userlist';
+import { startSetUserlist } from '../actions/userlist';
 
 //TODO: Style User Info Page
 //TODO: Search Users
 const UserInfoPage = () => {
     const { user, userDispatch } = useContext(UserContext)
+    const [userlist, userlistDispatch] = useReducer(userlistReducer, userlistDefaultState)
     //const [user, userDispatch] = useReducer(userReducer, userReducerDefaultState)
     const [name, setName] = useState(user.username || "")
     const [followingUsernames, setFollowingUsernames] = useState([])
@@ -41,6 +44,7 @@ const UserInfoPage = () => {
             })
             //console.log(fUsernames)
             //setFollowingUsernames(fUsernames)
+            await startSetUserlist(userDispatch)
         }
 
         if(mounted) {
