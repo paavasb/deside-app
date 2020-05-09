@@ -1,57 +1,45 @@
 import React, { useState, useReducer, useContext, useEffect } from 'react'
-import database from '../firebase/firebase';
-import * as firebase from 'firebase';
+import database from '../firebase/firebase'
+import * as firebase from 'firebase'
+import ReactSearchBox from 'react-search-box'
 import userReducer, { userReducerDefaultState } from '../reducers/user';
 import { startSetUsername, startRemoveFollowing, startRemoveFollower, startSetUser, startAddFollowing } from '../actions/user';
 import UserContext from '../context/user-context';
-import { getUsername, getUsernames, checkFollow, checkFollowingBack } from '../actions/helperActions';
+import { getUsername, getUsernames, checkFollow, checkFollowingBack, checkFollowFollowingStatus } from '../actions/helperActions';
 import userlistReducer, { userlistDefaultState } from '../reducers/userlist';
 import { startSetUserlist } from '../actions/userlist';
+import UserListContext from '../context/userlist-context';
 
 //TODO: Style User Info Page
 //TODO: Search Users
 const UserInfoPage = () => {
-    const { user, userDispatch } = useContext(UserContext)
-    const [userlist, userlistDispatch] = useReducer(userlistReducer, userlistDefaultState)
-    //const [user, userDispatch] = useReducer(userReducer, userReducerDefaultState)
-    const [name, setName] = useState(user.username || "")
-    const [followingUsernames, setFollowingUsernames] = useState([])
-    const [followersUsernames, setFollowersUsernames] = useState([])
-    const [changeUsername, setChangeUsername] = useState(false)
-    const [showFollowing, setShowFollowing] = useState(false)
-    const [showFollowers, setShowFollowers] = useState(false)
+    const { user, userDispatch } = useContext(UserContext)  //Current User
+    const [userlist, userlistDispatch] = useReducer(userlistReducer, userlistDefaultState)  //List of users and usernames
+    const [name, setName] = useState(user.username || "")   //Current username
+    const [followingUsernames, setFollowingUsernames] = useState([])    //List of followings (current user)
+    const [followersUsernames, setFollowersUsernames] = useState([])    //List of followers (current user)
+    const [changeUsername, setChangeUsername] = useState(false) //Username change option status
+    const [showFollowing, setShowFollowing] = useState(false)   //Following display option status
+    const [showFollowers, setShowFollowers] = useState(false)   //Followers display option status
+    const [showSearch, setShowSearch] = useState(false) //Search functionality display status
+    const [showUserListData, setShowUserListData] = useState(false) //
+    const [selectedUser, setSelectedUser] = useState({})    //User selected from search
+    const [showSelectedUser, setShowSelectedUser] = useState(false) //Show details for selected user status
 
     useEffect(() => {
         let mounted = true
         async function getFollowingUsernames() {
-            //console.log('IDs: ', user.following)
-            //const usernames = await getUsernames(user.following)
-            //await startSetUser(userDispatch)
             setFollowingUsernames(await getUsernames(user.following))
-            // await user.following.forEach(async (followingID) => {
-            //     let followingList = []
-            //     const username = await getUsername(followingID)
-            //     followingList.push(username)
-            //     //console.log('Username: ', username)
-            //     console.log(followingUsernames)
-            //     setFollowingUsernames(followingList)
-            // })
         
             await user.followers.forEach(async (followerID) => {
-                // const username = await getUsername(followerID)
-                // setFollowersUsernames([...followersUsernames, username])
                 setFollowersUsernames(await getUsernames(user.followers))
             })
-            //console.log(fUsernames)
-            //setFollowingUsernames(fUsernames)
-            await startSetUserlist(userDispatch)
+
+            await startSetUserlist(userlistDispatch)
         }
 
         if(mounted) {
-            //startSetUser(userDispatch)
             getFollowingUsernames()
-            //console.log(followingUsernames)
-            //console.log(user.following)
         }
         return () => mounted = false
     }, [])
@@ -69,7 +57,7 @@ const UserInfoPage = () => {
 
     const unFollowHandler = (followingID) => {
         async function unFollowHandlerAsync() {
-            console.log(followingID)
+            //console.log(followingID)
             startRemoveFollowing(userDispatch, user.userID, followingID)
         }
 
@@ -78,7 +66,7 @@ const UserInfoPage = () => {
 
     const unFollowerHandler = (followerID) => {
         async function unFollowerHandlerAsync() {
-            console.log(followerID)
+            //console.log(followerID)
             await startRemoveFollower(userDispatch, user.userID, followerID)
         }
 
@@ -87,15 +75,74 @@ const UserInfoPage = () => {
 
     const followBackHandler = (followerID) => {
         async function followBackHandlerAsync() {
-            console.log(followerID)
+            //console.log(followerID)
             await startAddFollowing(userDispatch, user.userID, followerID)
         }
 
         followBackHandlerAsync()
     }
 
+    const searchOnSelect = (selected) => {
+        async function searchOnSelectAsync() {
+            console.log(selected)
+            const userID = selected.key
+            const username = selected.value
+            const followStatus = checkFollowFollowingStatus(user.following, user.followers, userID)
+            setSelectedUser({
+                userID,
+                username,
+                followStatus
+            }) 
+            console.log(selectedUser)
+            setShowSelectedUser(true)
+        }
+
+        searchOnSelectAsync()
+    }
+
     return (
-        <div>
+        
+        <div className="content-container">
+            <div>
+                {<ReactSearchBox
+                    placeholder="Search for users"
+                    value=""
+                    data={userlist}
+                    callback={record => console.log(record)}
+                    dropDownHoverColor='#ADD8E6'
+                    onSelect={searchOnSelect}
+                />}
+                {
+                    showSelectedUser &&
+                    (
+                        <div>
+                            <p>{selectedUser.username}</p>
+                            {
+                                selectedUser.followStatus.followingStatus ?
+                                <p>Following</p> :
+                                <p>Not Following</p>
+                            }
+                            {
+                                selectedUser.followStatus.followerStatus ?
+                                <p>Following You</p> :
+                                <p>Not Following You</p>
+                            }
+                            {
+                                selectedUser.followStatus.followingStatus ?
+                                <button onClick={() => unFollowHandler(selectedUser.userID)}>Unfollow</button> :
+                                selectedUser.followStatus.followerStatus ?
+                                <button onClick={() => followBackHandler(selectedUser.userID)}>Follow Back</button> :
+                                <button onClick={() => followBackHandler(selectedUser.userID)}>Follow</button>
+                            }
+                            {
+                                selectedUser.followStatus.followerStatus &&
+                                <button onClick={() => unFollowerHandler(selectedUser.userID)}>Remove Follower</button>
+                            }
+                            <button onClick={() => setShowSelectedUser(false)}>Cancel</button>
+                        </div>
+                    )
+                }
+            </div>
             <p>Hi</p>
             <p>{firebase.auth().currentUser.displayName}</p>
             <h3>Username: {user.username}</h3>
@@ -153,6 +200,7 @@ const UserInfoPage = () => {
                 })
             }
         </div>
+
     )
 }
 

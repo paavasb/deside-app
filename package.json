@@ -43,6 +43,7 @@
     "react-modal": "2.2.2",
     "react-redux": "5.0.5",
     "react-router-dom": "^5.1.2",
+    "react-search-box": "^2.0.2",
     "react-switch": "^5.0.1",
     "react-tagsinput": "^3.19.0",
     "redux": "3.7.2",

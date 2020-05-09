@@ -11,11 +11,12 @@ export const startSetUserlist = (userlistDispatch) => {
         const userlist = []
         snapshot.forEach((childSnapshot) => {
             userlist.push({
-                userID: childSnapshot.key,
-                username: childSnapshot.val()
+                key: childSnapshot.key,
+                value: childSnapshot.val()
             })
         })
-        userlistDispatch(userlist)
-        console.log(userlist)
+        userlistDispatch(setUserlist(userlist))
+        console.log('Inside' , userlist)
+        return userlist
     })
 }

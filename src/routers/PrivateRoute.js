@@ -5,6 +5,9 @@ import Header from '../components/Header';
 import userReducer, { userReducerDefaultState } from '../reducers/user';
 import { startSetUser } from '../actions/user';
 import UserContext from '../context/user-context';
+import userlistReducer, { userlistDefaultState } from '../reducers/userlist';
+import UserListContext from '../context/userlist-context';
+import { startSetUserlist } from '../actions/userlist';
 
 export const PrivateRoute = ({ 
     isAuthenticated, 
@@ -12,7 +15,7 @@ export const PrivateRoute = ({
     ...rest
  }) => {
     const [user, userDispatch] = useReducer(userReducer, userReducerDefaultState)
-    
+ 
     useEffect(() => {
         console.log('Private Route UseEffect')
         startSetUser(userDispatch)

@@ -52,6 +52,24 @@ export const checkFollowingBack = (following, id) => {
     return followingBack
 }
 
+export const checkFollowFollowingStatus = (following, followers, id) => {
+    let followingStatus = false
+    let followerStatus = false
+    following.forEach((follow) => {
+        if(follow === id) {
+            followingStatus = true
+            return
+        }
+    })
+    followers.forEach((follower) => {
+        if(follower === id) {
+            followerStatus = false
+            return
+        }
+    })
+    return { followingStatus, followerStatus } 
+}
+
 // export const getUsernames = async (userIDs) => {
 //     let usernames = []
 //     await userIDs.forEach(async (userID) => {

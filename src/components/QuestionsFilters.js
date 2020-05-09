@@ -4,6 +4,7 @@ import { DateRangePicker } from 'react-dates'
 import { setTextFilter, sortByDate, sortByVotes, setStartDate, setEndDate, setTagFilter, statusAll, statusAnswered, statusUnanswered } from '../actions/filters'
 import FiltersContext from '../context/filters-context'
 
+//TODO: Implement Autocomplete search for text filters
 const QuestionsFilters = () => {
     const { filters, filtersDispatch } = useContext(FiltersContext)
     const [calendarFocused, setCalendarFocused] = useState()
