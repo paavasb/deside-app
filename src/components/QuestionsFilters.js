@@ -108,8 +108,8 @@ const QuestionsFilters = () => {
                         value={filters.sortBy}
                         onChange={onSortChange}
                     >
-                        <option value="date">Date</option>
-                        <option value="votes">Votes</option>
+                        <option value="date">Order by: Date</option>
+                        <option value="votes">Order by: Votes</option>
                     </select>
                     <DateRangePicker 
                         startDate={filters.startDate}

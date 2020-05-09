@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     padding: $m-size;
+    padding-top: 0;
 }
 
 .add-question__input {
@@ -29,10 +30,13 @@
 }
 
 .add-question__text {
+    border-bottom: 4px inset lighten($light-blue, 10%);
     color: $off-white;
     font-size: xx-large;
-    text-align: center;
     font-weight: 700;
+    margin-top: 0;
+    padding-bottom: $m-size;
+    text-align: center;
     @media (max-width: $desktop-breakpoint) {
         font-size: x-large;
     }

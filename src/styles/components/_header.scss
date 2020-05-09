@@ -2,9 +2,12 @@
     background: $off-black;
     color: white;
     display: flex;
-    margin-bottom: $xl-size;
+    margin-bottom: $m-size;
     padding: $m-size 0;
     align-items: center;
+    @media (max-width: $desktop-breakpoint) {
+        margin-bottom: $s-size;
+    }
 }
 
 .header__content {

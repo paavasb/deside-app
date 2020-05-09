@@ -1,5 +1,6 @@
 import moment from 'moment'
 
+//TODO: Optimize this method
 const getVisibleQuestions = (questions, {text, tag, sortBy, startDate, endDate, status}, answered, followingList) => {
     return questions.filter((question) => {
         const createdAtMoment = moment(question.createdAt)

@@ -2,10 +2,12 @@ import React, { useState, useReducer, useContext, useEffect } from 'react'
 import database from '../firebase/firebase';
 import * as firebase from 'firebase';
 import userReducer, { userReducerDefaultState } from '../reducers/user';
-import { startSetUsername, startRemoveFollowing, startRemoveFollower, startSetUser } from '../actions/user';
+import { startSetUsername, startRemoveFollowing, startRemoveFollower, startSetUser, startAddFollowing } from '../actions/user';
 import UserContext from '../context/user-context';
-import { getUsername, getUsernames } from '../actions/helperActions';
+import { getUsername, getUsernames, checkFollow, checkFollowingBack } from '../actions/helperActions';
 
+//TODO: Style User Info Page
+//TODO: Search Users
 const UserInfoPage = () => {
     const { user, userDispatch } = useContext(UserContext)
     //const [user, userDispatch] = useReducer(userReducer, userReducerDefaultState)
@@ -73,10 +75,19 @@ const UserInfoPage = () => {
     const unFollowerHandler = (followerID) => {
         async function unFollowerHandlerAsync() {
             console.log(followerID)
-            startRemoveFollower(userDispatch, user.userID, followerID)
+            await startRemoveFollower(userDispatch, user.userID, followerID)
         }
 
         unFollowerHandlerAsync()
+    }
+
+    const followBackHandler = (followerID) => {
+        async function followBackHandlerAsync() {
+            console.log(followerID)
+            await startAddFollowing(userDispatch, user.userID, followerID)
+        }
+
+        followBackHandlerAsync()
     }
 
     return (
@@ -124,10 +135,15 @@ const UserInfoPage = () => {
             {
                 showFollowers &&
                 followersUsernames.map((followerUsername, index) => {
+                    const followingBack = checkFollowingBack(user.following, user.followers[index])
                     return (
                         <div key={followerUsername}>
                             <p>{followerUsername}</p>
-                            <button onClick={() => unFollowerHandler(user.followers[index])}>Remove Follower</button> 
+                            <button onClick={() => unFollowerHandler(user.followers[index])}>Remove Follower</button>
+                            {   followingBack ? 
+                                <p>Following Back</p> :
+                                <button onClick={() => followBackHandler(user.followers[index])}>Follow Back</button>
+                            }
                         </div>
                     )
                 })

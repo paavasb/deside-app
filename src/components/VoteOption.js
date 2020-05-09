@@ -2,6 +2,7 @@ import React from 'react'
 import ProgressBar from 'react-bootstrap/ProgressBar'
 //import 'bootstrap/dist/css/bootstrap.min.css';
 
+//TODO: Make voting faster
 const VoteOption = (props) => {
 
     const textClassSelector = () => {
