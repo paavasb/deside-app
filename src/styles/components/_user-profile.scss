@@ -1,0 +1,106 @@
+.user-profile {
+    display: flex;
+    flex-direction: column;
+    margin: $m-size;
+    padding: $s-size;
+    margin-top: $s-size;
+    padding-top: 0;
+}
+
+.user-profile__greeting {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 4px inset lighten($light-blue, 10%);
+}
+
+.user-profile__greeting__text {
+    color: $off-white;
+    font-size: x-large;
+    font-weight: 500;
+}
+.user-profile__greeting__username {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
+
+.user-profile__greeting__username__text {
+    color: $off-white;
+    display: flex;
+    flex-direction: row;
+    font-size: large;
+    font-weight: 500;
+}
+
+.user-profile__greeting__username__input {
+    background: darken($color: $dark-blue, $amount: 5);
+    border: none;
+    border-radius: 5px;
+    //border: .3rem solid darken($dark-blue, 10%);
+    border-bottom: .3rem solid darken($dark-blue, 10%);
+    color: $off-white;
+    //display: flex;
+    //flex-grow: 1;
+    font-size: small;
+    font-weight: 400;
+    //margin: $m-size;
+    padding: $xs-size $s-size;
+    //width: 97%;
+    // min-width: 78vw;
+    // max-width: 90vw;
+    //height: 20vh;
+    @media (max-width: $desktop-breakpoint) {
+        //margin: $s-size;
+        //padding: $m-size $s-size;
+        //width: 93%;
+      }
+}
+
+.user-profile__search {
+    border-bottom: 4px inset lighten($light-blue, 10%);
+    justify-content: center;
+    margin: $l-size 0;
+    margin-top: 0;
+    padding: $m-size 0;
+}
+
+.user-profile__search__user {
+    align-items: center;
+    border: 2px outset $off-black;
+    //border-right: 2px outset darken($off-black, 1.5);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0;
+    margin-top: $s-size;
+    padding: $s-size $m-size;
+}
+
+.user-profile__search__user__name {
+    color: $off-white;
+    font-size: x-large;
+    font-weight: 400;
+    //margin-left: $m-size;
+}
+
+.user-profile__search__user__following {
+    color: $deep-sky-blue;
+    font-size: medium;
+    font-weight: 300;
+}
+
+.user-profile__search__user__not-following {
+    color: grey;
+    font-size: medium;
+    font-weight: 300;
+}
+
+.user-profile__follow {
+    align-items: center;
+    //border-top: 4px solid lighten($light-blue, 10%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

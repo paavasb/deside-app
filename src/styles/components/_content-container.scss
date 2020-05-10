@@ -58,3 +58,8 @@
         //flex-direction: column;
     }
 }
+
+.content-container--user {
+    background: fade-out($color: black, $amount: 0.9);
+    margin-bottom: $xl-size;
+}

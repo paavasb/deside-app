@@ -208,6 +208,56 @@
     opacity: .3;
 }
 
+.button--set-username {
+    background: $deep-sky-blue;
+    border: none;
+    border-left: 1px outset darken($color: $deep-sky-blue, $amount: 50);
+    border-bottom: 1px outset darken($color: $deep-sky-blue, $amount: 50);
+    color: black;
+    font-size: x-small;
+    font-weight: 400;
+    margin-left: $s-size;
+    padding: $xxs-size;
+}
+
+.button--username-cancel {
+    background: lightgrey;
+    border: none;
+    border-left: 1px outset darken($color: $deep-sky-blue, $amount: 50);
+    border-bottom: 1px outset darken($color: $deep-sky-blue, $amount: 50);
+    color: black;
+    font-size: x-small;
+    font-weight: 400;
+    margin-left: $s-size;
+    padding: $xxs-size;
+}
+
+.button--search-follow {
+    background: $deep-sky-blue;
+    border: none;
+    border-left: 1px outset darken($color: $deep-sky-blue, $amount: 50);
+    border-bottom: 1px outset darken($color: $deep-sky-blue, $amount: 50);
+    color: black;
+    font-size: small;
+    font-weight: 300;
+    margin-left: $s-size;
+    padding: $xxs-size $xs-size;
+    min-width: 6vw;
+}
+
+.button--search-cancel {
+    background: lightgrey;
+    border: none;
+    border-left: 1px outset darken($color: $deep-sky-blue, $amount: 50);
+    border-bottom: 1px outset darken($color: $deep-sky-blue, $amount: 50);
+    color: black;
+    font-size: small;
+    font-weight: 300;
+    margin-left: $s-size;
+    padding: $xxs-size $xs-size;
+    min-width: 6vw;
+}
+
 .big-button {
     background: rgb(0, 174, 255);
     border: none;

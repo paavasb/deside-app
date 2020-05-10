@@ -8,7 +8,7 @@ export const Header = ({ startLogout }) => {
         <header className="header">
             <div className="content-container-header">
                 <div className="header__content">
-                    <img className="header__img" src="images/logo.png" />
+                    <img className="header__img" src="../images/logo.png" />
                     <NavLink className="button button--link" to="/add" activeClassName="button button--link-active">
                         <p>Add a Question</p>
                     </NavLink>

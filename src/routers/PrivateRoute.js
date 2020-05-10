@@ -8,6 +8,10 @@ import UserContext from '../context/user-context';
 import userlistReducer, { userlistDefaultState } from '../reducers/userlist';
 import UserListContext from '../context/userlist-context';
 import { startSetUserlist } from '../actions/userlist';
+import filtersReducers, { filtersReducersDefaultState } from '../reducers/filters';
+import FiltersContext from '../context/filters-context';
+import otheruserReducer, { otherUserDefaultState } from '../reducers/otheruser';
+import OtherUserContext from '../context/otheruser-context';
 
 export const PrivateRoute = ({ 
     isAuthenticated, 
@@ -15,6 +19,8 @@ export const PrivateRoute = ({
     ...rest
  }) => {
     const [user, userDispatch] = useReducer(userReducer, userReducerDefaultState)
+    const [filters, filtersDispatch] = useReducer(filtersReducers, filtersReducersDefaultState)
+    const [otheruser, otheruserDispatch] = useReducer(otheruserReducer, otherUserDefaultState)
  
     useEffect(() => {
         console.log('Private Route UseEffect')
@@ -24,10 +30,14 @@ export const PrivateRoute = ({
         <Route {...rest} component={(props) => (
             isAuthenticated ? (
                 <UserContext.Provider value={{user, userDispatch}}>
+                <FiltersContext.Provider value={{filters, filtersDispatch}}>
+                <OtherUserContext.Provider value={{otheruser, otheruserDispatch}}>
                     <div>
                         <Header />
                         <Component {...props}/>
                     </div>
+                </OtherUserContext.Provider>
+                </FiltersContext.Provider>
                 </UserContext.Provider>
             ) : (
                 <Redirect to="/" />

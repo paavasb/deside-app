@@ -2,13 +2,17 @@ import React, { useState, useReducer, useContext, useEffect } from 'react'
 import database from '../firebase/firebase'
 import * as firebase from 'firebase'
 import ReactSearchBox from 'react-search-box'
-import userReducer, { userReducerDefaultState } from '../reducers/user';
-import { startSetUsername, startRemoveFollowing, startRemoveFollower, startSetUser, startAddFollowing } from '../actions/user';
-import UserContext from '../context/user-context';
-import { getUsername, getUsernames, checkFollow, checkFollowingBack, checkFollowFollowingStatus } from '../actions/helperActions';
-import userlistReducer, { userlistDefaultState } from '../reducers/userlist';
-import { startSetUserlist } from '../actions/userlist';
-import UserListContext from '../context/userlist-context';
+import userReducer, { userReducerDefaultState } from '../reducers/user'
+import { startSetUsername, startRemoveFollowing, startRemoveFollower, startSetUser, startAddFollowing } from '../actions/user'
+import UserContext from '../context/user-context'
+import OtherUserContext from '../context/otheruser-context'
+import { getUsername, getUsernames, checkFollow, checkFollowingBack, checkFollowFollowingStatus } from '../actions/helperActions'
+import userlistReducer, { userlistDefaultState } from '../reducers/userlist'
+import { startSetUserlist } from '../actions/userlist'
+import UserListContext from '../context/userlist-context'
+import { history } from '../routers/AppRouter'
+import otheruserReducer, { otherUserDefaultState } from '../reducers/otheruser'
+import { startSetOtheruser } from '../actions/otheruser'
 
 //TODO: Style User Info Page
 //TODO: Search Users
@@ -25,10 +29,13 @@ const UserInfoPage = () => {
     const [showUserListData, setShowUserListData] = useState(false) //
     const [selectedUser, setSelectedUser] = useState({})    //User selected from search
     const [showSelectedUser, setShowSelectedUser] = useState(false) //Show details for selected user status
+    //const [otheruser, otheruserDispatch] = useReducer(otheruserReducer, otherUserDefaultState) 
+    //const {otheruser, otheruserDispatch} = useContext(OtherUserContext) //other user found using search
 
     useEffect(() => {
         let mounted = true
         async function getFollowingUsernames() {
+            console.log('USERINFO USEFFECT')
             setFollowingUsernames(await getUsernames(user.following))
         
             await user.followers.forEach(async (followerID) => {
@@ -58,7 +65,7 @@ const UserInfoPage = () => {
     const unFollowHandler = (followingID) => {
         async function unFollowHandlerAsync() {
             //console.log(followingID)
-            startRemoveFollowing(userDispatch, user.userID, followingID)
+            await startRemoveFollowing(userDispatch, user.userID, followingID)
         }
 
         unFollowHandlerAsync()
@@ -93,8 +100,12 @@ const UserInfoPage = () => {
                 username,
                 followStatus
             }) 
-            console.log(selectedUser)
+            // const otheruserValue = { userID, username, followStatus}
+            // console.log('Other User', otheruserValue)
+            // startSetOtheruser(otheruserValue, otheruserDispatch)
+            // console.log('Selected User', selectedUser)
             setShowSelectedUser(true)
+            //history.push(`/otheruser/${userID}`)
         }
 
         searchOnSelectAsync()
@@ -102,103 +113,125 @@ const UserInfoPage = () => {
 
     return (
         
-        <div className="content-container">
-            <div>
-                {<ReactSearchBox
-                    placeholder="Search for users"
-                    value=""
-                    data={userlist}
-                    callback={record => console.log(record)}
-                    dropDownHoverColor='#ADD8E6'
-                    onSelect={searchOnSelect}
-                />}
-                {
-                    showSelectedUser &&
-                    (
-                        <div>
-                            <p>{selectedUser.username}</p>
+        <div className="content-container content-container--user">
+            <div className="user-profile">
+                <div className="user-profile__greeting">
+                    <p className="user-profile__greeting__text">Hi, {firebase.auth().currentUser.displayName}!</p>
+                    <div className="user-profile__greeting__username">
+                        <h3 className="user-profile__greeting__username__text">{!changeUsername && `Username: ${user.username}`}</h3>
+                        <form onSubmit={onSubmitHandler}>
                             {
-                                selectedUser.followStatus.followingStatus ?
-                                <p>Following</p> :
-                                <p>Not Following</p>
+                                changeUsername ?
+                                <div>
+                                    <input 
+                                        className="user-profile__greeting__username__input"
+                                        type="text" value={name} onChange={(e) => setName(e.target.value)}
+                                    />
+                                    <button className="button button--set-username">Set Username</button>
+                                    <button
+                                        className="button button--username-cancel" 
+                                        onClick={(e) => {
+                                        e.preventDefault()
+                                        setChangeUsername(false)}}
+                                    >Cancel</button>
+                                </div> :
+                                <button 
+                                    className="button button--set-username"
+                                    onClick={(e) => {
+                                    e.preventDefault()
+                                    setChangeUsername(true)}}
+                                > Change Username </button>
                             }
-                            {
-                                selectedUser.followStatus.followerStatus ?
-                                <p>Following You</p> :
-                                <p>Not Following You</p>
-                            }
-                            {
-                                selectedUser.followStatus.followingStatus ?
-                                <button onClick={() => unFollowHandler(selectedUser.userID)}>Unfollow</button> :
-                                selectedUser.followStatus.followerStatus ?
-                                <button onClick={() => followBackHandler(selectedUser.userID)}>Follow Back</button> :
-                                <button onClick={() => followBackHandler(selectedUser.userID)}>Follow</button>
-                            }
-                            {
-                                selectedUser.followStatus.followerStatus &&
-                                <button onClick={() => unFollowerHandler(selectedUser.userID)}>Remove Follower</button>
-                            }
-                            <button onClick={() => setShowSelectedUser(false)}>Cancel</button>
-                        </div>
-                    )
-                }
-            </div>
-            <p>Hi</p>
-            <p>{firebase.auth().currentUser.displayName}</p>
-            <h3>Username: {user.username}</h3>
-            <form onSubmit={onSubmitHandler}>
-                {
-                    changeUsername ?
-                    <div>
-                        <input type="text" value={name} onChange={(e) => setName(e.target.value)}/>
-                        <button>Set Username</button>
-                        <button onClick={(e) => {
-                            e.preventDefault()
-                            setChangeUsername(false)}}
-                        >Cancel</button>
-                    </div> :
+                        </form>
+                    </div>
+                </div>
+                <div className="user-profile__search">
+                    {<ReactSearchBox
+                        placeholder="Search for users"
+                        value=""
+                        data={userlist}
+                        callback={record => console.log(record)}
+                        dropDownHoverColor='#ADD8E6'
+                        inputBoxFontSize='4'
+                        onSelect={searchOnSelect}
+                    />}
+                    {
+                        showSelectedUser &&
+                        (
+                            <div className="user-profile__search__user">
+                                <p className="user-profile__search__user__name">{selectedUser.username}</p>
+                                {
+                                    selectedUser.followStatus.followingStatus ?
+                                    <p className="user-profile__search__user__following">Following</p> :
+                                    <p className="user-profile__search__user__not-following">Not Following</p>
+                                }
+                                {
+                                    selectedUser.followStatus.followerStatus ?
+                                    <p className="user-profile__search__user__following">Follower</p> :
+                                    <p className="user-profile__search__user__not-following">Not a Follower</p>
+                                }
+                                {
+                                    selectedUser.followStatus.followingStatus ?
+                                    <button className="button button--search-follow"
+                                        onClick={() => unFollowHandler(selectedUser.userID)}>Unfollow</button> :
+                                    selectedUser.followStatus.followerStatus ?
+                                    <button className="button button--search-follow"
+                                        onClick={() => followBackHandler(selectedUser.userID)}>Follow Back</button> :
+                                    <button className="button button--search-follow"
+                                        onClick={() => followBackHandler(selectedUser.userID)}>Follow</button>
+                                }
+                                {
+                                    selectedUser.followStatus.followerStatus &&
+                                    <button className="button button--search-follow"
+                                        onClick={() => unFollowerHandler(selectedUser.userID)}>Remove Follower</button>
+                                }
+                                <button className="button button--search-cancel"
+                                    onClick={() => setShowSelectedUser(false)}>Cancel</button>
+                            </div>
+                        )
+                    }
+                </div>
+
+                <div className="user-profile__follow">
+                    <h3>Following ({user.following.length})</h3>
                     <button onClick={(e) => {
                         e.preventDefault()
-                        setChangeUsername(true)}}
-                    > Change Username </button>
-                }
-            </form>
-            <h3>Following ({user.following.length})</h3>
-            <button onClick={(e) => {
-                e.preventDefault()
-                setShowFollowing(!showFollowing)}}>{showFollowing ? 'Hide Following' : 'Show Following'}</button>
-            {
-                showFollowing &&
-                    followingUsernames.map((followingUsername, index) => {
-                        return (
-                            <div key={followingUsername}>
-                            <p>{followingUsername}</p>
-                            <button onClick={() => unFollowHandler(user.following[index])}>Unfollow</button> 
-                            </div>
-                            
-                        )
-                    })
-            }
-            <h3>Followers ({user.followers.length})</h3>
-            <button onClick={(e) => {
-                e.preventDefault()
-                setShowFollowers(!showFollowers)}}>{showFollowers ? 'Hide Followers' : 'Show Followers'}</button>
-            {
-                showFollowers &&
-                followersUsernames.map((followerUsername, index) => {
-                    const followingBack = checkFollowingBack(user.following, user.followers[index])
-                    return (
-                        <div key={followerUsername}>
-                            <p>{followerUsername}</p>
-                            <button onClick={() => unFollowerHandler(user.followers[index])}>Remove Follower</button>
-                            {   followingBack ? 
-                                <p>Following Back</p> :
-                                <button onClick={() => followBackHandler(user.followers[index])}>Follow Back</button>
-                            }
-                        </div>
-                    )
-                })
-            }
+                        setShowFollowing(!showFollowing)}}>{showFollowing ? 'Hide Following' : 'Show Following'}</button>
+                    {
+                        showFollowing &&
+                            followingUsernames.map((followingUsername, index) => {
+                                return (
+                                    <div key={followingUsername}>
+                                    <p>{followingUsername}</p>
+                                    <button onClick={() => unFollowHandler(user.following[index])}>Unfollow</button> 
+                                    </div>
+                                    
+                                )
+                            })
+                    }
+                    <h3>Followers ({user.followers.length})</h3>
+                    <button onClick={(e) => {
+                        e.preventDefault()
+                        setShowFollowers(!showFollowers)}}>{showFollowers ? 'Hide Followers' : 'Show Followers'}</button>
+                    {
+                        showFollowers &&
+                        followersUsernames.map((followerUsername, index) => {
+                            const followingBack = checkFollowingBack(user.following, user.followers[index])
+                            return (
+                                <div key={followerUsername}>
+                                    <p>{followerUsername}</p>
+                                    <button onClick={() => unFollowerHandler(user.followers[index])}>Remove Follower</button>
+                                    {   followingBack ? 
+                                        <p>Following Back</p> :
+                                        <button onClick={() => followBackHandler(user.followers[index])}>Follow Back</button>
+                                    }
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+
+            </div>
         </div>
 
     )
@@ -206,6 +239,7 @@ const UserInfoPage = () => {
 
 export default UserInfoPage
 
+// <button onClick={() => history.push('/add')}>Redirect</button>
 
 // <h3>Following ({user.following.length}): </h3>
 // {

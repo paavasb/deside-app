@@ -18,13 +18,16 @@ import userReducer, { userReducerDefaultState } from '../reducers/user'
 import { startSetUser, startSetAnswered } from '../actions/user'
 import UserContext from '../context/user-context'
 
+//TODO: Display results of question before shifting focus from the question
+//TODO: Decide where to keep Answered Context - here or in Private
 const Questions = () => {
     const { questions, dispatch } = useContext(QuestionsContext)
     const { user, userDispatch } = useContext(UserContext)
-    const [filters, filtersDispatch] = useReducer(filtersReducers, filtersReducersDefaultState)
-    //const { filters, filtersDispatch } = useContext(FiltersContext)
+    //const [filters, filtersDispatch] = useReducer(filtersReducers, filtersReducersDefaultState)
+    const { filters, filtersDispatch } = useContext(FiltersContext)
     const [answered, answeredDispatch] = useReducer(answeredReducer, [])
     //const [user, userDispatch] = useReducer(userReducer, userReducerDefaultState)
+    //const [visibleQuestions, setVisibleQuestion] = useState(getVisibleQuestions(questions, filters, answered, user.following))
 
     //const [isAnswered, setIsAnswered] = useState('all')
     useEffect(() => {
@@ -42,6 +45,11 @@ const Questions = () => {
         }
         return () => mounted = false
     }, []) 
+
+    useEffect(() => {
+        console.log('Filters')
+        //setVisibleQuestion(getVisibleQuestions(questions, filters, answered, user.following))
+    }, [filters])
 
     let visibleQuestions = getVisibleQuestions(questions, filters, answered, user.following)
 

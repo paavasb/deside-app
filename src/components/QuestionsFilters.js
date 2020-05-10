@@ -22,7 +22,7 @@ const QuestionsFilters = () => {
     }
     
     const onTextValueChange = (e) => {
-        e.preventDefault
+        e.preventDefault()
         setText(e.target.value)
     }
     const onTextChange = () => {
@@ -46,6 +46,7 @@ const QuestionsFilters = () => {
     }
 
     const onSortChange = (e) => {
+        e.preventDefault()
         switch (e.target.value) {
             case "date":
                 return filtersDispatch(sortByDate())
@@ -57,6 +58,7 @@ const QuestionsFilters = () => {
     }
 
     const onStatusChange = (e) => {
+        e.preventDefault()
         switch (e.target.value) {
             case "all":
                 return filtersDispatch(statusAll())

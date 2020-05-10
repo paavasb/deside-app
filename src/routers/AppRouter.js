@@ -19,6 +19,7 @@ import AnsweredContext from '../context/answered-context';
 import answeredReducer from '../reducers/answered';
 import { startSetAnsweredQuestions } from '../actions/answered';
 import UserInfoPage from '../components/UserInfoPage';
+import OtherUserProfile from '../components/OtherUserProfile';
 
 export const history = createHistory();
 
@@ -47,7 +48,8 @@ const AppRouter = () => {
                 <PrivateRoute path="/add" component={AddQuestion}/>
                 <PrivateRoute path="/questions" component={Questions}/>
                 <PrivateRoute path="/yourquestions" component={YourQuestions}/>
-                <PrivateRoute path="/user" component={UserInfoPage} />
+                <PrivateRoute path="/user" component={UserInfoPage}/>
+                <PrivateRoute path="/otheruser/:id" component={OtherUserProfile}/>
                 <Route component={NotFoundPage}/>
             </Switch> 
         </QuestionsContext.Provider>

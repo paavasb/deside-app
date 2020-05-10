@@ -63,10 +63,11 @@ export const checkFollowFollowingStatus = (following, followers, id) => {
     })
     followers.forEach((follower) => {
         if(follower === id) {
-            followerStatus = false
+            followerStatus = true
             return
         }
     })
+    console.log('Check Method', followingStatus, followerStatus)
     return { followingStatus, followerStatus } 
 }
 
