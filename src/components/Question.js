@@ -43,20 +43,14 @@ const Question = (props) => {
     }, [])
 
     const voteForOption = (voteText) => {
-        setIsAnswered(true)
-        setChosenOption(voteText)
-        setVoteText('Voting...')
-        const newOptions = question.options.map((option) => (
-            option.text === voteText ? {text: option.text, votes: option.votes+1} : option)
-        )
-        const votePromise = new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve(addVoted(question, newOptions, voteText, dispatch, answeredDispatch, userDispatch))
-            }, 5000)
-        })
-        //console.log(answered)
-
-        votePromise.then((answeredOptionText) => {
+        async function voteForOptionAsync () {
+            setVoteText('Voting...')
+            setIsAnswered(true)
+            setChosenOption(voteText)
+            const newOptions = question.options.map((option) => (
+                option.text === voteText ? {text: option.text, votes: option.votes + 1} : option
+            ))
+            const answeredOptionText = await addVoted(question, newOptions, voteText, dispatch, answeredDispatch, userDispatch)
             if(!answeredOptionText) {
                 setShowVotes(true)
                 setQuestion({...question, options: newOptions})
@@ -64,7 +58,9 @@ const Question = (props) => {
             } else {
                 console.log('Question already answered')
             }
-        })
+        }
+
+        voteForOptionAsync()
     }
 
     const addFollowingHandler = async () => {
@@ -124,3 +120,28 @@ const Question = (props) => {
 export default Question
 
 //            {isAnswered && <h4>{chosenOptionText}</h4>}
+
+    // const voteForOption = (voteText) => {
+    //     setIsAnswered(true)
+    //     setChosenOption(voteText)
+    //     setVoteText('Voting...')
+    //     const newOptions = question.options.map((option) => (
+    //         option.text === voteText ? {text: option.text, votes: option.votes+1} : option)
+    //     )
+    //     const votePromise = new Promise((resolve, reject) => {
+    //         setTimeout(() => {
+    //             resolve(addVoted(question, newOptions, voteText, dispatch, answeredDispatch, userDispatch))
+    //         }, 5000)
+    //     })
+    //     //console.log(answered)
+
+    //     votePromise.then((answeredOptionText) => {
+    //         if(!answeredOptionText) {
+    //             setShowVotes(true)
+    //             setQuestion({...question, options: newOptions})
+    //             setVoteText('Voted')
+    //         } else {
+    //             console.log('Question already answered')
+    //         }
+    //     })
+    // }

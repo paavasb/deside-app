@@ -67,6 +67,8 @@ export const startVoteQuestion = (dispatch, answeredDispatch, refID, id, updates
     })
 }
 
+//TODO: Decide whether I need to check if it's answered or not again in addVoted 
+// as I don't let them vote if they've already answered
 export const addVoted = (question, updates, optionText, dispatch, answeredDispatch, userDispatch) => {
     const uid = firebase.auth().currentUser.uid
     let answered = false
@@ -77,6 +79,7 @@ export const addVoted = (question, updates, optionText, dispatch, answeredDispat
             if(childSnapshot.val().questionRefID === question.refID) {
                 answered = true
                 answeredOptionText = childSnapshot.val().optionText
+                return
             }
         })
         if(!answered) {
