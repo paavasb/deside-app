@@ -62,9 +62,11 @@
 .content-container--user {
     background: fade-out($color: black, $amount: 0.9);
     margin-bottom: $xl-size;
+    padding-bottom: $l-size;
     @media (max-width: $desktop-breakpoint) {
         //justify-content: center;
         margin: $s-size;
+        padding-bottom: $m-size;
         //padding: $s-size $xs-size;
         //flex-direction: column;
     }
