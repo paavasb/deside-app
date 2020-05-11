@@ -13,17 +13,30 @@
     flex-direction: row;
     justify-content: space-between;
     border-bottom: 4px inset lighten($light-blue, 10%);
+    padding: $m-size 0;
+    @media (max-width: $desktop-breakpoint) {
+        flex-direction: column;
+        padding: $s-size 0;
+        padding-top: $xxs-size;
+    }
 }
 
 .user-profile__greeting__text {
     color: $off-white;
     font-size: x-large;
     font-weight: 500;
+    @media (max-width: $desktop-breakpoint) {
+        margin-bottom: $m-size;
+    }
 }
 .user-profile__greeting__username {
     align-items: center;
     display: flex;
     flex-direction: row;
+    @media (max-width: $desktop-breakpoint) {
+        flex-direction: column;
+        justify-content: center;
+    }
 }
 
 .user-profile__greeting__username__text {
@@ -32,6 +45,15 @@
     flex-direction: row;
     font-size: large;
     font-weight: 500;
+    @media (max-width: $desktop-breakpoint) {
+        margin-bottom: $s-size;
+    }
+}
+
+.user-profile__greeting__username__edit {
+    @media (max-width: $desktop-breakpoint) {
+        display: flex;
+      }
 }
 
 .user-profile__greeting__username__input {
@@ -52,9 +74,13 @@
     // max-width: 90vw;
     //height: 20vh;
     @media (max-width: $desktop-breakpoint) {
+        //justify-self: center;
         //margin: $s-size;
         //padding: $m-size $s-size;
-        //width: 93%;
+        font-size: medium;
+        padding: $m-size $s-size;
+        width: 60%;
+        max-height: 6vh;
       }
 }
 
@@ -76,25 +102,57 @@
     margin: 0;
     margin-top: $s-size;
     padding: $s-size $m-size;
+    @media (max-width: $desktop-breakpoint) {
+        flex-direction: column;
+        padding-top: 0;
+      }
 }
 
 .user-profile__search__user__name {
     color: $off-white;
     font-size: x-large;
     font-weight: 400;
+    margin: $m-size 0;
     //margin-left: $m-size;
+    @media (max-width: $desktop-breakpoint) {
+        //border-bottom: 2px outset $off-black;
+        padding-top: 0;
+        margin-bottom: $xxs-size;
+    }
 }
 
+.user-profile__search__user__follow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    @media (max-width: $desktop-breakpoint) {
+        display: flex;
+        flex-direction: row;
+        //padding: 0 $s-size;
+    } 
+}
 .user-profile__search__user__following {
     color: $deep-sky-blue;
     font-size: medium;
     font-weight: 300;
+    //padding: 0 $s-size;
+    @media (max-width: $desktop-breakpoint) {
+        font-size: large;
+        padding: 0 $s-size;
+        margin: $xs-size 0;
+    } 
 }
 
 .user-profile__search__user__not-following {
     color: grey;
     font-size: medium;
     font-weight: 300;
+    //padding: 0 $s-size;
+    @media (max-width: $desktop-breakpoint) {
+        font-size: large;
+        padding: 0 $s-size;
+        margin: $xs-size 0;
+    } 
 }
 
 .user-profile__follow {

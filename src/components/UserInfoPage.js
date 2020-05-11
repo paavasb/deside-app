@@ -116,13 +116,13 @@ const UserInfoPage = () => {
         <div className="content-container content-container--user">
             <div className="user-profile">
                 <div className="user-profile__greeting">
-                    <p className="user-profile__greeting__text">Hi, {firebase.auth().currentUser.displayName}!</p>
+                    <div className="user-profile__greeting__text">Hi, {firebase.auth().currentUser.displayName}!</div>
                     <div className="user-profile__greeting__username">
-                        <h3 className="user-profile__greeting__username__text">{!changeUsername && `Username: ${user.username}`}</h3>
+                        <div className="user-profile__greeting__username__text">{!changeUsername && `Username: ${user.username}`}</div>
                         <form onSubmit={onSubmitHandler}>
                             {
                                 changeUsername ?
-                                <div>
+                                <div className="user-profile__greeting__username__edit">
                                     <input 
                                         className="user-profile__greeting__username__input"
                                         type="text" value={name} onChange={(e) => setName(e.target.value)}
@@ -159,16 +159,16 @@ const UserInfoPage = () => {
                         showSelectedUser &&
                         (
                             <div className="user-profile__search__user">
-                                <p className="user-profile__search__user__name">{selectedUser.username}</p>
+                                <div className="user-profile__search__user__name">{selectedUser.username}</div>
                                 {
                                     selectedUser.followStatus.followingStatus ?
-                                    <p className="user-profile__search__user__following">Following</p> :
-                                    <p className="user-profile__search__user__not-following">Not Following</p>
+                                    <div className="user-profile__search__user__following">Following</div> :
+                                    <div className="user-profile__search__user__not-following">Not Following</div>
                                 }
                                 {
                                     selectedUser.followStatus.followerStatus ?
-                                    <p className="user-profile__search__user__following">Follower</p> :
-                                    <p className="user-profile__search__user__not-following">Not a Follower</p>
+                                    <div className="user-profile__search__user__following">Follower</div> :
+                                    <div className="user-profile__search__user__not-following">Not a Follower</div>
                                 }
                                 {
                                     selectedUser.followStatus.followingStatus ?

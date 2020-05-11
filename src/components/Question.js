@@ -100,7 +100,7 @@ const Question = (props) => {
                 <button 
                     onClick={onFollowButtonHandler} 
                     className="button button--follow" 
-                    disabled={question.anonymous || (followStatus === 'Following')}
+                    disabled={question.anonymous || (followStatus === 'Following') || (user.userID === question.creator)}
                 >
                     {   updating ? 'Updating...' :
                         question.anonymous ? 'Follow' :

@@ -218,6 +218,9 @@
     font-weight: 400;
     margin-left: $s-size;
     padding: $xxs-size;
+    @media (max-width: $desktop-breakpoint) {
+        max-height: 6vh;
+    }
 }
 
 .button--username-cancel {
@@ -230,6 +233,9 @@
     font-weight: 400;
     margin-left: $s-size;
     padding: $xxs-size;
+    @media (max-width: $desktop-breakpoint) {
+        max-height: 6vh;
+    }
 }
 
 .button--search-follow {
@@ -243,6 +249,10 @@
     margin-left: $s-size;
     padding: $xxs-size $xs-size;
     min-width: 6vw;
+    @media (max-width: $desktop-breakpoint) {
+        min-width: 32vw;
+        margin: $xs-size 0;
+    }
 }
 
 .button--search-cancel {
@@ -256,6 +266,10 @@
     margin-left: $s-size;
     padding: $xxs-size $xs-size;
     min-width: 6vw;
+    @media (max-width: $desktop-breakpoint) {
+        min-width: 32vw;
+        margin: $xs-size 0;
+    }
 }
 
 .big-button {

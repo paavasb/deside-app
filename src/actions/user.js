@@ -12,6 +12,7 @@ export const startSetUser = (userDispatch) => {
     database.ref(`users/${userID}`).once('value').then((snapshot) => {
         console.log('Snapshot', snapshot.val())
         let user = {}
+        //TODO: Add default follow to main Deside Account
         if(snapshot.val() === null) {
             user = {
                 userID,
