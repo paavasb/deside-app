@@ -87,11 +87,16 @@
 .user-profile__search {
     border-bottom: 4px inset lighten($light-blue, 10%);
     justify-content: center;
-    margin: $l-size 0;
-    margin-top: 0;
+    margin: 0;
+    //margin-top: 0;
     padding: $m-size 0;
 }
 
+.user-profile__search__display {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
 .user-profile__search__user {
     align-items: center;
     border: 2px outset $off-black;
@@ -102,9 +107,13 @@
     margin: 0;
     margin-top: $s-size;
     padding: $s-size $m-size;
+    width: 80vw;
     @media (max-width: $desktop-breakpoint) {
         flex-direction: column;
         padding-top: 0;
+        margin: 0 $xl-size;
+        margin-top: $s-size;
+        width: 75vw;
       }
 }
 
@@ -144,7 +153,7 @@
 }
 
 .user-profile__search__user__not-following {
-    color: grey;
+    color: lightgrey;
     font-size: medium;
     font-weight: 300;
     //padding: 0 $s-size;
@@ -160,5 +169,33 @@
     //border-top: 4px solid lighten($light-blue, 10%);
     display: flex;
     flex-direction: column;
+    margin: 0 $s-size;
+    @media (max-width: $desktop-breakpoint) {
+        margin: 0 $xxs-size;
+    }
+    //justify-content: space-between;
+}
+
+.user-profile__follow__section__title{
+    border-bottom: 2px inset lighten($light-blue, 10%);
+    display: flex;
     justify-content: space-between;
+    margin: 0;
+    margin-top: $l-size;
+    padding: $s-size;
+    width: 103%;
+    @media (max-width: $desktop-breakpoint) {
+        padding: $xxs-size;
+    }
+}
+
+.user-profile__follow__section__title__tag {
+    color: $off-white;
+    display: flex;
+    font-size: large;
+    font-weight: 400;
+    //width: 78vw;
+    @media (max-width: $desktop-breakpoint) {
+        //width: 75vw;
+    }
 }

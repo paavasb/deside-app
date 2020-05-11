@@ -13,6 +13,7 @@ import UserListContext from '../context/userlist-context'
 import { history } from '../routers/AppRouter'
 import otheruserReducer, { otherUserDefaultState } from '../reducers/otheruser'
 import { startSetOtheruser } from '../actions/otheruser'
+import OtherUserInfo from './OtherUserInfo'
 
 //TODO: Style User Info Page
 //TODO: Search Users
@@ -60,33 +61,6 @@ const UserInfoPage = () => {
         }
 
         onSubmitHandlerAsync(e)
-    }
-
-    const unFollowHandler = (followingID) => {
-        async function unFollowHandlerAsync() {
-            //console.log(followingID)
-            await startRemoveFollowing(userDispatch, user.userID, followingID)
-        }
-
-        unFollowHandlerAsync()
-    }
-
-    const unFollowerHandler = (followerID) => {
-        async function unFollowerHandlerAsync() {
-            //console.log(followerID)
-            await startRemoveFollower(userDispatch, user.userID, followerID)
-        }
-
-        unFollowerHandlerAsync()
-    }
-
-    const followBackHandler = (followerID) => {
-        async function followBackHandlerAsync() {
-            //console.log(followerID)
-            await startAddFollowing(userDispatch, user.userID, followerID)
-        }
-
-        followBackHandlerAsync()
     }
 
     const searchOnSelect = (selected) => {
@@ -158,79 +132,67 @@ const UserInfoPage = () => {
                     {
                         showSelectedUser &&
                         (
-                            <div className="user-profile__search__user">
-                                <div className="user-profile__search__user__name">{selectedUser.username}</div>
-                                {
-                                    selectedUser.followStatus.followingStatus ?
-                                    <div className="user-profile__search__user__following">Following</div> :
-                                    <div className="user-profile__search__user__not-following">Not Following</div>
-                                }
-                                {
-                                    selectedUser.followStatus.followerStatus ?
-                                    <div className="user-profile__search__user__following">Follower</div> :
-                                    <div className="user-profile__search__user__not-following">Not a Follower</div>
-                                }
-                                {
-                                    selectedUser.followStatus.followingStatus ?
-                                    <button className="button button--search-follow"
-                                        onClick={() => unFollowHandler(selectedUser.userID)}>Unfollow</button> :
-                                    selectedUser.followStatus.followerStatus ?
-                                    <button className="button button--search-follow"
-                                        onClick={() => followBackHandler(selectedUser.userID)}>Follow Back</button> :
-                                    <button className="button button--search-follow"
-                                        onClick={() => followBackHandler(selectedUser.userID)}>Follow</button>
-                                }
-                                {
-                                    selectedUser.followStatus.followerStatus &&
-                                    <button className="button button--search-follow"
-                                        onClick={() => unFollowerHandler(selectedUser.userID)}>Remove Follower</button>
-                                }
-                                <button className="button button--search-cancel"
-                                    onClick={() => setShowSelectedUser(false)}>Cancel</button>
+                            <div className="user-profile__search__display">
+                            <OtherUserInfo
+                               selectedUser={selectedUser}
+                            />
+                            <button className="button button--search-exit"
+                            onClick={() => setShowSelectedUser(false)}>Cancel</button>
                             </div>
                         )
                     }
                 </div>
 
                 <div className="user-profile__follow">
-                    <h3>Following ({user.following.length})</h3>
-                    <button onClick={(e) => {
+                    <div className="user-profile__follow__section__title">
+                        <div className="user-profile__follow__section__title__tag">Following ({user.following.length})</div>
+                    <button 
+                        className="button button--show"
+                        onClick={(e) => {
                         e.preventDefault()
                         setShowFollowing(!showFollowing)}}>{showFollowing ? 'Hide Following' : 'Show Following'}</button>
+                    </div>
                     {
                         showFollowing &&
                             followingUsernames.map((followingUsername, index) => {
+                                const followStatus = checkFollowFollowingStatus(user.following, user.followers, user.following[index])
                                 return (
-                                    <div key={followingUsername}>
-                                    <p>{followingUsername}</p>
-                                    <button onClick={() => unFollowHandler(user.following[index])}>Unfollow</button> 
-                                    </div>
-                                    
+                                    <OtherUserInfo 
+                                        selectedUser={{
+                                            userID: user.following[index],
+                                            username: followingUsername,
+                                            followStatus
+                                        }}
+                                        key={user.following[index]}
+                                    />
                                 )
                             })
                     }
-                    <h3>Followers ({user.followers.length})</h3>
-                    <button onClick={(e) => {
+                    <div className="user-profile__follow__section__title">
+                        <div className="user-profile__follow__section__title__tag">Followers ({user.followers.length})</div>
+                    <button 
+                        className="button button--show"
+                        onClick={(e) => {
                         e.preventDefault()
                         setShowFollowers(!showFollowers)}}>{showFollowers ? 'Hide Followers' : 'Show Followers'}</button>
+                    </div>
                     {
                         showFollowers &&
                         followersUsernames.map((followerUsername, index) => {
-                            const followingBack = checkFollowingBack(user.following, user.followers[index])
+                            const followStatus = checkFollowFollowingStatus(user.following, user.followers, user.followers[index])
                             return (
-                                <div key={followerUsername}>
-                                    <p>{followerUsername}</p>
-                                    <button onClick={() => unFollowerHandler(user.followers[index])}>Remove Follower</button>
-                                    {   followingBack ? 
-                                        <p>Following Back</p> :
-                                        <button onClick={() => followBackHandler(user.followers[index])}>Follow Back</button>
-                                    }
-                                </div>
+                                <OtherUserInfo 
+                                    selectedUser={{
+                                        userID: user.followers[index],
+                                        username: followerUsername,
+                                        followStatus
+                                    }}
+                                    key={user.followers[index]}
+                                />
                             )
                         })
                     }
                 </div>
-
             </div>
         </div>
 
@@ -253,3 +215,49 @@ export default UserInfoPage
 //         )
 //     })
 // }
+
+
+// <div className="user-profile__search__user">
+// <div className="user-profile__search__user__name">{selectedUser.username}</div>
+// {
+//     selectedUser.followStatus.followingStatus ?
+//     <div className="user-profile__search__user__following">Following</div> :
+//     <div className="user-profile__search__user__not-following">Not Following</div>
+// }
+// {
+//     selectedUser.followStatus.followerStatus ?
+//     <div className="user-profile__search__user__following">Follower</div> :
+//     <div className="user-profile__search__user__not-following">Not a Follower</div>
+// }
+// {
+//     selectedUser.followStatus.followingStatus ?
+//     <button className="button button--search-follow"
+//         onClick={() => unFollowHandler(selectedUser.userID)}>Unfollow</button> :
+//     selectedUser.followStatus.followerStatus ?
+//     <button className="button button--search-follow"
+//         onClick={() => followBackHandler(selectedUser.userID)}>Follow Back</button> :
+//     <button className="button button--search-follow"
+//         onClick={() => followBackHandler(selectedUser.userID)}>Follow</button>
+// }
+// {
+//     selectedUser.followStatus.followerStatus &&
+//     <button className="button button--search-follow"
+//         onClick={() => unFollowerHandler(selectedUser.userID)}>Remove Follower</button>
+// }
+// <button className="button button--search-cancel"
+//     onClick={() => setShowSelectedUser(false)}>Cancel</button>
+// </div>
+
+// <div key={followingUsername}>
+// <p>{followingUsername}</p>
+// <button onClick={() => unFollowHandler(user.following[index])}>Unfollow</button> 
+// </div>
+
+// <div key={followerUsername}>
+// <p>{followerUsername}</p>
+// <button onClick={() => unFollowerHandler(user.followers[index])}>Remove Follower</button>
+// {   followingBack ? 
+//     <p>Following Back</p> :
+//     <button onClick={() => followBackHandler(user.followers[index])}>Follow Back</button>
+// }
+// </div>
