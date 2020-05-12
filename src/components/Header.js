@@ -6,12 +6,9 @@ import { startLogout } from '../actions/auth';
 export const Header = ({ startLogout }) => {
 
     const onLogoClick = () => {
-        console.log("in")
         if(document.getElementById("logo").src.includes("logo.png")) {
-            console.log("in if")
             document.getElementById("logo").src = "../images/logo_reverse.png";
         } else if(document.getElementById("logo").src.includes("logo_reverse.png")) {
-            console.log('In else')
             document.getElementById("logo").src = "../images/logo.png";
         }
     }
