@@ -5,6 +5,7 @@ import QuestionsContext from '../context/questions-context'
 import { firebase } from '../firebase/firebase';
 import UserContext from '../context/user-context';
 import { getYourQuestions } from '../selectors/questions';
+import { Link } from 'react-router-dom';
 
 const YourQuestions = () => {
     const { questions, dispatch } = useContext(QuestionsContext)
@@ -18,7 +19,10 @@ const YourQuestions = () => {
             {
                 yourQuestionsList.length === 0 ? 
                 <div className="content-container content-container--yourquestions">
-                    You have added no questions yet
+                    <div>You have added no questions yet</div>
+                    <Link 
+                        className="content-container content-container--yourquestions__text"
+                        to="/add">Add Questions Now</Link>
                 </div>
                 : 
                 <div className="content-container content-container--yourquestions">

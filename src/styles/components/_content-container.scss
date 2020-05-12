@@ -81,10 +81,12 @@
     margin: $m-size 0;
     color: $off-white;
     display: flex;
+    flex-direction: column;
     font-size: x-large;
     font-weight: 400;
     justify-content: center;
     margin-bottom: $xl-size;
+    text-decoration: none;
     //padding-bottom: $l-size;
     @media (max-width: $desktop-breakpoint) {
         //justify-content: center;
@@ -95,4 +97,10 @@
         //padding: $s-size $xs-size;
         //flex-direction: column;
     }
+}
+
+.content-container--yourquestions__text {
+    color: white;
+    padding-bottom: 0;
+    text-decoration: underline;
 }
