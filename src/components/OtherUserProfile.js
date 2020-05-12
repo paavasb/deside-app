@@ -14,15 +14,15 @@ const OtherUserProfile = (props) => {
     useEffect(() => {
         let mounted = true
         async function useEffectAsync () {
-            console.log(user)
+            //Cleanup: console.log(user)
             //await startGetOtheruser(props.match.params.id, otheruserDispatch)
             const followStatus = checkFollowFollowingStatus(user.following, user.follower, otheruser.userID)
             startSetFollowStatus(followStatus, otheruserDispatch)
         }
 
         if(mounted) {
-            console.log('Other User Profile Use Effect')
-            console.log(otheruser)
+            //Cleanup: console.log('Other User Profile Use Effect')
+            //Cleanup: console.log(otheruser)
         
             useEffectAsync()
         }
@@ -33,7 +33,7 @@ const OtherUserProfile = (props) => {
         async function unFollowHandlerAsync() {
             await startRemoveFollowing(userDispatch, user.userID, followingID)
             const followStatus = checkFollowFollowingStatus(user.following, user.followers, followingID)
-            console.log('Follow Status', user.following, user.followers, followStatus, followingID)
+            //Cleanup: console.log('Follow Status', user.following, user.followers, followStatus, followingID)
             await startSetFollowStatus(followStatus, otheruserDispatch)
             //history.replace(`/user`)
             //history.go()

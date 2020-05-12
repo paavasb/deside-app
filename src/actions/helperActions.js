@@ -20,7 +20,7 @@ export const getUsernames = async (userIDs) => {
         const username = await getUsername(userID)
         usernames.push(username)
     }
-    console.log('Usernames: ', usernames)
+    //Cleanup: console.log('Usernames: ', usernames)
     return usernames
 }
 
@@ -67,7 +67,7 @@ export const checkFollowFollowingStatus = (following, followers, id) => {
             return
         }
     })
-    console.log('Check Method', followingStatus, followerStatus)
+    //Cleanup: console.log('Check Method', followingStatus, followerStatus)
     return { followingStatus, followerStatus } 
 }
 

@@ -33,8 +33,8 @@ const Questions = () => {
     useEffect(() => {
         let mounted = true
         async function startUseEffect() {
-            console.log('Questions UseEffect')
-            console.log('User ', user)
+            //Cleanup: ('Questions UseEffect')
+            //Cleanup: console.log('User ', user)
             await startSetAnsweredQuestions(answeredDispatch)
             //await startSetAnswered(userDispatch)
         }
@@ -47,7 +47,7 @@ const Questions = () => {
     }, []) 
 
     useEffect(() => {
-        console.log('Filters')
+        //Cleanup: ('Filters')
         //setVisibleQuestion(getVisibleQuestions(questions, filters, answered, user.following))
     }, [filters])
 

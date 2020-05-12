@@ -23,7 +23,7 @@ export const PrivateRoute = ({
     const [otheruser, otheruserDispatch] = useReducer(otheruserReducer, otherUserDefaultState)
  
     useEffect(() => {
-        console.log('Private Route UseEffect')
+        //Cleanup: console.log('Private Route UseEffect')
         startSetUser(userDispatch)
     }, [])
     return (

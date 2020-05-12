@@ -82,11 +82,11 @@ const AddQuestion = () => {
 
     const onAnonymousChange = (anon) => {
         setAnonymous(anon)
-        console.log(anon)
+        //Cleanup: console.log(anon)
     }
     const onPrivateChange = (pri) => {
         setPriv(pri)
-        console.log(pri)
+        //Cleanup: console.log(pri)
     }
 
     return (

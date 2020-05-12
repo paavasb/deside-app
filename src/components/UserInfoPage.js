@@ -36,7 +36,7 @@ const UserInfoPage = () => {
     useEffect(() => {
         let mounted = true
         async function getFollowingUsernames() {
-            console.log('USERINFO USEFFECT')
+            //Cleanup: console.log('USERINFO USEFFECT')
             setFollowingUsernames(await getUsernames(user.following))
         
             await user.followers.forEach(async (followerID) => {
@@ -65,7 +65,7 @@ const UserInfoPage = () => {
 
     const searchOnSelect = (selected) => {
         async function searchOnSelectAsync() {
-            console.log(selected)
+            //Cleanup: console.log(selected)
             const userID = selected.key
             const username = selected.value
             const followStatus = checkFollowFollowingStatus(user.following, user.followers, userID)

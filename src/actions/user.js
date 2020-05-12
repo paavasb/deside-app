@@ -10,7 +10,7 @@ export const setUser = (user) => ({
 export const startSetUser = (userDispatch) => {
     const userID = firebase.auth().currentUser.uid
     database.ref(`users/${userID}`).once('value').then((snapshot) => {
-        console.log('Snapshot', snapshot.val())
+        //Cleanup: console.log('Snapshot', snapshot.val())
         let user = {}
         if(snapshot.val() === null) {
             user = {
@@ -94,7 +94,7 @@ export const startSetUsername = (userDispatch, user, username) => {
         snapshot.forEach((childSnapshot) => {
             if(childSnapshot.val() === username) {
                 usernameExists = true
-                console.log('Exists')
+                //Cleanup: console.log('Exists')
             }
             // if(childSnapshot.val().username === user.username) {
             //     currentUsernameKey = childSnapshot.key
@@ -107,19 +107,19 @@ export const startSetUsername = (userDispatch, user, username) => {
                 database.ref(`users/${user.userID}/username`).set(username).then(() => {
                     database.ref(`usernames/${user.userID}`).set(username).then(() => {
                         userDispatch(setUsername(username))
-                        console.log('Username change successful')
+                        //Cleanup: console.log('Username change successful')
                     })
                 })
             } else {
                 database.ref(`users/${user.userID}/username`).set(username).then(() => {
                     database.ref(`usernames/${user.userID}`).set(username).then((ref) => {
                         userDispatch(setUsername(username))
-                        console.log('Username change successful')
+                        //Cleanup: console.log('Username change successful')
                     })
                 })
             }
         } else {
-            console.log('Username change unsuccessful')
+            //Cleanup: console.log('Username change unsuccessful')
         }
     })
 }
@@ -141,18 +141,17 @@ export const removeUserQuestion = (question) => ({
 })
 
 export const startRemoveUserQuestion = (userDispatch, userID, questionRefID) => {
-    console.log('INSIDE')
     let questionStoreRefID = ''
     return database.ref(`users/${userID}/questions`).once('value').then((snapshot) => {
         snapshot.forEach((childSnapshot) => {
             if(childSnapshot.val().questionRefID === questionRefID) {
                 questionStoreRefID = childSnapshot.key
-                console.log(childSnapshot.key)
+                //Cleanup: console.log(childSnapshot.key)
                 return
             }
         })
         database.ref(`users/${userID}/questions/${questionStoreRefID}`).remove().then(() => {
-            console.log(questionStoreRefID)
+            //Cleanup: console.log(questionStoreRefID)
             userDispatch(removeUserQuestion(questionRefID))
         })
     })

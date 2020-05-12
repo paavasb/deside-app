@@ -106,7 +106,7 @@ export const checkVoted = (question) => {
 }
 
 export const checkVotedPromise = (question) => new Promise((resolve, reject) => {
-    console.log('In Promise')   
+    //console.log('In Promise')   
     setTimeout(() => {
             const someStr = checkVoted(question) //'rand'
             resolve(someStr)
