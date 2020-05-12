@@ -25,6 +25,8 @@
     @media (max-width: $desktop-breakpoint) {
         min-width: 188px;
         max-width: 188px;
+        padding: $xxs-size;
+        padding-left: $xs-size;
     }
 }
 
