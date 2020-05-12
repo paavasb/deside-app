@@ -9,5 +9,9 @@
 
 .loader__image {
     height: 10vh;
-    width: 10vw;
+    width: 8vw;
+    @media (max-width: $desktop-breakpoint) {
+        height: 10vh;
+        width: 30vw;
+    }
 }

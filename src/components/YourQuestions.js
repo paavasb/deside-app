@@ -15,6 +15,16 @@ const YourQuestions = () => {
     //TODO: Get questions from User's list of questions
     return (
         <div className="content-container">
+            {
+                yourQuestionsList.length === 0 ? 
+                <div className="content-container content-container--yourquestions">
+                    You have added no questions yet
+                </div>
+                : 
+                <div className="content-container content-container--yourquestions">
+                    You have added {yourQuestionsList.length} question(s)
+                </div>
+            }
             {yourQuestionsList.map((question) => {
                 return (
                     <YourQuestion key={question.id} question={question}/>

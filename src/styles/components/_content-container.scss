@@ -61,12 +61,37 @@
 
 .content-container--user {
     background: fade-out($color: black, $amount: 0.9);
+    margin-top: $xl-size;
     margin-bottom: $xl-size;
     padding-bottom: $l-size;
     @media (max-width: $desktop-breakpoint) {
         //justify-content: center;
-        margin: $s-size;
+        margin: $l-size $m-size;
         padding-bottom: $m-size;
+        //padding: $s-size $xs-size;
+        //flex-direction: column;
+    }
+}
+
+
+.content-container--yourquestions {
+    align-items: center;
+    background: fade-out($color: black, $amount: 0.75);
+    //margin-top: $xl-size;
+    margin: $m-size 0;
+    color: $off-white;
+    display: flex;
+    font-size: x-large;
+    font-weight: 400;
+    justify-content: center;
+    margin-bottom: $xl-size;
+    //padding-bottom: $l-size;
+    @media (max-width: $desktop-breakpoint) {
+        //justify-content: center;
+        font-size: medium;
+        margin: $s-size 0;
+        margin-bottom: $l-size;
+        padding: $m-size;
         //padding: $s-size $xs-size;
         //flex-direction: column;
     }

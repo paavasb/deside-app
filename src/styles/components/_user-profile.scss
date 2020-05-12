@@ -106,10 +106,11 @@
     justify-content: space-between;
     margin: 0;
     margin-top: $s-size;
-    padding: $s-size $m-size;
+    padding: $s-size $l-size;
     width: 80vw;
     @media (max-width: $desktop-breakpoint) {
         flex-direction: column;
+        padding: $s-size $m-size;
         padding-top: 0;
         margin: 0 $xl-size;
         margin-top: $s-size;
@@ -122,11 +123,16 @@
     font-size: x-large;
     font-weight: 400;
     margin: $m-size 0;
+    min-width: 20vw;
+    padding-right: $s-size;
+    //max-width: 10vw;
     //margin-left: $m-size;
     @media (max-width: $desktop-breakpoint) {
         //border-bottom: 2px outset $off-black;
         padding-top: 0;
+        padding-right: 0;
         margin-bottom: $xxs-size;
+        text-align: center;
     }
 }
 
