@@ -11,7 +11,6 @@ import Questions from '../components/Questions';
 import QuestionsContext from '../context/questions-context';
 import YourQuestions from '../components/YourQuestions';
 import questionsReducer from '../reducers/questions';
-import questionsList from '../playground/questions';
 import { setQuestions, startSetQuestion } from '../actions/questions';
 import filtersReducers, { filtersReducersDefaultState } from '../reducers/filters';
 import FiltersContext from '../context/filters-context';

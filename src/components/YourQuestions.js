@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import YourQuestion from './YourQuestion'
-import questionsList from '../playground/questions'
 import QuestionsContext from '../context/questions-context'
 import { firebase } from '../firebase/firebase';
 import UserContext from '../context/user-context';
