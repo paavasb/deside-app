@@ -40,7 +40,7 @@ const AddQuestion = () => {
         const question = {
             title,
             options: options.map((value) => ({text: value, votes: 0})),
-            tags: tags.length === 0 ? defaultTags : tags,
+            tags: tags.length === 0 ? defaultTags : tags.map((tag) => tag.trim()),
             createdAt: moment().format(),
             creator: firebase.auth().currentUser.uid,
             anonymous,
@@ -100,6 +100,8 @@ const AddQuestion = () => {
                     <TagsInput 
                         value={tags} onlyUnique={true} 
                         onChange={(tags) => setTags(tags)}
+                        addOnBlur={true}
+                        maxTags={20}
                     />
                     <div className="add-question__switches">
                         <div className="add-question__switch">
