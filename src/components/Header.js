@@ -4,11 +4,23 @@ import { connect } from 'react-redux';
 import { startLogout } from '../actions/auth';
 
 export const Header = ({ startLogout }) => {
+
+    const onLogoClick = () => {
+        console.log("in")
+        if(document.getElementById("logo").src.includes("logo.png")) {
+            console.log("in if")
+            document.getElementById("logo").src = "../images/logo_reverse.png";
+        } else if(document.getElementById("logo").src.includes("logo_reverse.png")) {
+            console.log('In else')
+            document.getElementById("logo").src = "../images/logo.png";
+        }
+    }
+
     return (
         <header className="header">
             <div className="content-container-header">
                 <div className="header__content">
-                    <img className="header__img" src="../images/logo.png" />
+                    <img id="logo" className="header__img" src="../images/logo.png" onClick={onLogoClick}/>
                     <NavLink className="button button--link" to="/add" activeClassName="button button--link-active">
                         <p>Add a Question</p>
                     </NavLink>
@@ -33,28 +45,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(undefined, mapDispatchToProps)(Header);
-
-
-//DeSide Title
-// <div className="header__logo">
-//  <h1 className="header__title">DeSide</h1>
-// </div>
-
-
-// import React from 'react';
-
-// const Header = (props) => (
-//     <div className="header">
-//         <div className="container">
-//             <h1 className="header__title">{props.title}</h1>
-//             {props.subtitle && <h2 className="header__subtitle">{props.subtitle}</h2>}
-//         </div>
-//     </div>
-// );
-
-// Header.defaultProps = {
-//     title: 'DeSide App',
-//     subtitle: 'Let others decide'
-// }
-
-// export default Header;
