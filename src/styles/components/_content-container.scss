@@ -2,12 +2,13 @@
     justify-items: center;
     //display: flex;
     //flex-direction: column;
-    margin: auto;
-    max-width: 100rem;
+    margin: auto $xxl-size;
+    //max-width: 100rem;
     padding: $s-size $l-size;
     @media (max-width: $desktop-breakpoint) {
         padding: $s-size $xs-size;
         //flex-direction: column;
+        margin: auto;
     }
 }
 
@@ -38,6 +39,12 @@
 .content-container--question {
     background: fade-out($color: black, $amount: 0.9);
     margin-bottom: $xl-size;
+    margin-left: $s-size;
+    margin-right: $s-size;
+    @media (max-width: $desktop-breakpoint) {
+        margin-left: 0;
+        margin-right: 0;
+    }
 }
 
 .content-container-search {
