@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import TagsInput from 'react-tagsinput'
 import { DateRangePicker } from 'react-dates'
-import { setTextFilter, sortByDate, sortByVotes, setStartDate, setEndDate, setTagFilter, statusAll, statusAnswered, statusUnanswered } from '../actions/filters'
+import { setTextFilter, sortByDate, sortByVotes, setStartDate, setEndDate, setTagFilter, statusAll, statusAnswered, statusUnanswered, sortByRelevant } from '../actions/filters'
 import FiltersContext from '../context/filters-context'
 
 //TODO: Implement Autocomplete search for text filters
@@ -18,7 +18,7 @@ const QuestionsFilters = () => {
     }
 
     const onFocusChange = (calendarFocused) => {
-        setCalendarFocused(calendarFocused)
+        setCalendarFocused(calendarFocused) 
     }
     
     const onTextValueChange = (e) => {
@@ -48,12 +48,14 @@ const QuestionsFilters = () => {
     const onSortChange = (e) => {
         e.preventDefault()
         switch (e.target.value) {
+            case "relevant":
+                return filtersDispatch(sortByRelevant())
             case "date":
                 return filtersDispatch(sortByDate())
             case "votes":
                 return filtersDispatch(sortByVotes())
             default:
-                return filtersDispatch(sortByVotes())
+                return filtersDispatch(sortByRelevant())
         }
     }
 
@@ -111,6 +113,7 @@ const QuestionsFilters = () => {
                         value={filters.sortBy}
                         onChange={onSortChange}
                     >
+                        <option value="relevant">Order by: Relevant</option>
                         <option value="date">Order by: Date</option>
                         <option value="votes">Order by: Votes</option>
                     </select>

@@ -15,6 +15,11 @@ export const setTagFilter = (tag = '') => ({
     tag
 });
 
+export const sortByRelevant = () => ({
+    type: 'SORT_BY',
+    sortBy: 'relevant'
+});
+
 export const sortByVotes = () => ({
     type: 'SORT_BY',
     sortBy: 'votes'

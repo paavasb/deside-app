@@ -5,7 +5,7 @@ import moment from 'moment';
 export const filtersReducersDefaultState = {
     text: '',
     tag: [],
-    sortBy: 'votes',
+    sortBy: 'relevant',
     startDate: moment().startOf('year'),
     endDate: moment().endOf('year'),
     status: 'all'
