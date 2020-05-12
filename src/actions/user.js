@@ -25,6 +25,7 @@ export const startSetUser = (userDispatch) => {
             database.ref(`users/${userID}`).set(user).then(() => {
                 database.ref(`usernames/${userID}`).set(user.username).then(() => {
                     userDispatch(setUser(user))
+                    startAddFollowing(userDispatch, userID, 'ljDIAZMRDdfVmX3VAxOSVV4GMOu1')
                 })
             })
         } else {
