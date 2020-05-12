@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import TagsInput from 'react-tagsinput'
 import { DateRangePicker } from 'react-dates'
-import { setTextFilter, sortByDate, sortByVotes, setStartDate, setEndDate, setTagFilter, statusAll, statusAnswered, statusUnanswered, sortByRelevant } from '../actions/filters'
+import { setTextFilter, sortByDate, sortByVotes, setStartDate, setEndDate, setTagFilter, statusAll, statusAnswered, statusUnanswered, sortByRelevant, statusFollowing } from '../actions/filters'
 import FiltersContext from '../context/filters-context'
 
 //TODO: Implement Autocomplete search for text filters
@@ -68,6 +68,8 @@ const QuestionsFilters = () => {
                 return filtersDispatch(statusAnswered())
             case "unanswered":
                 return filtersDispatch(statusUnanswered())
+            case "following":
+                return filtersDispatch(statusFollowing())
             default:
                 return filtersDispatch(statusAll())
         }
@@ -107,6 +109,7 @@ const QuestionsFilters = () => {
                         <option value="all">All Questions</option>
                         <option value="answered">Answered</option>
                         <option value="unanswered">Unanswered</option>
+                        <option value="following">Following</option>
                     </select>
                     <select
                         className="select"

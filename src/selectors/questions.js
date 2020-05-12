@@ -8,15 +8,23 @@ const getVisibleQuestions = (questions, {text, tag, sortBy, startDate, endDate, 
         const endDateMatch = endDate ? endDate.isSameOrAfter(createdAtMoment, 'day') : true
         const textMatch = question.title.toLowerCase().includes(text.toLowerCase())
         if(endDateMatch && startDateMatch && textMatch) {
-            let answeredMatch = true
+            let statusMatch = true
             if(status === 'all') {
-                answeredMatch = true
+                statusMatch = true
             } else if(status === 'answered') {
-                answeredMatch = answered.includes(question.refID)
+                statusMatch = answered.includes(question.refID)
             } else if(status === 'unanswered') {
-                answeredMatch = !answered.includes(question.refID)
+                statusMatch = !answered.includes(question.refID)
+            } else if(status === 'following') {
+                statusMatch = false
+                followingList.forEach((following) => {
+                    if(following === question.creator) {
+                        statusMatch = !question.anonymous
+                        return
+                    }
+                })
             }
-            if(answeredMatch) {
+            if(statusMatch) {
                 let tagsMatch = true
                 const qTags = question.tags.map((tag) => tag.toLowerCase())
                 tag.forEach((oneTag) => {
@@ -41,7 +49,7 @@ const getVisibleQuestions = (questions, {text, tag, sortBy, startDate, endDate, 
             }
         }
         return false
-        //return followMatch && answeredMatch && textMatch && tagsMatch && startDateMatch && endDateMatch
+        //return followMatch && statusMatch && textMatch && tagsMatch && startDateMatch && endDateMatch
     }).sort((a, b) => {
         if(sortBy === 'relevant') {
             return questionRelevancySort(a, b, answered, followingList)

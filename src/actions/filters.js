@@ -56,3 +56,8 @@ export const statusUnanswered = () => ({
     type: 'SET_STATUS',
     status: 'unanswered'
 })
+
+export const statusFollowing = () => ({
+    type: 'SET_STATUS',
+    status: 'following'
+})
