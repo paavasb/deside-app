@@ -6,9 +6,10 @@ export const LoginPage = ({ startLogin }) => (
     <div className="box-layout">
         <div className="box-layout__box">
             <h1 className="box-layout__title">DeSide App</h1>
-            <p className="box-layout__title">Let the internet deside</p>
+            <p className="box-layout__subtitle">Let the internet deside</p>
             <button onClick={startLogin} className="button button--login">
-                Login with Google
+                <div className="box-layout__login">Login with</div>
+                <img className="box-layout__image"src="../images/googleLogo.png"/>
             </button>
         </div>
     </div>

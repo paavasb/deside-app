@@ -14,10 +14,38 @@
     border-radius: 3px;
     padding: $l-size $m-size;
     text-align: center;
-    width: 25rem;
+    width: 30rem;
+    //width: 25vw;
 }
 
 .box-layout__title {
     margin: 0 0 $m-size 0;
     line-height: 1;
+    font-size: xx-large;
+    font-weight: 600;
+}
+
+.box-layout__subtitle {
+    margin: 0 0 $m-size 0;
+    line-height: 1;
+    font-size: medium;
+    font-weight: 300;
+}
+
+.box-layout__image {
+    height: 6vw;
+    width: 6vw;
+    padding: $xs-size;
+    @media (max-width: $desktop-breakpoint) {
+        height: 12vw;
+        width: 12vw;
+    }
+}
+
+.box-layout__login {
+    border-bottom: 2px solid darken(fade-out($color: $deep-sky-blue, $amount: .5), 40);
+    //font-family: 'Courier New', Courier, monospace;
+    font-size: large;
+    font-weight: 500;
+    padding: $xs-size $m-size;
 }
