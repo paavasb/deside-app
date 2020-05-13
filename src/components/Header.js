@@ -6,6 +6,7 @@ import { startLogout } from '../actions/auth';
 export const Header = ({ startLogout }) => {
 
     const onLogoClick = () => {
+        alert('Congratulations!! You found the easter egg!')
         if(document.getElementById("logo").src.includes("logo.png")) {
             document.getElementById("logo").src = "../images/logo_reverse.png";
         } else if(document.getElementById("logo").src.includes("logo_reverse.png")) {

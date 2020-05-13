@@ -24,19 +24,18 @@ export const history = createHistory();
 
 const AppRouter = () => {
 
+    //TODO: Move Questions Context to PrivateRoute
     const [questions, dispatch] = useReducer(questionsReducer, []);
     //const [filters, filtersDispatch] = useReducer(filtersReducers, filtersReducersDefaultState);
     //const [answered, answeredDispatch] = useReducer(answeredReducer, [])
 
-    useEffect(() => {
-        startSetQuestion(dispatch)
-    }, []) 
-
-    
     // useEffect(() => {
-    //     const json = JSON.stringify(questions);
-    //     localStorage.setItem('questions', json); 
-    //   }, [questions])
+    //     async function useEffectAsync() {
+    //         await startSetQuestion(dispatch)
+    //     }
+
+    //     useEffectAsync()
+    // }, []) 
 
     return (
     <Router history={history}>

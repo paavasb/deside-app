@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useContext, useReducer, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 import Header from '../components/Header';
@@ -12,19 +12,26 @@ import filtersReducers, { filtersReducersDefaultState } from '../reducers/filter
 import FiltersContext from '../context/filters-context';
 import otheruserReducer, { otherUserDefaultState } from '../reducers/otheruser';
 import OtherUserContext from '../context/otheruser-context';
+import QuestionsContext from '../context/questions-context';
+import { startSetQuestion } from '../actions/questions';
 
 export const PrivateRoute = ({ 
     isAuthenticated, 
     component: Component,
     ...rest
  }) => {
+    const { questions, dispatch } = useContext(QuestionsContext)
     const [user, userDispatch] = useReducer(userReducer, userReducerDefaultState)
     const [filters, filtersDispatch] = useReducer(filtersReducers, filtersReducersDefaultState)
     const [otheruser, otheruserDispatch] = useReducer(otheruserReducer, otherUserDefaultState)
  
     useEffect(() => {
+        async function useEffectAsync() {
+            await startSetQuestion(dispatch)
+            startSetUser(userDispatch)
+        }
         //Cleanup: console.log('Private Route UseEffect')
-        startSetUser(userDispatch)
+        useEffectAsync()
     }, [])
     return (
         <Route {...rest} component={(props) => (
