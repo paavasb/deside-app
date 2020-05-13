@@ -29,6 +29,7 @@
         margin-bottom: $m-size;
     }
 }
+
 .user-profile__greeting__username {
     align-items: center;
     display: flex;
@@ -43,8 +44,22 @@
     color: $off-white;
     display: flex;
     flex-direction: row;
+    text-align: end;
     font-size: large;
     font-weight: 500;
+    @media (max-width: $desktop-breakpoint) {
+        margin-bottom: $s-size;
+        text-align: center;
+    }
+}
+
+.user-profile__greeting__username__score {
+    color: $off-white;
+    display: flex;
+    flex-direction: row;
+    font-size: medium;
+    font-weight: 500;
+    text-align: center;
     @media (max-width: $desktop-breakpoint) {
         margin-bottom: $s-size;
     }

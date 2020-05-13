@@ -71,6 +71,11 @@ export const checkFollowFollowingStatus = (following, followers, id) => {
     return { followingStatus, followerStatus } 
 }
 
+export const calculateUserScore = (user) => {
+    let score = 0
+    score = (user.questions.length * 20) + (user.answered.length) + (user.followers.length * 30) + (user.following.length * 10)
+    return score
+}
 // export const getUsernames = async (userIDs) => {
 //     let usernames = []
 //     await userIDs.forEach(async (userID) => {

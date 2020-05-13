@@ -14,6 +14,8 @@ import { history } from '../routers/AppRouter'
 import otheruserReducer, { otherUserDefaultState } from '../reducers/otheruser'
 import { startSetOtheruser } from '../actions/otheruser'
 import OtherUserInfo from './OtherUserInfo'
+import { calculateUserScore } from '../actions/helperActions'
+import numeral from 'numeral'
 
 //TODO: Style User Info Page
 //TODO: Search Users
@@ -32,6 +34,7 @@ const UserInfoPage = () => {
     const [showSelectedUser, setShowSelectedUser] = useState(false) //Show details for selected user status
     //const [otheruser, otheruserDispatch] = useReducer(otheruserReducer, otherUserDefaultState) 
     //const {otheruser, otheruserDispatch} = useContext(OtherUserContext) //other user found using search
+    const [userScore, setUserScore] = useState(0)
 
     useEffect(() => {
         let mounted = true
@@ -44,6 +47,7 @@ const UserInfoPage = () => {
             })
 
             await startSetUserlist(userlistDispatch)
+            setUserScore(calculateUserScore(user))
         }
 
         if(mounted) {
@@ -91,6 +95,7 @@ const UserInfoPage = () => {
             <div className="user-profile">
                 <div className="user-profile__greeting">
                     <div className="user-profile__greeting__text">Hi, {firebase.auth().currentUser.displayName}!</div>
+                    <div className="user-profile__greeting__username__score">Your Deside Score: {numeral(userScore).format('0,0')}</div>
                     <div className="user-profile__greeting__username">
                         <div className="user-profile__greeting__username__text">{!changeUsername && `Username: ${user.username}`}</div>
                         <form onSubmit={onSubmitHandler}>
