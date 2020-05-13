@@ -55,7 +55,6 @@ const Questions = () => {
     return (
         <FiltersContext.Provider value={{filters, filtersDispatch}}> 
             <AnsweredContext.Provider value={{answered, answeredDispatch}}>
-                <p>{questions.length}</p>
                 <div className="content-container">
                     <QuestionsFilters />
                     <div className="content-container-questions">
