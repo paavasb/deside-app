@@ -8,6 +8,7 @@ import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import AddQuestion from '../components/AddQuestion';
 import Questions from '../components/Questions';
+import HelpPage from '../components/HelpPage';
 import QuestionsContext from '../context/questions-context';
 import YourQuestions from '../components/YourQuestions';
 import questionsReducer from '../reducers/questions';
@@ -42,6 +43,7 @@ const AppRouter = () => {
         <QuestionsContext.Provider value={{questions, dispatch}}>              
             <Switch>
                 <PublicRoute path="/" component={LoginPage} exact={true}/>
+                <PrivateRoute path="/help" component={HelpPage}/>
                 <PrivateRoute path="/dashboard" component={Questions}/>
                 <PrivateRoute path="/add" component={AddQuestion}/>
                 <PrivateRoute path="/questions" component={Questions}/>

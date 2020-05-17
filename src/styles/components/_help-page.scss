@@ -1,0 +1,91 @@
+.help-page__title {
+    color: $off-white;
+    margin: $s-size $m-size;
+    font-size: xx-large;
+    font-weight: 500;
+    text-align: center;
+    @media (max-width: $desktop-breakpoint) {
+        font-size: x-large;
+    }
+}
+
+.help-page__subtitle {
+    border-bottom: 4px inset lighten($light-blue, 5%);
+    color: darken($off-white, 10);
+    padding-bottom: $m-size;
+    font-size: large;
+    font-weight: 300;
+    margin-bottom: $xl-size;
+    text-align: center;
+    @media (max-width: $desktop-breakpoint) {
+        font-size: medium;
+        margin-bottom: $s-size;
+    }
+}
+
+.help-page__section {
+    margin: $l-size $xl-size;
+    @media (max-width: $desktop-breakpoint) {
+        margin: $l-size $m-size;
+    }
+}
+
+.help-page__section__question {
+    border-bottom: 2px dashed lighten($light-blue, 5%);
+    color: darken($off-white, 15);
+    font-size: x-large;
+    font-weight: 400;
+    margin-bottom: $m-size;
+    //padding-left: $s-size;
+    padding-bottom: $xs-size;
+    @media (max-width: $desktop-breakpoint) {
+        font-size: large;
+    }
+}
+
+.help-page__section__list {
+    margin: auto $s-size;
+    padding: 0 $m-size;
+    padding-right: 0;
+}
+
+.help-page__section__answer {
+    color: lighten($off-white, 5);
+    font-size: large;
+    font-weight: 300;
+    padding: $xs-size $m-size;
+    padding-bottom: $xxs-size;
+    margin-top: $s-size;
+    text-align: justify;
+    &:hover {
+        color: lighten($off-white, 15);
+        font-weight: 500;
+        transition: 1s;
+    }
+    @media (max-width: $desktop-breakpoint) {
+        font-size: medium;
+        margin-bottom: $xxs-size;
+        padding: $xs-size $xs-size;
+    }
+}
+
+.help-page__section__link {
+    color: lighten($off-white, 10);
+    font-size: large;
+    font-weight: 400;
+    margin: $s-size 0 $m-size 0;
+    padding: 0 $m-size;
+    padding-bottom: $l-size;
+    text-decoration: underline;
+    &:hover {
+        color: lighten($off-white, 15);
+        font-weight: 600;
+        transition: 0.5s;
+    }
+    @media (max-width: $desktop-breakpoint) {
+        font-size: medium;
+        margin-bottom: $s-size;
+        padding: 0 $xs-size;
+        padding-bottom: $m-size;
+    }
+}

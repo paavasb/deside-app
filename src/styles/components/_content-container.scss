@@ -80,6 +80,20 @@
     }
 }
 
+.content-container--help {
+    background: fade-out($color: black, $amount: 0.9);
+    margin-top: $xl-size;
+    margin-bottom: $xl-size;
+    padding-bottom: $l-size;
+    @media (max-width: $desktop-breakpoint) {
+        //justify-content: center;
+        margin: $l-size $m-size;
+        padding-bottom: $m-size;
+        //padding: $s-size $xs-size;
+        //flex-direction: column;
+    }
+}
+
 
 .content-container--yourquestions {
     align-items: center;

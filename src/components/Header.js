@@ -29,7 +29,7 @@ export const Header = ({ startLogout }) => {
                         <p>Your Questions</p>
                     </NavLink>
                     <NavLink className="button button--link-last" to="/user" activeClassName="button button--link-last-active">
-                        <p>User Profile</p>
+                        <p>Your Profile</p>
                     </NavLink>
                     <button className="button button--logout" onClick={startLogout}>Logout</button>
                 </div>
