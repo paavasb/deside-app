@@ -24,7 +24,7 @@ export const startSetUser = (userDispatch) => {
             database.ref(`users/${userID}`).set(user).then(() => {
                 database.ref(`usernames/${userID}`).set(user.username).then(() => {
                     userDispatch(setUser(user))
-                    startAddFollowing(userDispatch, userID, 'ljDIAZMRDdfVmX3VAxOSVV4GMOu1')
+                    startAddFollowingDefault(userDispatch, userID, 'ljDIAZMRDdfVmX3VAxOSVV4GMOu1')
                 })
             })
         } else {
@@ -180,6 +180,24 @@ export const addFollowing = (followingID) => ({
 export const startAddFollowing = (userDispatch, userID, followingID) => {
     return database.ref(`users/${userID}/following`).push({ followingID }).then((ref) => {
         database.ref(`users/${followingID}/followers`).push({ followerID: userID }).then((ref) => {
+            userDispatch(addFollowing(followingID))
+        })
+    })
+}
+
+export const startAddFollowingDefault = (userDispatch, userID, followingID) => {
+    return database.ref(`users/${userID}/following`).push({ followingID }).then((ref) => {
+        database.ref(`users/${followingID}/followers`).once('value').then((snapshot) => {
+            let following = false
+            snapshot.forEach((childSnapshot) => {
+                if(childSnapshot.val === userID) {
+                    following = true
+                    return
+                }
+            })
+            if(!following) {
+                database.ref(`users/${followingID}/followers`).push({ followerID: userID })
+            }
             userDispatch(addFollowing(followingID))
         })
     })

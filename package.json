@@ -26,6 +26,7 @@
     "babel-preset-react": "6.24.1",
     "bootstrap": "^4.4.1",
     "css-loader": "0.28.4",
+    "depcheck": "^0.9.2",
     "express": "4.15.4",
     "extract-text-webpack-plugin": "3.0.0",
     "firebase": "4.2.0",
