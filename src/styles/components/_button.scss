@@ -118,7 +118,7 @@
     border: 2px outset darken($off-black, 2.5);
     color: $off-white;
     margin: $xxs-size;
-    padding: $s-size;
+    padding: $xs-size;
     width: 8vw;
     height: 4vw;
     justify-content: center;
@@ -126,6 +126,7 @@
         margin: $xs-size $s-size 0 $s-size;
         //margin-left: 0;
         margin-right: $s-size;
+        padding: $xxs-size;
         width: 18vw;
         height: 12vw;
     }
@@ -139,16 +140,18 @@
 }
 
 .button--menu {
+    align-items: center;
     background: none;
-    font-weight: 300;
-    font-size: x-large;
     border: 2px outset darken($off-black, 2.5);
     color: $off-white;
+    display: flex;
+    font-weight: 300;
+    font-size: x-large;
     justify-content: center;
     margin: $m-size;
     //padding: $m-size $m-size;
-    width: 5vw;
-    height: 5vw;
+    width: 4vw;
+    height: 4vw;
     @media (max-width: $desktop-breakpoint) {
         margin: $xs-size $s-size 0 $s-size;
         padding: $xxs-size;
