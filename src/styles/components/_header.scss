@@ -61,3 +61,13 @@
         margin-bottom: $m-size;
     }
 }
+
+.header__menu {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    @media (max-width: $desktop-rem) {
+        flex-direction: row;
+    }
+}

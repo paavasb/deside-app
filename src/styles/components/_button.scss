@@ -58,8 +58,9 @@
 }
 
 .button--link:hover{
-    color:lightness($color: $off-white);
+    color:lighten($color: $off-white, $amount: 15);
     font-weight: 400;
+    transition: .3s;
 }
 
 .button--link:active{
@@ -98,8 +99,9 @@
 }
 
 .button--link-last:hover{
-    color:lightness($color: $off-white);
+    color:lighten($color: $off-white, $amount: 15);
     font-weight: 400;
+    transition: .3s;
 }
 
 .button--link-:active{
@@ -108,22 +110,85 @@
 }
 
 .button--logout {
+    align-items: center;
     background: none;
+    display: flex;
     font-weight: 200;
+    font-size: medium;
     border: 2px outset darken($off-black, 2.5);
     color: $off-white;
-    margin: $m-size;
+    margin: $xxs-size;
     padding: $s-size;
+    width: 8vw;
+    height: 4vw;
+    justify-content: center;
     @media (max-width: $desktop-breakpoint) {
-        margin-top: $s-size;
+        margin: $xs-size $s-size 0 $s-size;
         //margin-left: 0;
         margin-right: $s-size;
+        width: 18vw;
+        height: 12vw;
     }
 }
 
 .button--logout:hover{
-    color:lightness($color: $off-white);
+    color:lighten($color: $off-white, $amount: 15);
     font-weight: 400;
+    //font-size: large;
+    transition: .3s;
+}
+
+.button--menu {
+    background: none;
+    font-weight: 300;
+    font-size: x-large;
+    border: 2px outset darken($off-black, 2.5);
+    color: $off-white;
+    justify-content: center;
+    margin: $m-size;
+    //padding: $m-size $m-size;
+    width: 5vw;
+    height: 5vw;
+    @media (max-width: $desktop-breakpoint) {
+        margin: $xs-size $s-size 0 $s-size;
+        padding: $xxs-size;
+        width: 12vw;
+        height: 12vw;
+    }
+}
+
+.button--menu:hover{
+    color:lighten($color: $off-white, $amount: 15);
+    font-weight: 500;
+    font-size: x-large;
+    transition: .3s;
+}
+
+.button--x {
+    align-items: center;
+    background: none;
+    font-weight: 300;
+    font-size: small;
+    border: 2px outset darken($off-black, 2.5);
+    //border-radius: 35px;
+    color: $off-white;
+    margin: $xxs-size;
+    padding: $xxs-size;
+    width: 8vw;
+    height: 3vw;
+    text-align: center;
+    @media (max-width: $desktop-breakpoint) {
+        margin: $xs-size $s-size 0 $s-size;
+        width: 10vw;
+        height: 10vw;
+    }
+}
+
+.button--x:hover{
+    color:lighten($color: $off-white, $amount: 15);
+    font-weight: 500;
+    //font-size: x-large;
+    transition: .3s;
 }
 
 .button--secondary {

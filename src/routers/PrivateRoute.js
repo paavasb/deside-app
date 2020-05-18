@@ -1,4 +1,4 @@
-import React, { useContext, useReducer, useEffect } from 'react';
+import React, { useContext, useReducer, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 import Header from '../components/Header';
@@ -24,11 +24,15 @@ export const PrivateRoute = ({
     const [user, userDispatch] = useReducer(userReducer, userReducerDefaultState)
     const [filters, filtersDispatch] = useReducer(filtersReducers, filtersReducersDefaultState)
     const [otheruser, otheruserDispatch] = useReducer(otheruserReducer, otherUserDefaultState)
+
+    // const [userStatus, setUserStatus] = useState(false)
  
     useEffect(() => {
         async function useEffectAsync() {
             await startSetQuestion(dispatch)
             startSetUser(userDispatch)
+            // const uStatus = await getUserStatus()
+            // setUserStatus(uStatus)
         }
         //Cleanup: console.log('Private Route UseEffect')
         useEffectAsync()
@@ -58,3 +62,13 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(PrivateRoute);
+
+
+// {
+//     userStatus ?
+//     <div>
+//     <Header />
+//     <Component {...props}/>
+//     </div> :
+//     <Redirect to="/help" />
+// }

@@ -14,6 +14,14 @@ export const getUsername = (userID) => {
     
 }
 
+export const getUserStatus = () => {
+    const uid = firebase.auth().currentUser.uid
+    return database.ref(`users/${uid}`).once('value').then((snapshot) => {
+        return !!snapshot.val.answered && !!snapshot.val.questions
+    })
+
+}
+
 export const getUsernames = async (userIDs) => {
     let usernames = []
     for(const userID of userIDs) {

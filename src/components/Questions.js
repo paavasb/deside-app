@@ -35,6 +35,10 @@ const Questions = () => {
             //Cleanup: ('Questions UseEffect')
             //Cleanup: console.log('User ', user)
             await startSetAnsweredQuestions(answeredDispatch)
+
+            // if(user.answered.length === 0 || user.questions.length === 0) {
+            //     alert('Visit http://deside.herokuapp.com/help for a quick overview on how to use DeSide!')
+            // }
             //await startSetAnswered(userDispatch)
         }
         //startSetUser(userDispatch)

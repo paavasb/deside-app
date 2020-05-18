@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { startLogout } from '../actions/auth';
 
 export const Header = ({ startLogout }) => {
+
+    const [moreStatus, setMoreStatus] = useState(false)
 
     const onLogoClick = () => {
         if(document.getElementById("logo").src.includes("logo.png")) {
@@ -31,7 +33,21 @@ export const Header = ({ startLogout }) => {
                     <NavLink className="button button--link-last" to="/user" activeClassName="button button--link-last-active">
                         <p>Your Profile</p>
                     </NavLink>
-                    <button className="button button--logout" onClick={startLogout}>Logout</button>
+                    <div className="">
+                        {
+                            moreStatus ?
+                            <div className="header__menu">
+                            <NavLink className="button button--logout" to="/help">
+                                Help
+                            </NavLink>
+                            <button className="button button--logout" onClick={startLogout}>Logout</button>
+                            <button className="button button--x" onClick={() => setMoreStatus(false)}>x</button>
+                            </div> 
+                            
+                            :
+                            <div className="button button--menu" onClick={() => setMoreStatus(true)}>≡</div>
+                        }    
+                    </div>
                 </div>
             </div>
         </header>
