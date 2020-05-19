@@ -94,7 +94,7 @@ const AddQuestion = () => {
             <div className="add-question">
                 <h1 className="add-question__text">Add a Question</h1>
                 <form onSubmit={onSubmitHandler}>
-                    <input value={title} onChange={handleTitleChange} className="add-question__input"/>
+                    <input value={title} placeholder="Add Question Text Here..." onChange={handleTitleChange} className="add-question__input"/>
                     <Options options={options} handleDeleteOptions={handleDeleteOptions} handleDeleteOption={handleDeleteOption}/>
                     <AddOption handleAddOption={handleAddOption}/>
                     <TagsInput 

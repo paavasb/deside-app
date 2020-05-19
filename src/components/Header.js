@@ -6,13 +6,17 @@ import { startLogout } from '../actions/auth';
 export const Header = ({ startLogout }) => {
 
     const [moreStatus, setMoreStatus] = useState(false)
+    const [found, setFound] = useState(false)
 
     const onLogoClick = () => {
         if(document.getElementById("logo").src.includes("logo.png")) {
             document.getElementById("logo").src = "../images/logo_reverse.png";
-            alert('Congratulations!! You found the easter egg!')
         } else if(document.getElementById("logo").src.includes("logo_reverse.png")) {
             document.getElementById("logo").src = "../images/logo.png";
+        }
+        if(!found) {
+            alert('Congratulations!! You found the easter egg!')
+            setFound(true)
         }
     }
 

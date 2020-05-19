@@ -23,6 +23,7 @@
     // max-width: 90vw;
     //height: 20vh;
     @media (max-width: $desktop-breakpoint) {
+        font-size: large;
         margin: $s-size;
         padding: $m-size $s-size;
         width: 93%;
