@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#17617f"/><stop offset=".48" stop-color="#3d3658"/><stop offset="1" stop-color="#151b31"/></linearGradient>
+    <radialGradient id="glow" cx=".68" cy=".25" r=".75"><stop stop-color="#62cfff" stop-opacity=".55"/><stop offset="1" stop-color="#2b2b48" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1440" height="900" fill="url(#sky)"/>
+  <rect width="1440" height="900" fill="url(#glow)"/>
+  <path d="M0 690 C220 600 360 760 600 690 S1010 580 1440 710V900H0Z" fill="#141b31" fill-opacity=".54"/>
+  <path d="M0 745 C250 650 410 810 720 722 S1110 630 1440 762V900H0Z" fill="#0e1427" fill-opacity=".42"/>
+  <rect x="505" y="250" width="430" height="400" rx="14" fill="#090c16" fill-opacity=".64" stroke="#8595b7" stroke-opacity=".18"/>
+  <text x="720" y="365" text-anchor="middle" fill="#fff" fill-opacity=".9" font-family="Helvetica, Arial, sans-serif" font-size="42" font-weight="600">DeSide App</text>
+  <text x="720" y="406" text-anchor="middle" fill="#d4dcef" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="300">Let the internet deside</text>
+  <rect x="570" y="463" width="300" height="62" rx="6" fill="#3bb9ff" stroke="#147ba8" stroke-width="2"/>
+  <g transform="translate(600 479)"><path d="M12 0a12 12 0 1 0 0 24h10v-9h-9v-4h13c.4 1.1.6 2.3.6 3.5C26.6 22 21 28 12.7 28 4.5 28-2 21.5-2 13.5S4.5-1 12.7-1c4.1 0 7.5 1.5 10.1 4.1l-3.9 3.8C17.2 5.3 15.2 4.5 12.7 4.5z" fill="#fff"/><path d="M26 11h-13v4h9c-1.1 3.1-4 5.3-9.3 5.3v4.1H22c3.1-2.7 4.6-6.7 4.6-10.3 0-1.2-.2-2.2-.6-3.1z" fill="#dcefff"/></g><text x="748" y="502" text-anchor="middle" fill="#fff" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="600">Continue with Google</text>
+  <text x="720" y="574" text-anchor="middle" fill="#b8c5e8" fill-opacity=".86" font-family="Helvetica, Arial, sans-serif" font-size="14">Sign in to ask questions, vote, and follow people.</text>
+</svg>
