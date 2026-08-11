@@ -1,5 +1,45 @@
+# dependencies
 node_modules/
-public/dist/
-src/playground/
-.env.test
-.env.development
+
+# builds
+app/dist/
+functions/lib/
+*.tsbuildinfo
+
+# env
+.env
+.env.local
+.env.*.local
+app/.env
+app/.env.local
+app/.env.*.local
+
+# firebase
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
+firestore-debug.log
+ui-debug.log
+pubsub-debug.log
+database-debug.log
+.emulator-data/
+
+# service account keys — never commit these
+*serviceAccount*.json
+*-firebase-adminsdk-*.json
+
+# test output
+coverage/
+playwright-report/
+test-results/
+blob-report/
+.playwright/
+
+# migration / backup artifacts
+backups/
+
+# editors / os
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json

@@ -1,0 +1,94 @@
+/*
+ * Design tokens.
+ *
+ * Palette and the 62.5% rem base are carried over from v1 so the app still looks
+ * like DeSide. Values that were computed with Sass `darken()` / `fade-out()` are now
+ * literal, because those Sass functions are deprecated and were being applied to
+ * already-dark colours with unpredictable results.
+ */
+
+:root {
+  /* Brand palette (from v1 _settings.scss) */
+  --c-dark-blue: #333745;
+  --c-blue: #3c4251;
+  --c-light-blue: #464b5e;
+  --c-off-black: #20222b;
+  --c-off-white: #a5afd7;
+  --c-sky: #3bb9ff;
+  --c-sky-dark: #1a8fd0;
+  --c-sky-darker: #0f6494;
+  --c-purple: #8357c5;
+
+  /* Semantic surfaces */
+  --surface-page: var(--c-dark-blue);
+  --surface-raised: var(--c-blue);
+  --surface-sunken: var(--c-off-black);
+  --surface-header: var(--c-off-black);
+  --border-subtle: rgb(255 255 255 / 12%);
+  --border-strong: rgb(255 255 255 / 24%);
+
+  /* Text */
+  --text-primary: #f2f4fb;
+  --text-secondary: var(--c-off-white);
+  --text-muted: #7f88ab;
+  --text-on-accent: #08131c;
+
+  /* Accents and status */
+  --accent: var(--c-sky);
+  --accent-strong: var(--c-sky-dark);
+  --accent-quiet: rgb(59 185 255 / 14%);
+  --danger: #ff6b6b;
+  --danger-quiet: rgb(255 107 107 / 14%);
+  --success: #4ade80;
+  --warning: #fbbf24;
+
+  /* Focus ring — visible on every interactive element for keyboard users */
+  --focus-ring: 0 0 0 3px rgb(59 185 255 / 55%);
+
+  /* Spacing scale (rem, with the 62.5% html base -> 1rem = 10px) */
+  --space-3xs: 0.4rem;
+  --space-2xs: 0.8rem;
+  --space-xs: 1.2rem;
+  --space-s: 1.6rem;
+  --space-m: 2.4rem;
+  --space-l: 3.2rem;
+  --space-xl: 4.8rem;
+  --space-2xl: 6.4rem;
+
+  /* Type scale */
+  --text-xs: 1.2rem;
+  --text-s: 1.4rem;
+  --text-base: 1.6rem;
+  --text-m: 1.8rem;
+  --text-l: 2.2rem;
+  --text-xl: 2.8rem;
+  --text-2xl: 3.6rem;
+
+  --radius-s: 4px;
+  --radius-m: 8px;
+  --radius-l: 14px;
+  --radius-pill: 999px;
+
+  --shadow-s: 0 1px 2px rgb(0 0 0 / 25%);
+  --shadow-m: 0 4px 16px rgb(0 0 0 / 28%);
+
+  --layout-max: 78rem;
+  --header-height: 6.4rem;
+
+  --font-sans:
+    system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji';
+}
+
+/*
+ * DeSide is a dark-themed product, so the palette above is the design, not a
+ * dark-mode variant. This block only nudges contrast up for users who ask for it.
+ */
+@media (prefers-contrast: more) {
+  :root {
+    --text-secondary: #d6dcf2;
+    --text-muted: #a9b1cd;
+    --border-subtle: rgb(255 255 255 / 28%);
+    --border-strong: rgb(255 255 255 / 45%);
+  }
+}

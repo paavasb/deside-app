@@ -1,0 +1,11 @@
+node_modules/
+app/dist/
+functions/lib/
+coverage/
+playwright-report/
+test-results/
+.emulator-data/
+package-lock.json
+yarn.lock
+screenshots/
+public/dist/

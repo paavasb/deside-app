@@ -1,0 +1,160 @@
+rules_version = '2';
+
+// DeSide Firestore rules.
+//
+// Design contract:
+//   * Default deny. Every collection is listed explicitly.
+//   * Clients never write. All mutations go through callable Cloud Functions,
+//     which use the Admin SDK and therefore bypass these rules. That keeps vote
+//     counters, the follow graph and profile stats server-authoritative.
+//   * `get` and `list` are granted separately. Rules are filters' opposite: a
+//     `list` rule is evaluated per candidate document, so granting list only for
+//     public+active questions makes any broader query fail outright rather than
+//     silently returning less. Clients must query with matching constraints.
+//   * Followers-only questions are NOT client-readable at all. They are served
+//     exclusively by the `listFollowingFeed` / `getQuestion` callables, which
+//     verify the follow edge server-side. This is what makes "private" actually
+//     private, unlike v1 where private questions were merely hidden in React.
+//   * Anonymous authorship is enforced by data shape: an anonymous question
+//     stores `authorId: null`, and the real author lives only in
+//     `questionAuthors/{questionId}`, which no client can read under any rule.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function uid() {
+      return request.auth.uid;
+    }
+
+    function isSelf(userId) {
+      return signedIn() && uid() == userId;
+    }
+
+    // A bounded list request. Mirrors PAGE_SIZE_MAX in shared/constants.ts.
+    function boundedList() {
+      return request.query.limit <= 50;
+    }
+
+    // ---------------------------------------------------------------------
+    // profiles/{userId}
+    // Public directory: handle, display name, avatar, stats and score. Written
+    // only by functions so stats and score cannot be forged.
+    // ---------------------------------------------------------------------
+    match /profiles/{userId} {
+      allow get: if signedIn();
+      allow list: if signedIn() && boundedList();
+      allow create, update, delete: if false;
+
+      // Own social graph and answer history. Readable only by the owner, so the
+      // follow graph is never enumerable by other accounts.
+      match /following/{targetUserId} {
+        allow get: if isSelf(userId);
+        allow list: if isSelf(userId) && boundedList();
+        allow write: if false;
+      }
+
+      match /followers/{followerUserId} {
+        allow get: if isSelf(userId);
+        allow list: if isSelf(userId) && boundedList();
+        allow write: if false;
+      }
+
+      // Which question the owner answered, and with which option. Powers the
+      // answered/unanswered filter without exposing anyone else's votes.
+      match /answers/{questionId} {
+        allow get: if isSelf(userId);
+        allow list: if isSelf(userId) && boundedList();
+        allow write: if false;
+      }
+
+      // Owner-only index of questions this account authored, including
+      // anonymous ones. Also the authorship proof used by the question rules
+      // below, which is why it must stay owner-readable and function-written.
+      match /authored/{questionId} {
+        allow get: if isSelf(userId);
+        allow list: if isSelf(userId) && boundedList();
+        allow write: if false;
+      }
+    }
+
+    // ---------------------------------------------------------------------
+    // handles/{normalizedHandle} -> { uid }
+    // Claimed by the `setHandle` callable inside a transaction, which is what
+    // makes handle uniqueness atomic. `get` is allowed so the client can show an
+    // availability hint; `list` is denied so the directory is not dumpable.
+    // ---------------------------------------------------------------------
+    match /handles/{normalizedHandle} {
+      allow get: if signedIn();
+      allow list: if false;
+      allow write: if false;
+    }
+
+    // ---------------------------------------------------------------------
+    // questions/{questionId}
+    // ---------------------------------------------------------------------
+    match /questions/{questionId} {
+
+      function isPublicActive() {
+        return resource.data.visibility == 'public' && resource.data.status == 'active';
+      }
+
+      // Authorship proof via the caller's own owner-only index. Works for
+      // anonymous questions too, without revealing the author to anyone else.
+      function isAuthor() {
+        return signedIn()
+          && exists(/databases/$(database)/documents/profiles/$(uid())/authored/$(questionId));
+      }
+
+      // Public feed reads. Any query that could return a followers-only or
+      // removed question fails this rule, so the feed query must filter on
+      // visibility == 'public' && status == 'active'.
+      allow list: if signedIn() && boundedList() && isPublicActive();
+
+      // Single-document reads: public questions, plus the author's own
+      // questions regardless of visibility or status.
+      allow get: if signedIn() && (isPublicActive() || isAuthor());
+
+      allow create, update, delete: if false;
+
+      // votes/{voterUserId} -> { optionId, createdAt }
+      // A voter may read back only their own vote. `list` is denied so per-option
+      // voter identities can never be enumerated.
+      match /votes/{voterUserId} {
+        allow get: if isSelf(voterUserId);
+        allow list: if false;
+        allow write: if false;
+      }
+    }
+
+    // ---------------------------------------------------------------------
+    // Server-only collections. Denied to every client, in every mode.
+    // ---------------------------------------------------------------------
+
+    // questionAuthors/{questionId} -> { authorId, visibility, status, createdAt }
+    // The only place an anonymous question's author is recorded.
+    match /questionAuthors/{questionId} {
+      allow read, write: if false;
+    }
+
+    // Moderation queue.
+    match /reports/{reportId} {
+      allow read, write: if false;
+    }
+
+    // Per-account rate limit counters.
+    match /rateLimits/{limitId} {
+      allow read, write: if false;
+    }
+
+    // ---------------------------------------------------------------------
+    // Default deny for anything not matched above.
+    // ---------------------------------------------------------------------
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

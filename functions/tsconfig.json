@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "outDir": "lib",
+    // rootDir is the repo root so `shared/` compiles alongside `functions/src`.
+    // Emitted layout: lib/functions/src/**  and  lib/shared/**, which keeps the
+    // `../../shared/...` relative imports valid at runtime.
+    "rootDir": "..",
+    "sourceMap": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "exactOptionalPropertyTypes": false,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    // `shared/` lives outside this package, so Node would resolve its `zod` import
+    // against the repo root instead of functions/node_modules. Pin it here for
+    // typechecking; at runtime the emitted lib/shared/*.js resolves it correctly by
+    // walking up to functions/node_modules.
+    "paths": {
+      "zod": ["./node_modules/zod"]
+    }
+  },
+  "include": ["src/**/*.ts", "../shared/**/*.ts"],
+  "exclude": ["lib", "node_modules"]
+}

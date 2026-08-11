@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "REPLACE_WITH_DEV_PROJECT_ID",
+    "dev": "REPLACE_WITH_DEV_PROJECT_ID",
+    "staging": "REPLACE_WITH_STAGING_PROJECT_ID",
+    "prod": "REPLACE_WITH_PROD_PROJECT_ID"
+  }
+}
